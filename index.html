@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Reflux — Formulation platform for industrial chemistry</title>
-<meta name="description" content="Reflux is where chemical engineers develop, validate, and release commercial-grade formulations — property prediction, regulatory checks, and scale-up in one file." />
+<meta name="description" content="Reflux is where chemical engineers develop, validate, and release commercial-grade formulations — property prediction, application fit, regulatory checks, and scale-up in one record." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,28 +17,26 @@
 :root{
   --ink:      #06121F;
   --abyss:    #0A1C30;
-  --hull:     #102B47;
   --prussian: #123A63;
   --cobalt:   #2B6FE0;
   --cupric:   #4FD3E8;
   --paper:    #EDF3FA;
   --mist:     #94AFCB;
   --lab:      #F0F5FA;
-  --lab-2:    #E2ECF6;
   --sodium:   #F2B441;
- 
+
   --line-dark: rgba(146,182,222,.18);
   --line-lite: rgba(18,58,99,.14);
- 
+
   --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
   --body: "IBM Plex Sans", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
- 
+
   --gut: clamp(20px, 5vw, 64px);
   --max: 1240px;
   --ease: cubic-bezier(.22,.61,.36,1);
 }
- 
+
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body{
@@ -48,109 +46,83 @@ body{
 }
 img,svg{ display:block; max-width:100%; }
 a{ color:inherit; text-decoration:none; }
-button,input{ font:inherit; color:inherit; }
- 
+button,input,select{ font:inherit; color:inherit; }
 :focus-visible{ outline:2px solid var(--cupric); outline-offset:3px; border-radius:3px; }
- 
+
 .wrap{ width:100%; max-width:var(--max); margin:0 auto; padding-inline:var(--gut); }
- 
-.mono{ font-family:var(--mono); }
+
 .tag{
   font-family:var(--mono); font-size:11px; font-weight:500;
   letter-spacing:.16em; text-transform:uppercase; color:var(--cupric);
 }
-.tag--dim{ color:var(--prussian); }
- 
-h1,h2,h3{ font-family:var(--display); font-weight:700; margin:0; line-height:1.02; letter-spacing:-.028em; }
+h1,h2,h3{ font-family:var(--display); font-weight:700; margin:0; line-height:1.03; letter-spacing:-.028em; }
 p{ margin:0; }
- 
-/* ---------- bands ---------- */
+
 .band{ position:relative; padding-block:clamp(72px,10vw,132px); }
 .band--dark{ background:var(--ink); }
 .band--lite{ background:var(--lab); color:var(--abyss); }
 .band--lite .tag{ color:var(--cobalt); }
-.rule{ height:1px; background:var(--line-dark); border:0; margin:0; }
- 
-/* ============================================================
-   NAV
-   ============================================================ */
+
+/* ============================================================ NAV */
 .nav{
   position:sticky; top:0; z-index:60;
   backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  background:rgba(6,18,31,.78);
-  border-bottom:1px solid var(--line-dark);
+  background:rgba(6,18,31,.78); border-bottom:1px solid var(--line-dark);
 }
 .nav__in{ display:flex; align-items:center; gap:28px; height:64px; }
 .mark{ display:flex; align-items:center; gap:10px; margin-right:auto; }
 .mark__glyph{ width:22px; height:22px; flex:none; }
-.mark__word{
-  font-family:var(--display); font-weight:800; font-size:19px;
-  letter-spacing:-.03em;
-}
+.mark__word{ font-family:var(--display); font-weight:800; font-size:19px; letter-spacing:-.03em; }
 .mark__word em{ font-style:normal; color:var(--cupric); }
 .nav__links{ display:flex; gap:26px; }
-.nav__links a{
-  font-family:var(--mono); font-size:12.5px; letter-spacing:.04em;
-  color:var(--mist); transition:color .2s var(--ease);
-}
+.nav__links a{ font-family:var(--mono); font-size:12.5px; letter-spacing:.04em; color:var(--mist); transition:color .2s var(--ease); }
 .nav__links a:hover{ color:var(--paper); }
- 
+
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:9px;
   padding:11px 20px; border-radius:999px; border:1px solid transparent;
   font-family:var(--mono); font-size:12.5px; font-weight:500; letter-spacing:.05em;
-  cursor:pointer; transition:transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease);
-  white-space:nowrap;
+  cursor:pointer; white-space:nowrap;
+  transition:transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease);
 }
 .btn--fill{ background:var(--cobalt); color:#fff; box-shadow:0 8px 26px -12px rgba(43,111,224,.9); }
-.btn--fill:hover{ transform:translateY(-2px); background:#3C7DEC; box-shadow:0 16px 34px -14px rgba(43,111,224,1); }
+.btn--fill:hover{ transform:translateY(-2px); background:#3C7DEC; }
 .btn--ghost{ border-color:var(--line-dark); color:var(--paper); background:transparent; }
 .btn--ghost:hover{ border-color:var(--cupric); color:var(--cupric); transform:translateY(-2px); }
 .btn--lg{ padding:15px 28px; font-size:13.5px; }
- 
-/* ============================================================
-   HERO
-   ============================================================ */
+
+/* ============================================================ HERO */
 .hero{
   position:relative; overflow:hidden;
-  padding-block:clamp(64px,9vw,110px) clamp(72px,9vw,120px);
+  padding-block:clamp(56px,8vw,96px) clamp(72px,9vw,110px);
   background:
-    radial-gradient(900px 620px at 78% 8%,  rgba(43,111,224,.30), transparent 62%),
-    radial-gradient(760px 560px at 8% 88%, rgba(79,211,232,.13), transparent 60%),
+    radial-gradient(900px 620px at 78% 6%,  rgba(43,111,224,.30), transparent 62%),
+    radial-gradient(760px 560px at 6% 92%, rgba(79,211,232,.13), transparent 60%),
     linear-gradient(180deg, var(--abyss) 0%, var(--ink) 100%);
 }
-.hero::before{ /* blueprint grid */
+.hero::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background-image:
     linear-gradient(to right, rgba(146,182,222,.055) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(146,182,222,.055) 1px, transparent 1px);
   background-size:74px 74px;
-  mask-image:radial-gradient(circle at 50% 34%, #000 0%, transparent 78%);
-  -webkit-mask-image:radial-gradient(circle at 50% 34%, #000 0%, transparent 78%);
+  mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+  -webkit-mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
 }
-.hero__in{ position:relative; display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(36px,5vw,68px); align-items:center; }
- 
-.hero h1{
-  font-size:clamp(40px,5.6vw,74px);
-  margin:20px 0 22px;
-}
-.hero h1 .grad{
-  background:linear-gradient(96deg, var(--cupric) 8%, #9CC6FF 62%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-}
-.hero__sub{ font-size:clamp(16px,1.4vw,18.5px); color:var(--mist); max-width:52ch; }
-.hero__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+.hero__in{ position:relative; display:grid; grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr); gap:clamp(36px,5vw,60px); align-items:center; }
+.hero h1{ font-size:clamp(38px,5.2vw,70px); margin:20px 0 22px; }
+.hero h1 .grad{ background:linear-gradient(96deg, var(--cupric) 8%, #9CC6FF 62%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hero__sub{ font-size:clamp(16px,1.35vw,18px); color:var(--mist); max-width:52ch; }
+.hero__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
 .hero__trust{
-  display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:34px;
-  padding-top:22px; border-top:1px solid var(--line-dark);
+  display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:32px; padding-top:22px;
+  border-top:1px solid var(--line-dark);
   font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; color:#6F8CAA;
 }
 .hero__trust span{ display:flex; align-items:center; gap:7px; }
 .dot{ width:5px; height:5px; border-radius:50%; background:var(--cupric); flex:none; }
- 
-/* ============================================================
-   SIGNATURE — BLEND CONSOLE
-   ============================================================ */
+
+/* ============================================================ CONSOLE */
 .console{
   border:1px solid rgba(146,182,222,.24); border-radius:16px;
   background:linear-gradient(168deg, rgba(18,58,99,.92), rgba(10,28,48,.96));
@@ -158,29 +130,44 @@ p{ margin:0; }
   overflow:hidden;
 }
 .console__bar{
-  display:flex; align-items:center; gap:12px;
-  padding:13px 18px; border-bottom:1px solid var(--line-dark);
-  background:rgba(6,18,31,.42);
+  display:flex; align-items:center; gap:11px; flex-wrap:wrap;
+  padding:11px 16px; border-bottom:1px solid var(--line-dark); background:rgba(6,18,31,.42);
 }
 .pulse{ width:7px; height:7px; border-radius:50%; background:var(--cupric); box-shadow:0 0 0 0 rgba(79,211,232,.6); animation:pulse 2.4s infinite; flex:none; }
 @keyframes pulse{ 70%{ box-shadow:0 0 0 9px rgba(79,211,232,0);} 100%{ box-shadow:0 0 0 0 rgba(79,211,232,0);} }
-.console__title{ font-family:var(--mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--mist); margin-right:auto; }
+
+select.sel{
+  -webkit-appearance:none; appearance:none; cursor:pointer;
+  background:rgba(6,18,31,.6) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1l4 4 4-4' stroke='%2394AFCB' stroke-width='1.4' fill='none' stroke-linecap='round'/></svg>") no-repeat right 10px center;
+  border:1px solid var(--line-dark); border-radius:7px; color:var(--paper);
+  font-family:var(--mono); font-size:11.5px; padding:6px 28px 6px 10px;
+  transition:border-color .2s var(--ease);
+}
+select.sel:hover{ border-color:rgba(79,211,232,.5); }
+select.sel option, select.sel optgroup{ background:#0A1C30; color:var(--paper); }
+.sel--family{ margin-right:auto; font-size:12px; color:var(--cupric); }
+
 .chip{
   font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.13em;
   padding:5px 11px; border-radius:999px; border:1px solid; transition:all .3s var(--ease);
 }
 .chip--ok{ color:var(--cupric); border-color:rgba(79,211,232,.42); background:rgba(79,211,232,.09); }
 .chip--off{ color:var(--sodium); border-color:rgba(242,180,65,.45); background:rgba(242,180,65,.10); }
- 
-.console__grid{ display:grid; grid-template-columns:1fr 78px; gap:20px; padding:20px 18px 6px; }
- 
-.slider{ margin-bottom:15px; }
-.slider__top{ display:flex; align-items:baseline; gap:10px; margin-bottom:7px; }
-.swatch{ width:9px; height:9px; border-radius:2px; flex:none; transform:translateY(1px); }
-.slider__name{ font-size:12.5px; font-weight:500; color:#CBDCEE; margin-right:auto; line-height:1.3; }
-.slider__role{ font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; display:block; }
-.slider__val{ font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; color:var(--paper); }
- 
+
+.rows{ padding:14px 16px 4px; }
+.crow{ margin-bottom:13px; }
+.crow__top{ display:grid; grid-template-columns:9px minmax(0,1fr) 60px 22px; align-items:center; gap:9px; margin-bottom:6px; }
+.swatch{ width:9px; height:9px; border-radius:2px; }
+.crow select{ width:100%; }
+.crow__val{ font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums; text-align:right; }
+.kill{
+  width:22px; height:22px; border-radius:5px; border:1px solid transparent; background:transparent;
+  color:#5E7B99; cursor:pointer; line-height:1; font-size:15px; padding:0;
+  transition:all .18s var(--ease);
+}
+.kill:hover{ color:var(--sodium); border-color:rgba(242,180,65,.4); }
+.crow__role{ font-family:var(--mono); font-size:9px; letter-spacing:.09em; text-transform:uppercase; color:#54718F; padding-left:18px; margin-top:5px; }
+
 input[type=range]{
   -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:99px;
   background:rgba(146,182,222,.20); cursor:grab; margin:0;
@@ -191,72 +178,104 @@ input[type=range]::-webkit-slider-thumb{
   box-shadow:0 2px 8px rgba(0,0,0,.5); transition:transform .15s var(--ease);
 }
 input[type=range]::-webkit-slider-thumb:hover{ transform:scale(1.18); }
-input[type=range]::-moz-range-thumb{
-  width:15px; height:15px; border-radius:50%; background:var(--paper);
-  border:3px solid var(--cobalt); cursor:grab; box-shadow:0 2px 8px rgba(0,0,0,.5);
+input[type=range]::-moz-range-thumb{ width:15px; height:15px; border-radius:50%; background:var(--paper); border:3px solid var(--cobalt); cursor:grab; }
+
+.addrow{ display:flex; gap:8px; align-items:center; padding:2px 16px 14px; }
+.add{
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; padding:7px 13px;
+  border-radius:999px; border:1px dashed rgba(146,182,222,.34); background:transparent;
+  color:var(--mist); cursor:pointer; transition:all .2s var(--ease);
 }
- 
-/* graduated column */
-.cyl{ display:flex; flex-direction:column; align-items:center; gap:9px; }
-.cyl__tube{
-  width:44px; flex:1; min-height:190px; border-radius:6px 6px 9px 9px;
-  border:1px solid rgba(146,182,222,.3); background:rgba(6,18,31,.55);
-  display:flex; flex-direction:column-reverse; overflow:hidden; position:relative;
-}
-.cyl__seg{ width:100%; transition:height .45s var(--ease); }
-.cyl__cap{ font-family:var(--mono); font-size:9.5px; letter-spacing:.09em; color:#5E7B99; text-align:center; }
- 
-/* readouts */
-.readouts{
-  display:grid; grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--line-dark); margin-top:14px;
-}
-.rd{ padding:14px 16px; border-right:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark); }
+.add:hover{ border-color:var(--cupric); color:var(--cupric); border-style:solid; }
+.addrow .note{ font-family:var(--mono); font-size:10px; color:#4F6B87; margin-left:auto; }
+
+.stack{ display:flex; height:9px; margin:0 16px 16px; border-radius:99px; overflow:hidden; background:rgba(6,18,31,.6); }
+.stack__seg{ transition:width .45s var(--ease); }
+
+.readouts{ display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line-dark); }
+.rd{ padding:13px 16px; border-right:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark); }
 .rd:nth-child(3n){ border-right:0; }
 .rd:nth-child(n+4){ border-bottom:0; }
 .rd__k{ font-family:var(--mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:#5E7B99; display:flex; align-items:center; gap:6px; }
 .rd__k i{ width:5px; height:5px; border-radius:50%; background:var(--cupric); flex:none; transition:background .3s; }
-.rd__v{ font-family:var(--mono); font-size:20px; font-weight:600; font-variant-numeric:tabular-nums; margin-top:5px; letter-spacing:-.02em; transition:color .3s; }
+.rd__v{ font-family:var(--mono); font-size:19px; font-weight:600; font-variant-numeric:tabular-nums; margin-top:5px; letter-spacing:-.02em; transition:color .3s; }
 .rd__v small{ font-size:11px; font-weight:400; color:var(--mist); letter-spacing:0; }
 .rd__s{ font-family:var(--mono); font-size:9.5px; color:#4F6B87; margin-top:2px; }
 .rd.is-off .rd__v{ color:var(--sodium); }
 .rd.is-off .rd__k i{ background:var(--sodium); }
- 
-.console__foot{ display:flex; flex-wrap:wrap; gap:8px; padding:14px 18px; border-top:1px solid var(--line-dark); background:rgba(6,18,31,.34); }
-.preset{
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; padding:7px 13px;
-  border-radius:999px; border:1px solid var(--line-dark); background:transparent;
-  color:var(--mist); cursor:pointer; transition:all .2s var(--ease);
-}
-.preset:hover{ border-color:var(--cupric); color:var(--cupric); }
-.preset.is-on{ background:rgba(79,211,232,.12); border-color:rgba(79,211,232,.45); color:var(--cupric); }
- 
-/* ============================================================
-   SECTOR STRIP
-   ============================================================ */
+.rd.is-na{ opacity:.48; }
+.rd.is-na .rd__k i{ background:#4F6B87; }
+
+.console__foot{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; padding:13px 16px; border-top:1px solid var(--line-dark); background:rgba(6,18,31,.34); }
+.advice{ font-family:var(--mono); font-size:11px; line-height:1.5; color:var(--mist); flex:1 1 240px; }
+.advice b{ color:var(--sodium); font-weight:600; }
+.advice.ok b{ color:var(--cupric); }
+
+/* ============================================================ STRIP */
 .strip{ border-block:1px solid var(--line-dark); background:var(--abyss); }
-.strip__in{ display:flex; flex-wrap:wrap; align-items:center; gap:0; padding-block:22px; }
+.strip__in{ display:flex; flex-wrap:wrap; align-items:center; padding-block:22px; }
 .strip__lb{ font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:#5E7B99; padding-right:28px; }
-.strip__i{
-  font-family:var(--display); font-weight:600; font-size:14.5px; letter-spacing:-.01em;
-  color:#7E9BBA; padding:0 22px; border-left:1px solid var(--line-dark);
-}
- 
-/* ============================================================
-   PROCESS — a real sequence, so it gets real numbers
-   ============================================================ */
-.sechead{ max-width:62ch; margin-bottom:clamp(38px,5vw,60px); }
+.strip__i{ font-family:var(--display); font-weight:600; font-size:14.5px; color:#7E9BBA; padding:0 22px; border-left:1px solid var(--line-dark); }
+
+/* ============================================================ SECTION HEADS */
+.sechead{ max-width:62ch; margin-bottom:clamp(36px,5vw,56px); }
 .sechead h2{ font-size:clamp(29px,3.6vw,48px); margin:16px 0 16px; }
 .sechead p{ color:var(--mist); font-size:17px; }
-.band--lite .sechead p{ color:#4A6established; }
+.band--lite .sechead h2{ color:var(--abyss); }
 .band--lite .sechead p{ color:#4C6683; }
- 
-.flow{ display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
+
+/* ============================================================ APPLICATION FIT */
+.fit{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(24px,3vw,42px); align-items:start; }
+.fit__panel{ border:1px solid var(--line-lite); border-radius:14px; background:#fff; overflow:hidden; }
+.fit__hd{ display:flex; align-items:center; gap:10px; padding:14px 20px; border-bottom:1px solid var(--line-lite); }
+.fit__hd span{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#7E93AC; }
+.fit__hd b{ font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--cobalt); margin-left:auto; font-weight:500; }
+.applist{ display:flex; flex-direction:column; }
+
+.app{ padding:13px 20px; border-bottom:1px solid rgba(18,58,99,.08); transition:background .2s var(--ease); }
+.app:last-child{ border-bottom:0; }
+.app:hover{ background:#F7FAFD; }
+.app__top{ display:flex; align-items:baseline; gap:12px; margin-bottom:7px; }
+.app__n{ font-size:14.5px; font-weight:500; color:var(--abyss); margin-right:auto; }
+.app__s{ font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; color:#5E7B99; }
+.app__track{ height:5px; border-radius:99px; background:rgba(18,58,99,.09); overflow:hidden; }
+.app__bar{ height:100%; border-radius:99px; background:linear-gradient(90deg,#9CC0F0,#6D9EE8); transition:width .55s var(--ease); }
+.app.is-top{ background:#F2F7FD; }
+.app.is-top .app__n{ font-weight:600; }
+.app.is-top .app__s{ color:var(--cobalt); font-weight:600; }
+.app.is-top .app__bar{ background:linear-gradient(90deg,var(--cupric),var(--cobalt)); }
+
+.match{
+  border-radius:14px; padding:26px 26px 24px; color:var(--paper);
+  background:linear-gradient(168deg, var(--prussian), var(--ink));
+  box-shadow:0 30px 60px -40px rgba(6,18,31,.8);
+}
+.match__lb{ font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--cupric); }
+.match h3{ font-size:25px; margin:11px 0 12px; }
+.match__p{ font-size:14.5px; color:#B4C9DE; }
+.match__why{ display:grid; gap:8px; margin-top:20px; padding-top:18px; border-top:1px solid var(--line-dark); }
+.match__why div{ font-family:var(--mono); font-size:11px; color:var(--mist); display:flex; gap:9px; }
+.match__why i{ color:var(--cupric); font-style:normal; }
+.match__meta{ display:flex; flex-wrap:wrap; gap:7px; margin-top:20px; }
+.pill{ font-family:var(--mono); font-size:10px; letter-spacing:.08em; padding:5px 10px; border-radius:999px; border:1px solid var(--line-dark); color:var(--mist); }
+
+.charge{ margin-top:18px; border:1px solid var(--line-lite); border-radius:14px; background:#fff; overflow:hidden; }
+.charge__hd{ display:flex; align-items:center; gap:10px; padding:12px 20px; border-bottom:1px solid var(--line-lite); }
+.charge__hd span{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#7E93AC; margin-right:auto; }
+.charge__hd select.sel{ background-color:#EEF4FA; border-color:var(--line-lite); color:var(--abyss); }
+.charge__hd select.sel option{ background:#fff; color:var(--abyss); }
+.ct{ width:100%; border-collapse:collapse; }
+.ct td{ padding:9px 20px; font-size:13px; border-bottom:1px solid rgba(18,58,99,.07); color:#38516D; }
+.ct tr:last-child td{ border-bottom:0; }
+.ct td:last-child{ text-align:right; font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; color:var(--abyss); }
+.ct tfoot td{ font-family:var(--mono); font-size:11.5px; color:var(--cobalt); background:#F5F9FD; }
+
+/* ============================================================ WORKFLOW */
+.flow{ display:grid; grid-template-columns:repeat(5,1fr); }
 .stage{ position:relative; padding:26px 22px 0 0; border-top:1px solid var(--line-dark); }
 .stage::before{
   content:""; position:absolute; top:-1px; left:0; height:1px; width:0;
-  background:linear-gradient(90deg, var(--cupric), var(--cobalt));
-  transition:width 1s var(--ease);
+  background:linear-gradient(90deg, var(--cupric), var(--cobalt)); transition:width 1s var(--ease);
 }
 .flow.is-in .stage::before{ width:100%; }
 .flow.is-in .stage:nth-child(2)::before{ transition-delay:.16s; }
@@ -266,11 +285,9 @@ input[type=range]::-moz-range-thumb{
 .stage__n{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--cobalt); }
 .stage h3{ font-size:20px; margin:11px 0 9px; }
 .stage p{ font-size:14px; color:var(--mist); }
-.stage__scale{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; margin-top:12px; }
- 
-/* ============================================================
-   CAPABILITIES
-   ============================================================ */
+.stage__scale{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; margin-top:12px; display:block; }
+
+/* ============================================================ CAPABILITIES */
 .caps{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-lite); border:1px solid var(--line-lite); border-radius:14px; overflow:hidden; }
 .cap{ background:var(--lab); padding:32px 28px 34px; transition:background .3s var(--ease); }
 .cap:hover{ background:#fff; }
@@ -278,52 +295,39 @@ input[type=range]::-moz-range-thumb{
 .cap h3{ font-size:19px; margin-bottom:9px; color:var(--abyss); }
 .cap p{ font-size:14.5px; color:#4C6683; }
 .cap__meta{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8AA3BE; margin-top:16px; padding-top:14px; border-top:1px solid var(--line-lite); }
- 
-/* ============================================================
-   DATASHEET
-   ============================================================ */
-.sheet{
-  border:1px solid var(--line-dark); border-radius:14px; overflow:hidden;
-  background:linear-gradient(170deg, rgba(18,58,99,.5), rgba(10,28,48,.5));
-}
+
+/* ============================================================ DATASHEET */
+.sheet{ border:1px solid var(--line-dark); border-radius:14px; overflow:hidden; background:linear-gradient(170deg, rgba(18,58,99,.5), rgba(10,28,48,.5)); }
 .sheet__hd{ display:flex; flex-wrap:wrap; align-items:end; gap:14px; padding:24px 28px; border-bottom:1px solid var(--line-dark); }
 .sheet__hd h3{ font-size:23px; margin-right:auto; }
 .sheet__rev{ font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#5E7B99; }
-.rows{ display:grid; grid-template-columns:1fr 1fr; }
-.row{ display:flex; gap:16px; padding:15px 28px; border-bottom:1px solid var(--line-dark); align-items:baseline; }
-.row:nth-child(odd){ border-right:1px solid var(--line-dark); }
-.row__k{ font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#5E7B99; width:44%; flex:none; }
-.row__v{ font-size:14px; color:#CBDCEE; }
- 
-/* ============================================================
-   PLANS
-   ============================================================ */
+.specrows{ display:grid; grid-template-columns:1fr 1fr; }
+.srow{ display:flex; gap:16px; padding:15px 28px; border-bottom:1px solid var(--line-dark); align-items:baseline; }
+.srow:nth-child(odd){ border-right:1px solid var(--line-dark); }
+.srow__k{ font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#5E7B99; width:44%; flex:none; }
+.srow__v{ font-size:14px; color:#CBDCEE; }
+
+/* ============================================================ PLANS */
 .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-.plan{
-  border:1px solid var(--line-dark); border-radius:14px; padding:30px 26px 32px;
-  background:rgba(16,43,71,.34); display:flex; flex-direction:column;
-  transition:transform .3s var(--ease), border-color .3s var(--ease);
-}
+.plan{ border:1px solid var(--line-dark); border-radius:14px; padding:30px 26px 32px; background:rgba(16,43,71,.34); display:flex; flex-direction:column; transition:transform .3s var(--ease), border-color .3s var(--ease); }
 .plan:hover{ transform:translateY(-4px); border-color:rgba(79,211,232,.4); }
 .plan--hi{ border-color:rgba(79,211,232,.5); background:linear-gradient(170deg, rgba(43,111,224,.20), rgba(16,43,71,.42)); }
 .plan__sc{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--cupric); }
 .plan h3{ font-size:26px; margin:12px 0 4px; }
-.plan__pr{ font-family:var(--mono); font-size:15px; color:var(--paper); margin-bottom:4px; }
+.plan__pr{ font-family:var(--mono); font-size:15px; margin-bottom:4px; }
 .plan__pr small{ color:#5E7B99; font-size:11px; }
 .plan__for{ font-size:13.5px; color:var(--mist); padding-bottom:20px; margin-bottom:20px; border-bottom:1px solid var(--line-dark); }
 .plan ul{ list-style:none; margin:0 0 26px; padding:0; display:grid; gap:10px; }
 .plan li{ font-size:13.5px; color:#B4C9DE; padding-left:20px; position:relative; }
 .plan li::before{ content:""; position:absolute; left:0; top:8px; width:8px; height:1px; background:var(--cupric); }
 .plan .btn{ margin-top:auto; width:100%; }
- 
-/* ============================================================
-   CLOSE + FOOTER
-   ============================================================ */
+
+/* ============================================================ CLOSE + FOOT */
 .close{ text-align:center; }
 .close h2{ font-size:clamp(32px,4.6vw,60px); margin:18px auto 20px; max-width:16ch; }
 .close p{ color:var(--mist); max-width:50ch; margin:0 auto 32px; font-size:17px; }
 .close__cta{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
- 
+
 .foot{ border-top:1px solid var(--line-dark); padding-block:52px 40px; background:var(--abyss); }
 .foot__in{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:36px; }
 .foot__bio{ font-size:13.5px; color:#6F8CAA; max-width:34ch; margin-top:14px; }
@@ -332,16 +336,14 @@ input[type=range]::-moz-range-thumb{
 .foot li a{ font-size:13.5px; color:#9EB7D0; transition:color .2s; }
 .foot li a:hover{ color:var(--cupric); }
 .foot__bot{ display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:44px; padding-top:22px; border-top:1px solid var(--line-dark); font-family:var(--mono); font-size:11px; color:#4F6B87; }
- 
-/* ---------- reveal ---------- */
+
 .rv{ opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .rv.is-in{ opacity:1; transform:none; }
- 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+
+/* ============================================================ RESPONSIVE */
 @media (max-width:1080px){
   .hero__in{ grid-template-columns:1fr; }
+  .fit{ grid-template-columns:1fr; }
   .flow{ grid-template-columns:repeat(2,1fr); gap:0 26px; }
   .stage{ padding-bottom:26px; }
   .caps{ grid-template-columns:repeat(2,1fr); }
@@ -352,15 +354,15 @@ input[type=range]::-moz-range-thumb{
   .nav__links{ display:none; }
   .flow{ grid-template-columns:1fr; }
   .caps{ grid-template-columns:1fr; }
-  .rows{ grid-template-columns:1fr; }
-  .row:nth-child(odd){ border-right:0; }
+  .specrows{ grid-template-columns:1fr; }
+  .srow:nth-child(odd){ border-right:0; }
   .readouts{ grid-template-columns:repeat(2,1fr); }
   .rd:nth-child(3n){ border-right:1px solid var(--line-dark); }
   .rd:nth-child(2n){ border-right:0; }
   .rd:nth-child(n+4){ border-bottom:1px solid var(--line-dark); }
   .rd:nth-child(n+5){ border-bottom:0; }
   .foot__in{ grid-template-columns:1fr; }
-  .console__grid{ grid-template-columns:1fr 62px; }
+  .sel--family{ margin-right:0; flex:1 1 100%; order:3; }
 }
 @media (prefers-reduced-motion:reduce){
   *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
@@ -371,7 +373,7 @@ input[type=range]::-moz-range-thumb{
 </style>
 </head>
 <body>
- 
+
 <!-- ================= NAV ================= -->
 <header class="nav">
   <div class="wrap nav__in">
@@ -383,31 +385,30 @@ input[type=range]::-moz-range-thumb{
       <span class="mark__word">RE<em>FLUX</em></span>
     </a>
     <nav class="nav__links" aria-label="Primary">
+      <a href="#fit">Application fit</a>
       <a href="#workflow">Workflow</a>
       <a href="#platform">Platform</a>
-      <a href="#datasheet">Datasheet</a>
       <a href="#plans">Plans</a>
     </nav>
     <a class="btn btn--fill" href="#access">Request access</a>
   </div>
 </header>
- 
-<!-- ================= HERO ================= -->
+
 <main id="top">
+<!-- ================= HERO ================= -->
 <section class="hero">
   <div class="wrap hero__in">
- 
     <div>
       <span class="tag">Formulation platform · Industrial chemistry</span>
       <h1>Take a formulation from&nbsp;beaker to <span class="grad">railcar.</span></h1>
       <p class="hero__sub">
         Reflux is where chemical engineers develop, validate, and release commercial-grade
-        formulations. Property prediction, regulatory screening, and scale-up all read from
-        the same recipe — so the batch you qualify is the batch you ship.
+        formulations. Property prediction, application fit, regulatory screening, and scale-up
+        all read from the same recipe — so the batch you qualify is the batch you ship.
       </p>
       <div class="hero__cta">
         <a class="btn btn--fill btn--lg" href="#access">Request access</a>
-        <a class="btn btn--ghost btn--lg" href="#workflow">See the workflow</a>
+        <a class="btn btn--ghost btn--lg" href="#fit">See where it lands</a>
       </div>
       <div class="hero__trust">
         <span><i class="dot"></i>SOC 2 Type II</span>
@@ -415,32 +416,35 @@ input[type=range]::-moz-range-thumb{
         <span><i class="dot"></i>GHS / REACH / TSCA screening</span>
       </div>
     </div>
- 
+
     <!-- ---------- SIGNATURE: live blend console ---------- -->
     <div class="console" id="console">
       <div class="console__bar">
         <i class="pulse" aria-hidden="true"></i>
-        <span class="console__title">Blend console · Alkaline degreaser concentrate</span>
+        <select class="sel sel--family" id="family" aria-label="Target product family"></select>
         <span class="chip chip--ok" id="chip">IN SPEC</span>
       </div>
- 
-      <div class="console__grid">
-        <div id="sliders"></div>
-        <div class="cyl">
-          <div class="cyl__tube" id="tube" role="img" aria-label="Composition column"></div>
-          <span class="cyl__cap">100 wt%</span>
-        </div>
+
+      <div class="rows" id="rows"></div>
+
+      <div class="addrow">
+        <button class="add" id="addBtn" type="button">+ Add component</button>
+        <span class="note" id="countNote"></span>
       </div>
- 
+
+      <div class="stack" id="stack" role="img" aria-label="Composition, normalised to 100 weight percent"></div>
+
       <div class="readouts" id="readouts"></div>
- 
-      <div class="console__foot" id="presets"></div>
+
+      <div class="console__foot">
+        <p class="advice" id="advice"></p>
+        <button class="btn btn--ghost" id="copyBtn" type="button">Copy recipe</button>
+      </div>
     </div>
- 
   </div>
 </section>
- 
-<!-- ================= SECTOR STRIP ================= -->
+
+<!-- ================= STRIP ================= -->
 <div class="strip">
   <div class="wrap strip__in">
     <span class="strip__lb">Formulating in</span>
@@ -452,7 +456,44 @@ input[type=range]::-moz-range-thumb{
     <span class="strip__i">Agrochemicals</span>
   </div>
 </div>
- 
+
+<!-- ================= APPLICATION FIT ================= -->
+<section class="band band--lite" id="fit">
+  <div class="wrap">
+    <div class="sechead rv">
+      <span class="tag">Downstream</span>
+      <h2>Chemistry tells you what it's for, if you ask it properly.</h2>
+      <p>Reflux scores your live composition against nine end-use markets, matching class balance, pH, rheology, flash point, and VOC load against what each market actually buys. Move a slider up top and this section re-ranks with it.</p>
+    </div>
+
+    <div class="fit rv">
+      <div class="fit__panel">
+        <div class="fit__hd">
+          <span>Predicted end uses</span>
+          <b>Ranked live</b>
+        </div>
+        <div class="applist" id="apps"></div>
+      </div>
+
+      <div>
+        <div class="match" id="match"></div>
+        <div class="charge">
+          <div class="charge__hd">
+            <span>Charge sheet</span>
+            <select class="sel" id="batch" aria-label="Batch vessel size">
+              <option value="0.2">200 L drum</option>
+              <option value="1" selected>1 m³ IBC</option>
+              <option value="5">5 m³ pilot</option>
+              <option value="20">20 m³ plant</option>
+            </select>
+          </div>
+          <table class="ct"><tbody id="chargeBody"></tbody><tfoot id="chargeFoot"></tfoot></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= WORKFLOW ================= -->
 <section class="band band--dark" id="workflow">
   <div class="wrap">
@@ -461,42 +502,37 @@ input[type=range]::-moz-range-thumb{
       <h2>Five gates between an idea and a certificate of analysis.</h2>
       <p>Most formulation work dies in the handoffs — bench notebook to simulation to pilot to plant, each with its own file and its own version of the truth. Reflux keeps one record and moves it through the gates with you.</p>
     </div>
- 
+
     <div class="flow rv" id="flow">
       <article class="stage">
-        <span class="stage__n">GATE 01</span>
-        <h3>Formulate</h3>
+        <span class="stage__n">GATE 01</span><h3>Formulate</h3>
         <p>Build a recipe from a governed raw-material library. Every component carries its own property set, cost curve, and supplier lot history.</p>
         <span class="stage__scale">1 g – 2 kg</span>
       </article>
       <article class="stage">
-        <span class="stage__n">GATE 02</span>
-        <h3>Predict</h3>
+        <span class="stage__n">GATE 02</span><h3>Predict</h3>
         <p>Thermophysical properties resolve as you type — viscosity by Kendall–Monroe, density by ideal-volume mixing, flash point by dilution model.</p>
         <span class="stage__scale">In silico</span>
       </article>
       <article class="stage">
-        <span class="stage__n">GATE 03</span>
-        <h3>Screen</h3>
+        <span class="stage__n">GATE 03</span><h3>Screen</h3>
         <p>Regulatory and hazard checks run against the live composition. Restricted substances flag at the component level, before you order drums.</p>
         <span class="stage__scale">42 jurisdictions</span>
       </article>
       <article class="stage">
-        <span class="stage__n">GATE 04</span>
-        <h3>Scale</h3>
+        <span class="stage__n">GATE 04</span><h3>Scale</h3>
         <p>Translate bench ratios into charge sheets: mixer geometry, heat duty, addition order, and hold times sized for the vessel you actually own.</p>
         <span class="stage__scale">200 L – 40 m³</span>
       </article>
       <article class="stage">
-        <span class="stage__n">GATE 05</span>
-        <h3>Release</h3>
+        <span class="stage__n">GATE 05</span><h3>Release</h3>
         <p>Batch records, deviations, and CoAs generate from the same recipe object. Lot genealogy traces backward to the drum it came from.</p>
         <span class="stage__scale">Signed &amp; archived</span>
       </article>
     </div>
   </div>
 </section>
- 
+
 <!-- ================= PLATFORM ================= -->
 <section class="band band--lite" id="platform">
   <div class="wrap">
@@ -505,13 +541,19 @@ input[type=range]::-moz-range-thumb{
       <h2>Built by process engineers, for the parts of the job nobody automates.</h2>
       <p>No generic PLM shoehorned into a lab. Every module below exists because a formulation team asked for it after losing a week to a spreadsheet.</p>
     </div>
- 
+
     <div class="caps rv">
       <article class="cap">
         <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 26h24M9 26V13l7-7 7 7v13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 26v-7h6v7" stroke="currentColor" stroke-width="1.6"/></svg>
         <h3>Property prediction</h3>
-        <p>Viscosity, density, flash point, cloud point, pH, and VOC resolve from composition using published mixing rules — not curve-fits on your last twelve batches.</p>
+        <p>Viscosity, density, flash point, pH, VOC, and cost resolve from composition using published mixing rules — not curve-fits on your last twelve batches.</p>
         <div class="cap__meta">Kendall–Monroe · UNIFAC · NRTL</div>
+      </article>
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M19.5 19.5L27 27" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9.5 13l2.6 2.6L17 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Application fit</h3>
+        <p>Score a composition against end-use markets before you commit to one. Useful when a customer trial fails and you need to know where else the chemistry sells.</p>
+        <div class="cap__meta">9 markets · live scoring</div>
       </article>
       <article class="cap">
         <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3l11 5v8c0 7-4.6 11.4-11 13-6.4-1.6-11-6-11-13V8l11-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M11.5 16l3.2 3.2 6-6.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -524,12 +566,6 @@ input[type=range]::-moz-range-thumb{
         <h3>Scale-up modelling</h3>
         <p>Hold constant tip speed or constant power per volume and Reflux resizes the charge sheet for your vessel — with jacket duty, ramp rates, and addition order carried along.</p>
         <div class="cap__meta">Bench → pilot → plant</div>
-      </article>
-      <article class="cap">
-        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="4" width="22" height="24" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 11h12M10 16h12M10 21h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <h3>Batch records</h3>
-        <p>Electronic batch records with enforced signature order, deviation capture, and a tamper-evident audit trail. Exports as a validated PDF package your auditor already knows.</p>
-        <div class="cap__meta">21 CFR Part 11 · ISO 9001</div>
       </article>
       <article class="cap">
         <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.6"/><path d="M16 8v8l5.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -546,7 +582,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </section>
- 
+
 <!-- ================= DATASHEET ================= -->
 <section class="band band--dark" id="datasheet">
   <div class="wrap">
@@ -555,28 +591,27 @@ input[type=range]::-moz-range-thumb{
       <h2>The platform, written the way you'd write a product.</h2>
       <p>You read datasheets for a living. Here's ours.</p>
     </div>
- 
     <div class="sheet rv">
       <div class="sheet__hd">
         <h3>Reflux — technical datasheet</h3>
         <span class="sheet__rev">REV 4.2 · ISSUED 2026-08</span>
       </div>
-      <div class="rows">
-        <div class="row"><span class="row__k">Deployment</span><span class="row__v">Multi-tenant cloud, single-tenant VPC, or on-premises</span></div>
-        <div class="row"><span class="row__k">Data residency</span><span class="row__v">US · EU · Singapore · Japan</span></div>
-        <div class="row"><span class="row__k">Identity</span><span class="row__v">SAML 2.0, OIDC, SCIM provisioning</span></div>
-        <div class="row"><span class="row__k">Encryption</span><span class="row__v">AES-256 at rest, TLS 1.3 in transit, BYOK optional</span></div>
-        <div class="row"><span class="row__k">Component library</span><span class="row__v">218,000 raw materials with curated property sets</span></div>
-        <div class="row"><span class="row__k">Property engine</span><span class="row__v">Mixing rules, group contribution, and fitted models</span></div>
-        <div class="row"><span class="row__k">Integrations</span><span class="row__v">SAP, Oracle ERP, LIMS, OPC UA, Modbus TCP, REST</span></div>
-        <div class="row"><span class="row__k">Audit trail</span><span class="row__v">Immutable, per-field, exportable, 21 CFR Part 11</span></div>
-        <div class="row"><span class="row__k">Uptime commitment</span><span class="row__v">99.9% monthly, credited</span></div>
-        <div class="row"><span class="row__k">Support</span><span class="row__v">Named process engineer, 4-hour response</span></div>
+      <div class="specrows">
+        <div class="srow"><span class="srow__k">Deployment</span><span class="srow__v">Multi-tenant cloud, single-tenant VPC, or on-premises</span></div>
+        <div class="srow"><span class="srow__k">Data residency</span><span class="srow__v">US · EU · Singapore · Japan</span></div>
+        <div class="srow"><span class="srow__k">Identity</span><span class="srow__v">SAML 2.0, OIDC, SCIM provisioning</span></div>
+        <div class="srow"><span class="srow__k">Encryption</span><span class="srow__v">AES-256 at rest, TLS 1.3 in transit, BYOK optional</span></div>
+        <div class="srow"><span class="srow__k">Component library</span><span class="srow__v">218,000 raw materials with curated property sets</span></div>
+        <div class="srow"><span class="srow__k">Property engine</span><span class="srow__v">Mixing rules, group contribution, and fitted models</span></div>
+        <div class="srow"><span class="srow__k">Integrations</span><span class="srow__v">SAP, Oracle ERP, LIMS, OPC UA, Modbus TCP, REST</span></div>
+        <div class="srow"><span class="srow__k">Audit trail</span><span class="srow__v">Immutable, per-field, exportable, 21 CFR Part 11</span></div>
+        <div class="srow"><span class="srow__k">Uptime commitment</span><span class="srow__v">99.9% monthly, credited</span></div>
+        <div class="srow"><span class="srow__k">Support</span><span class="srow__v">Named process engineer, 4-hour response</span></div>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- ================= PLANS ================= -->
 <section class="band band--dark" id="plans" style="padding-top:0">
   <div class="wrap">
@@ -585,26 +620,22 @@ input[type=range]::-moz-range-thumb{
       <h2>Priced by the scale you're working at.</h2>
       <p>Start at the bench. Move up when the vessel does.</p>
     </div>
- 
     <div class="plans rv">
       <article class="plan">
-        <span class="plan__sc">Scale 01</span>
-        <h3>Bench</h3>
+        <span class="plan__sc">Scale 01</span><h3>Bench</h3>
         <div class="plan__pr">$340 <small>/ seat / month</small></div>
         <p class="plan__for">For R&amp;D groups proving a formulation out.</p>
         <ul>
           <li>Up to 50 active formulations</li>
           <li>Full property prediction engine</li>
+          <li>Application fit scoring</li>
           <li>Draft SDS and GHS classification</li>
-          <li>Raw-material library and cost roll-up</li>
           <li>Up to 5 seats</li>
         </ul>
         <a class="btn btn--ghost" href="#access">Start at bench</a>
       </article>
- 
       <article class="plan plan--hi">
-        <span class="plan__sc">Scale 02 · Most teams</span>
-        <h3>Pilot</h3>
+        <span class="plan__sc">Scale 02 · Most teams</span><h3>Pilot</h3>
         <div class="plan__pr">$780 <small>/ seat / month</small></div>
         <p class="plan__for">For teams taking recipes into pilot and qualification.</p>
         <ul>
@@ -617,10 +648,8 @@ input[type=range]::-moz-range-thumb{
         </ul>
         <a class="btn btn--fill" href="#access">Request access</a>
       </article>
- 
       <article class="plan">
-        <span class="plan__sc">Scale 03</span>
-        <h3>Plant</h3>
+        <span class="plan__sc">Scale 03</span><h3>Plant</h3>
         <div class="plan__pr">Custom <small>/ annual</small></div>
         <p class="plan__for">For manufacturers running Reflux as the system of record.</p>
         <ul>
@@ -636,7 +665,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </section>
- 
+
 <!-- ================= CLOSE ================= -->
 <section class="band band--dark close" id="access" style="padding-top:0">
   <div class="wrap rv">
@@ -650,7 +679,7 @@ input[type=range]::-moz-range-thumb{
   </div>
 </section>
 </main>
- 
+
 <!-- ================= FOOTER ================= -->
 <footer class="foot">
   <div class="wrap">
@@ -665,33 +694,24 @@ input[type=range]::-moz-range-thumb{
         </a>
         <p class="foot__bio">The formulation system of record for industrial chemistry. Built by process engineers who got tired of version 14 final FINAL.xlsx.</p>
       </div>
-      <div>
-        <h4>Product</h4>
-        <ul>
-          <li><a href="#workflow">Workflow</a></li>
-          <li><a href="#platform">Platform</a></li>
-          <li><a href="#datasheet">Datasheet</a></li>
-          <li><a href="#plans">Plans</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Compliance</h4>
-        <ul>
-          <li><a href="#datasheet">SOC 2 Type II</a></li>
-          <li><a href="#datasheet">21 CFR Part 11</a></li>
-          <li><a href="#platform">GHS &amp; SDS</a></li>
-          <li><a href="#platform">REACH &amp; TSCA</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#access">Contact</a></li>
-          <li><a href="#access">Careers</a></li>
-          <li><a href="#access">Security</a></li>
-          <li><a href="#access">Status</a></li>
-        </ul>
-      </div>
+      <div><h4>Product</h4><ul>
+        <li><a href="#fit">Application fit</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#datasheet">Datasheet</a></li>
+      </ul></div>
+      <div><h4>Compliance</h4><ul>
+        <li><a href="#datasheet">SOC 2 Type II</a></li>
+        <li><a href="#datasheet">21 CFR Part 11</a></li>
+        <li><a href="#platform">GHS &amp; SDS</a></li>
+        <li><a href="#platform">REACH &amp; TSCA</a></li>
+      </ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="#access">Contact</a></li>
+        <li><a href="#access">Careers</a></li>
+        <li><a href="#access">Security</a></li>
+        <li><a href="#access">Status</a></li>
+      </ul></div>
     </div>
     <div class="foot__bot">
       <span>© 2026 Reflux Systems</span>
@@ -700,153 +720,477 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </footer>
- 
+
 <script>
+"use strict";
 /* ============================================================
-   BLEND CONSOLE
-   Composition drives properties through real mixing rules.
-   Weights are normalised to 100 wt% for every calculation.
+   1. RAW MATERIAL LIBRARY
+   rho g/cm3 · mu cP @25 C · cost $/kg · voc mass fraction
+   fp C closed cup · phv own pH · phs buffering strength
    ============================================================ */
-const COMPONENTS = [
-  { id:'lim',  name:'d-Limonene',                 role:'Solvent base',        color:'#4FD3E8', w:42, rho:0.842, mu:0.92,  cost:4.80, voc:1, fp:48  },
-  { id:'surf', name:'C12–14 alcohol ethoxylate',  role:'Nonionic surfactant', color:'#2B6FE0', w:18, rho:0.990, mu:180,   cost:3.20, voc:0, fp:175 },
-  { id:'bldr', name:'Sodium metasilicate',        role:'Alkaline builder',    color:'#7E9BBA', w:6,  rho:2.400, mu:3,     cost:1.10, voc:0, fp:300 },
-  { id:'inhb', name:'Benzotriazole',              role:'Corrosion inhibitor', color:'#F2B441', w:2,  rho:1.360, mu:5,     cost:12.50,voc:0, fp:200 },
-  { id:'h2o',  name:'Deionised water',            role:'Carrier',             color:'#1E3E60', w:32, rho:0.997, mu:0.89,  cost:0.02, voc:0, fp:300 }
+var CLASSES = {
+  carrier:    { label:'Carrier',            color:'#16324F' },
+  solvent:    { label:'Solvent',            color:'#4FD3E8' },
+  surfactant: { label:'Surfactant',         color:'#2B6FE0' },
+  phmod:      { label:'pH modifier',        color:'#86A8CC' },
+  polymer:    { label:'Polymer / rheology', color:'#6E9BE8' },
+  oil:        { label:'Base oil',           color:'#3DBFD9' },
+  pigment:    { label:'Pigment / filler',   color:'#C9D9EA' },
+  additive:   { label:'Additive',           color:'#F2B441' }
+};
+
+var LIB = {
+  h2o:   { n:'Deionised water',                  c:'carrier',    rho:0.997, mu:0.89,    cost:0.02,  voc:0,   fp:300, phv:7.0,  phs:1  },
+  lim:   { n:'d-Limonene',                       c:'solvent',    rho:0.842, mu:0.92,    cost:4.80,  voc:1,   fp:48,  phv:7.0,  phs:0  },
+  dpnb:  { n:'Dipropylene glycol n-butyl ether', c:'solvent',    rho:0.911, mu:3.5,     cost:3.10,  voc:1,   fp:100, phv:7.0,  phs:0  },
+  ipa:   { n:'Isopropyl alcohol',                c:'solvent',    rho:0.786, mu:2.1,     cost:1.40,  voc:1,   fp:12,  phv:7.0,  phs:0  },
+  msp:   { n:'Aliphatic mineral spirits',        c:'solvent',    rho:0.780, mu:1.4,     cost:1.15,  voc:1,   fp:42,  phv:7.0,  phs:0  },
+  pg:    { n:'Propylene glycol',                 c:'solvent',    rho:1.036, mu:48,      cost:1.60,  voc:0.5, fp:99,  phv:7.0,  phs:0  },
+  gly:   { n:'Glycerin (99%)',                   c:'solvent',    rho:1.260, mu:950,     cost:1.20,  voc:0,   fp:160, phv:7.0,  phs:0  },
+  ae:    { n:'C12-14 alcohol ethoxylate',        c:'surfactant', rho:0.990, mu:180,     cost:3.20,  voc:0,   fp:175, phv:7.0,  phs:0  },
+  sles:  { n:'Sodium laureth sulfate (70%)',     c:'surfactant', rho:1.050, mu:12000,   cost:1.30,  voc:0,   fp:200, phv:7.5,  phs:2  },
+  capb:  { n:'Cocamidopropyl betaine (30%)',     c:'surfactant', rho:1.040, mu:300,     cost:1.90,  voc:0,   fp:200, phv:7.0,  phs:1  },
+  apg:   { n:'Alkyl polyglucoside (50%)',        c:'surfactant', rho:1.120, mu:700,     cost:2.80,  voc:0,   fp:200, phv:8.0,  phs:2  },
+  sms:   { n:'Sodium metasilicate',              c:'phmod',      rho:2.400, mu:3,       cost:1.10,  voc:0,   fp:300, phv:12.8, phs:60 },
+  soda:  { n:'Sodium carbonate',                 c:'phmod',      rho:2.530, mu:3,       cost:0.45,  voc:0,   fp:300, phv:11.4, phs:35 },
+  mea:   { n:'Monoethanolamine',                 c:'phmod',      rho:1.020, mu:21,      cost:2.10,  voc:0,   fp:93,  phv:11.5, phs:40 },
+  amp:   { n:'AMP-95 neutralising amine',        c:'phmod',      rho:0.934, mu:100,     cost:5.40,  voc:0,   fp:78,  phv:10.8, phs:25 },
+  cit:   { n:'Citric acid (50% solution)',       c:'phmod',      rho:1.240, mu:8,       cost:1.60,  voc:0,   fp:300, phv:2.2,  phs:20 },
+  hedp:  { n:'HEDP phosphonate (60%)',           c:'phmod',      rho:1.450, mu:20,      cost:3.40,  voc:0,   fp:300, phv:2.0,  phs:45 },
+  acr:   { n:'Acrylic emulsion polymer (50%)',   c:'polymer',    rho:1.060, mu:4000,    cost:2.40,  voc:0,   fp:300, phv:8.5,  phs:3  },
+  sty:   { n:'Styrene-acrylic binder (48%)',     c:'polymer',    rho:1.050, mu:2200,    cost:2.05,  voc:0,   fp:300, phv:8.2,  phs:3  },
+  hec:   { n:'Hydroxyethyl cellulose',           c:'polymer',    rho:1.350, mu:1000000, cost:9.50,  voc:0,   fp:300, phv:7.0,  phs:0  },
+  xan:   { n:'Xanthan gum',                      c:'polymer',    rho:1.500, mu:1000000, cost:9.00,  voc:0,   fp:300, phv:7.0,  phs:0  },
+  pac:   { n:'Sodium polyacrylate dispersant',   c:'polymer',    rho:1.150, mu:300,     cost:2.20,  voc:0,   fp:300, phv:8.0,  phs:4  },
+  vii:   { n:'Olefin copolymer VI improver',     c:'polymer',    rho:0.860, mu:8000,    cost:6.50,  voc:0,   fp:200, phv:7.0,  phs:0  },
+  pao:   { n:'PAO 6 synthetic base oil',         c:'oil',        rho:0.827, mu:55,      cost:4.20,  voc:0,   fp:235, phv:7.0,  phs:0  },
+  g3:    { n:'Group III base oil (4 cSt)',       c:'oil',        rho:0.840, mu:25,      cost:1.80,  voc:0,   fp:220, phv:7.0,  phs:0  },
+  mso:   { n:'Methylated seed oil',              c:'oil',        rho:0.880, mu:6,       cost:2.30,  voc:0,   fp:180, phv:7.0,  phs:0  },
+  tio2:  { n:'Titanium dioxide (rutile)',        c:'pigment',    rho:4.100, mu:20000,   cost:3.60,  voc:0,   fp:300, phv:7.5,  phs:1  },
+  caco3: { n:'Calcium carbonate extender',       c:'pigment',    rho:2.710, mu:5000,    cost:0.28,  voc:0,   fp:300, phv:9.0,  phs:2  },
+  bta:   { n:'Benzotriazole',                    c:'additive',   rho:1.360, mu:5,       cost:12.50, voc:0,   fp:200, phv:6.5,  phs:0  },
+  zddp:  { n:'ZDDP anti-wear additive',          c:'additive',   rho:1.100, mu:120,     cost:5.50,  voc:0,   fp:200, phv:7.0,  phs:0  },
+  casul: { n:'Calcium sulfonate detergent',      c:'additive',   rho:0.950, mu:200,     cost:4.00,  voc:0,   fp:200, phv:8.0,  phs:1  },
+  def:   { n:'Silicone defoamer',                c:'additive',   rho:1.000, mu:500,     cost:6.00,  voc:0,   fp:250, phv:7.0,  phs:0  },
+  pres:  { n:'Broad-spectrum preservative',      c:'additive',   rho:1.020, mu:5,       cost:14.00, voc:0,   fp:250, phv:7.0,  phs:0  },
+  frg:   { n:'Fragrance oil',                    c:'additive',   rho:0.950, mu:8,       cost:28.00, voc:0.5, fp:75,  phv:7.0,  phs:0  }
+};
+
+/* ============================================================
+   2. PRODUCT FAMILIES — each carries its own spec envelope
+   ============================================================ */
+var NA = null; // property not controlled for this family
+var FAMILIES = [
+  { id:'degreaser', n:'Alkaline degreaser concentrate',
+    mix:[['lim',42],['ae',18],['sms',6],['bta',2],['h2o',32]],
+    spec:{ visc:[2,8], dens:[0.90,1.05], flsh:[60,999], ph:[10.5,12.5], voc:[0,450], cost:[0,3.50] } },
+
+  { id:'coating', n:'Water-based architectural coating',
+    mix:[['acr',38],['tio2',18],['h2o',30],['dpnb',6],['amp',0.8],['hec',0.6],['def',0.4],['pres',0.2]],
+    spec:{ visc:[60,20000], dens:[1.10,1.45], flsh:NA, ph:[7.8,9.5], voc:[0,100], cost:[0,3.00] } },
+
+  { id:'lube', n:'Synthetic industrial lubricant',
+    mix:[['pao',45],['g3',30],['vii',6],['casul',3],['zddp',1.2]],
+    spec:{ visc:[15,1200], dens:[0.82,0.92], flsh:[180,999], ph:NA, voc:[0,5], cost:[0,9.00] } },
+
+  { id:'cleanser', n:'Mild personal cleanser',
+    mix:[['h2o',62],['sles',22],['capb',8],['gly',4],['xan',0.8],['cit',0.5],['frg',0.3],['pres',0.2]],
+    spec:{ visc:[1,10000], dens:[1.00,1.08], flsh:NA, ph:[5.0,7.0], voc:[0,5], cost:[0,1.60] } },
+
+  { id:'cooling', n:'Cooling water treatment',
+    mix:[['h2o',81],['mea',8],['pac',5],['hedp',3],['bta',2],['def',1]],
+    spec:{ visc:[1,15], dens:[1.00,1.15], flsh:NA, ph:[7.5,9.5], voc:[0,5], cost:[0,2.50] } },
+
+  { id:'adjuvant', n:'Agricultural spray adjuvant',
+    mix:[['h2o',40],['apg',30],['pg',15],['ae',13],['def',1.5],['cit',0.5]],
+    spec:{ visc:[1,60], dens:[0.95,1.10], flsh:[60,999], ph:[6.0,8.0], voc:[0,300], cost:[0,4.00] } }
 ];
- 
-const SPECS = [
-  { key:'visc', label:'Viscosity, 25 °C', unit:'cP',    min:2.0,  max:8.0,  dec:2, spec:'2.0 – 8.0 cP' },
-  { key:'dens', label:'Density',          unit:'g/cm³', min:0.90, max:1.05, dec:3, spec:'0.90 – 1.05' },
-  { key:'flsh', label:'Flash point',      unit:'°C',    min:60,   max:999,  dec:0, spec:'≥ 60 °C' },
-  { key:'ph',   label:'pH, 1% solution',  unit:'',      min:10.5, max:12.5, dec:1, spec:'10.5 – 12.5' },
-  { key:'voc',  label:'VOC content',      unit:'g/L',   min:0,    max:450,  dec:0, spec:'≤ 450 g/L' },
-  { key:'cost', label:'Landed cost',      unit:'$/kg',  min:0,    max:3.50, dec:2, spec:'≤ $3.50/kg' }
+
+var METRICS = [
+  { k:'visc', label:'Viscosity, 25 C',  unit:'cP',    dec:1, big:true },
+  { k:'dens', label:'Density',          unit:'g/cm3', dec:3 },
+  { k:'flsh', label:'Flash point',      unit:'C',     dec:0 },
+  { k:'ph',   label:'pH, 1% solution',  unit:'',      dec:1 },
+  { k:'voc',  label:'VOC content',      unit:'g/L',   dec:0 },
+  { k:'cost', label:'Landed cost',      unit:'$/kg',  dec:2, pre:'$' }
 ];
- 
-const PRESETS = [
-  { name:'Baseline concentrate', w:[42,18,6,2,32] },
-  { name:'Low-VOC variant',      w:[22,24,7,2,45] },
-  { name:'High-alkalinity',      w:[30,16,12,2,40] },
-  { name:'Cost-down',            w:[26,14,6,1,53] }
+
+/* ============================================================
+   3. END-USE MARKETS — class balance + property windows
+   ============================================================ */
+var APPS = [
+  { n:'Metal degreasing & parts washing',
+    cls:{ solvent:[.12,.55], surfactant:[.04,.30], phmod:[.02,.15] },
+    prp:{ ph:[9.5,13.2], visc:[1,25] },
+    blurb:'A solvent-plus-builder balance in this range is what immersion tanks, spray cabinets, and ultrasonic lines are bought for. Cutting power comes from the solvent, soil suspension from the surfactant.',
+    pills:['ASTM D4488','Immersion & spray','Drum / tote / bulk'] },
+
+  { n:'Institutional & janitorial cleaning',
+    cls:{ carrier:[.35,.92], surfactant:[.02,.25], solvent:[0,.20], polymer:[0,.10] },
+    prp:{ ph:[6.5,12.5], visc:[1,400], cost:[0,3.20] },
+    blurb:'Water-forward and cost-disciplined, the shape distributors want for dilutable concentrates sold through jan-san channels. Cost per diluted litre decides the shelf, not performance headroom.',
+    pills:['EPA Safer Choice','Dilution control','Jan-san distribution'] },
+
+  { n:'Architectural & industrial coatings',
+    cls:{ polymer:[.18,.62], pigment:[.02,.32], carrier:[.10,.55] },
+    prp:{ visc:[60,50000], voc:[0,300] },
+    blurb:'Binder and pigment loading in this window puts the formulation in decorative and light-industrial coatings. Hiding power tracks pigment volume concentration, block resistance tracks the binder Tg.',
+    pills:['ASTM D2486','Low-VOC compliant','PVC 15-35%'] },
+
+  { n:'Lubricants, greases & metalworking',
+    cls:{ oil:[.45,.99], additive:[.005,.22] },
+    prp:{ visc:[10,1500], flsh:[140,400] },
+    blurb:'Base-oil dominant with an additive treat rate in the normal range. Gear oils, hydraulic fluids, compressor oils, and metalworking concentrates all sit here, and viscosity index drives the approvals.',
+    pills:['ISO VG grading','DIN 51524','OEM approvals'] },
+
+  { n:'Personal care & hand hygiene',
+    cls:{ carrier:[.45,.92], surfactant:[.05,.38], oil:[0,.06], pigment:[0,.02] },
+    prp:{ ph:[4.2,7.6] },
+    blurb:'Skin-compatible pH with a mild surfactant system, the profile for body washes, hand cleansers, and shampoos. Foam quality and irritation scores decide this market long before cost does.',
+    pills:['ISO 22716 GMP','Patch-test required','Retail & away-from-home'] },
+
+  { n:'Cooling water & boiler treatment',
+    cls:{ carrier:[.55,.97], phmod:[.01,.22], additive:[.003,.15], surfactant:[0,.06] },
+    prp:{ ph:[6.8,10.5], visc:[1,8] },
+    blurb:'Thin, aqueous, and lightly buffered, dosed continuously into open recirculating systems. Scale inhibition, yellow-metal protection, and holding-time index govern the sell.',
+    pills:['Langelier index','Continuous dosing','Tower & boiler'] },
+
+  { n:'Agricultural spray adjuvants',
+    cls:{ surfactant:[.20,.62], solvent:[.08,.40], carrier:[.10,.72] },
+    prp:{ ph:[5,9], visc:[1,80] },
+    blurb:'Surfactant-led with a compatible solvent fraction. Tank-mix adjuvants that improve wetting, spreading, and rainfastness, where stability across hard water decides adoption.',
+    pills:['CPDA certified','Tank-mix compatible','Hard-water stable'] },
+
+  { n:'Textile & leather auxiliaries',
+    cls:{ surfactant:[.04,.42], carrier:[.28,.88], polymer:[.02,.22] },
+    prp:{ ph:[5.5,10.5], visc:[1,250] },
+    blurb:'Aqueous surfactant chemistry with optional polymer for hand and handle. Scouring, wetting, and finishing baths, where low foam under jet agitation is usually the gating requirement.',
+    pills:['ZDHC MRSL','OEKO-TEX ready','Exhaust & pad bath'] },
+
+  { n:'Food-plant CIP & sanitation',
+    cls:{ carrier:[.50,.97], phmod:[.03,.28], surfactant:[0,.10], solvent:[0,.03] },
+    prp:{ ph:[10.5,13.4], visc:[1,20], voc:[0,25] },
+    blurb:'Highly alkaline, essentially solvent-free, and low-foaming, which is the profile for clean-in-place circuits in dairy, brewing, and protein processing. Rinsability and residue limits are the whole conversation.',
+    pills:['FDA 21 CFR 178.1010','3-A sanitary','CIP circuit'] }
 ];
- 
-const $sliders  = document.getElementById('sliders');
-const $tube     = document.getElementById('tube');
-const $readouts = document.getElementById('readouts');
-const $presets  = document.getElementById('presets');
-const $chip     = document.getElementById('chip');
- 
-/* ---- build sliders ---- */
-COMPONENTS.forEach((c, i) => {
-  const row = document.createElement('div');
-  row.className = 'slider';
-  row.innerHTML =
-    '<div class="slider__top">' +
-      '<i class="swatch" style="background:' + c.color + '"></i>' +
-      '<span class="slider__name">' + c.name + '<span class="slider__role">' + c.role + '</span></span>' +
-      '<span class="slider__val" id="v-' + c.id + '">00.0 wt%</span>' +
-    '</div>' +
-    '<input type="range" min="0" max="60" step="1" value="' + c.w + '" id="s-' + c.id + '" aria-label="' + c.name + ' loading, weight parts">';
-  $sliders.appendChild(row);
-  row.querySelector('input').addEventListener('input', e => {
-    COMPONENTS[i].w = +e.target.value;
-    clearPreset();
-    render();
-  });
-});
- 
-/* ---- build column segments ---- */
-COMPONENTS.forEach(c => {
-  const seg = document.createElement('div');
-  seg.className = 'cyl__seg';
-  seg.id = 'g-' + c.id;
-  seg.style.background = c.color;
-  $tube.appendChild(seg);
-});
- 
-/* ---- build readouts ---- */
-SPECS.forEach(s => {
-  const el = document.createElement('div');
-  el.className = 'rd';
-  el.id = 'r-' + s.key;
-  el.innerHTML =
-    '<div class="rd__k"><i></i>' + s.label + '</div>' +
-    '<div class="rd__v" id="rv-' + s.key + '">—</div>' +
-    '<div class="rd__s">Spec ' + s.spec + '</div>';
-  $readouts.appendChild(el);
-});
- 
-/* ---- build presets ---- */
-PRESETS.forEach((p, i) => {
-  const b = document.createElement('button');
-  b.className = 'preset' + (i === 0 ? ' is-on' : '');
-  b.textContent = p.name;
-  b.addEventListener('click', () => {
-    p.w.forEach((v, j) => {
-      COMPONENTS[j].w = v;
-      document.getElementById('s-' + COMPONENTS[j].id).value = v;
+
+/* ============================================================
+   4. STATE + HELPERS
+   ============================================================ */
+var recipe = [];
+var famIdx = 0;
+function $(id){ return document.getElementById(id); }
+function el(t, cls, html){ var e = document.createElement(t); if(cls) e.className = cls; if(html != null) e.innerHTML = html; return e; }
+
+function buildSelect(selected){
+  var s = el('select','sel'), groups = {};
+  Object.keys(LIB).forEach(function(k){ (groups[LIB[k].c] = groups[LIB[k].c] || []).push(k); });
+  Object.keys(CLASSES).forEach(function(c){
+    if(!groups[c]) return;
+    var og = document.createElement('optgroup');
+    og.label = CLASSES[c].label;
+    groups[c].forEach(function(k){
+      var o = document.createElement('option');
+      o.value = k; o.textContent = LIB[k].n;
+      if(k === selected) o.selected = true;
+      og.appendChild(o);
     });
-    clearPreset();
-    b.classList.add('is-on');
-    render();
+    s.appendChild(og);
   });
-  $presets.appendChild(b);
-});
-function clearPreset(){ $presets.querySelectorAll('.preset').forEach(b => b.classList.remove('is-on')); }
- 
-/* ---- the model ---- */
-function render(){
-  const total = COMPONENTS.reduce((a, c) => a + c.w, 0) || 1;
-  const f = COMPONENTS.map(c => c.w / total);   // mass fractions
- 
-  // density — ideal volume mixing: 1/ρ = Σ wᵢ/ρᵢ
-  const dens = 1 / COMPONENTS.reduce((a, c, i) => a + f[i] / c.rho, 0);
-  // viscosity — Kendall–Monroe log blending: ln μ = Σ wᵢ ln μᵢ
-  const visc = Math.exp(COMPONENTS.reduce((a, c, i) => a + f[i] * Math.log(c.mu), 0));
-  // flash point — rises as the volatile solvent is diluted
-  const wLim = f[0];
-  const flsh = wLim < 0.02 ? 100 : Math.min(100, 48 + 70 * Math.pow(1 - wLim, 2));
-  // pH — driven by the alkaline builder
-  const wB = f[2];
-  const ph = wB <= 0 ? 7 : Math.min(13, 7 + 5.4 * Math.pow(wB * 10, 0.35));
-  // VOC — solvent mass per litre of product
-  const voc = wLim * dens * 1000;
-  // cost — mass-weighted
-  const cost = COMPONENTS.reduce((a, c, i) => a + f[i] * c.cost, 0);
- 
-  const vals = { visc, dens, flsh, ph, voc, cost };
-  let allOk = true;
- 
-  SPECS.forEach(s => {
-    const v = vals[s.key];
-    const ok = v >= s.min && v <= s.max;
-    if (!ok) allOk = false;
-    const box = document.getElementById('r-' + s.key);
-    box.classList.toggle('is-off', !ok);
-    let txt = (s.key === 'flsh' && v >= 100) ? '>100' : v.toFixed(s.dec);
-    if (s.key === 'cost') txt = '$' + txt;
-    document.getElementById('rv-' + s.key).innerHTML =
-      txt + (s.unit ? ' <small>' + s.unit + '</small>' : '');
-  });
- 
-  COMPONENTS.forEach((c, i) => {
-    document.getElementById('v-' + c.id).textContent = (f[i] * 100).toFixed(1) + ' wt%';
-    document.getElementById('g-' + c.id).style.height = (f[i] * 100) + '%';
-  });
- 
-  $chip.textContent = allOk ? 'IN SPEC' : 'OFF SPEC';
-  $chip.className = 'chip ' + (allOk ? 'chip--ok' : 'chip--off');
+  return s;
 }
-render();
- 
-/* ---- scroll reveal ---- */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+
+/* ============================================================
+   5. BUILD STATIC UI
+   ============================================================ */
+FAMILIES.forEach(function(f,i){
+  var o = document.createElement('option');
+  o.value = i; o.textContent = f.n;
+  $('family').appendChild(o);
+});
+
+METRICS.forEach(function(m){
+  var box = el('div','rd');
+  box.id = 'rd-' + m.k;
+  box.innerHTML = '<div class="rd__k"><i></i>' + m.label + '</div>' +
+                  '<div class="rd__v" id="rv-' + m.k + '">--</div>' +
+                  '<div class="rd__s" id="rs-' + m.k + '"></div>';
+  $('readouts').appendChild(box);
+});
+
+APPS.forEach(function(a,i){
+  var row = el('div','app');
+  row.id = 'app-' + i;
+  row.innerHTML = '<div class="app__top"><span class="app__n">' + a.n + '</span>' +
+                  '<span class="app__s" id="as-' + i + '">--</span></div>' +
+                  '<div class="app__track"><div class="app__bar" id="ab-' + i + '" style="width:0%"></div></div>';
+  $('apps').appendChild(row);
+});
+
+/* ============================================================
+   6. RECIPE EDITING
+   ============================================================ */
+function loadFamily(i){
+  famIdx = i;
+  recipe = FAMILIES[i].mix.map(function(m){ return { id:m[0], w:m[1] }; });
+  drawRows();
+  render();
+}
+
+function drawRows(){
+  var host = $('rows');
+  host.innerHTML = '';
+  recipe.forEach(function(c, idx){
+    var L = LIB[c.id];
+    var row = el('div','crow');
+
+    var top = el('div','crow__top');
+    var sw = el('i','swatch'); sw.style.background = CLASSES[L.c].color;
+    var sel = buildSelect(c.id);
+    sel.setAttribute('aria-label','Component ' + (idx+1));
+    var val = el('span','crow__val'); val.id = 'cv-' + idx;
+    var kill = el('button','kill','&times;');
+    kill.type = 'button';
+    kill.setAttribute('aria-label','Remove ' + L.n);
+    top.appendChild(sw); top.appendChild(sel); top.appendChild(val); top.appendChild(kill);
+
+    var rng = document.createElement('input');
+    rng.type = 'range'; rng.min = '0'; rng.max = '80'; rng.step = '0.2'; rng.value = c.w;
+    rng.setAttribute('aria-label', L.n + ' loading in parts by weight');
+
+    var role = el('div','crow__role', CLASSES[L.c].label + ' &middot; ' + L.rho.toFixed(3) + ' g/cm3 &middot; $' + L.cost.toFixed(2) + '/kg');
+
+    sel.addEventListener('change', function(e){ recipe[idx].id = e.target.value; drawRows(); render(); });
+    rng.addEventListener('input', function(e){ recipe[idx].w = +e.target.value; render(); });
+    kill.addEventListener('click', function(){
+      if(recipe.length <= 2) return;
+      recipe.splice(idx,1); drawRows(); render();
+    });
+
+    row.appendChild(top); row.appendChild(rng); row.appendChild(role);
+    host.appendChild(row);
   });
-}, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.rv, #flow').forEach(el => io.observe(el));
+
+  var stack = $('stack');
+  stack.innerHTML = '';
+  recipe.forEach(function(c, idx){
+    var seg = el('div','stack__seg');
+    seg.id = 'sg-' + idx;
+    seg.style.background = CLASSES[LIB[c.id].c].color;
+    seg.title = LIB[c.id].n;
+    stack.appendChild(seg);
+  });
+
+  $('countNote').textContent = recipe.length + ' components / 10';
+}
+
+$('family').addEventListener('change', function(e){ loadFamily(+e.target.value); });
+$('addBtn').addEventListener('click', function(){
+  if(recipe.length >= 10) return;
+  var used = recipe.map(function(r){ return r.id; });
+  var keys = Object.keys(LIB);
+  var next = 'h2o';
+  for(var i=0;i<keys.length;i++){ if(used.indexOf(keys[i]) === -1){ next = keys[i]; break; } }
+  recipe.push({ id:next, w:5 });
+  drawRows(); render();
+});
+$('batch').addEventListener('change', render);
+
+$('copyBtn').addEventListener('click', function(){
+  var total = recipe.reduce(function(a,c){ return a + c.w; }, 0) || 1;
+  var txt = FAMILIES[famIdx].n + '\n' + recipe.map(function(c){
+    var pct = (c.w/total*100).toFixed(2);
+    while(pct.length < 6) pct = ' ' + pct;
+    return pct + ' wt%   ' + LIB[c.id].n;
+  }).join('\n');
+  if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  $('copyBtn').textContent = 'Copied';
+  setTimeout(function(){ $('copyBtn').textContent = 'Copy recipe'; }, 1600);
+});
+
+/* ============================================================
+   7. THE MODEL
+   ============================================================ */
+function solve(){
+  var total = recipe.reduce(function(a,c){ return a + c.w; }, 0) || 1;
+  var f = recipe.map(function(c){ return c.w/total; });
+
+  // density -- ideal volume mixing: 1/rho = sum(w_i / rho_i)
+  var dens = 1 / recipe.reduce(function(a,c,i){ return a + f[i]/LIB[c.id].rho; }, 0);
+  // viscosity -- Kendall-Monroe log blending: ln mu = sum(w_i ln mu_i)
+  var visc = Math.exp(recipe.reduce(function(a,c,i){ return a + f[i]*Math.log(LIB[c.id].mu); }, 0));
+  // pH -- buffering-strength weighted
+  var ns = 0, nv = 0;
+  recipe.forEach(function(c,i){ var s = f[i]*LIB[c.id].phs; ns += s; nv += s*LIB[c.id].phv; });
+  var ph = ns > 0 ? nv/ns : 7;
+  // flash point -- lowest present flash, raised as volatiles are diluted
+  var present = recipe.map(function(c,i){ return { fp:LIB[c.id].fp, f:f[i] }; })
+                      .filter(function(x){ return x.f >= 0.01; });
+  var fpMin = present.length ? Math.min.apply(null, present.map(function(x){ return x.fp; })) : 300;
+  var fVol = present.filter(function(x){ return x.fp < 120; })
+                    .reduce(function(a,x){ return a + x.f; }, 0);
+  var flsh = fVol < 0.005 ? fpMin : Math.min(fpMin + 70*Math.pow(1-fVol,2), 250);
+  // VOC -- volatile organic mass per litre
+  var voc = recipe.reduce(function(a,c,i){ return a + f[i]*LIB[c.id].voc; }, 0) * dens * 1000;
+  // cost -- mass weighted
+  var cost = recipe.reduce(function(a,c,i){ return a + f[i]*LIB[c.id].cost; }, 0);
+
+  var cls = {};
+  Object.keys(CLASSES).forEach(function(k){ cls[k] = 0; });
+  recipe.forEach(function(c,i){ cls[LIB[c.id].c] += f[i]; });
+
+  return { f:f, dens:dens, visc:visc, ph:ph, flsh:flsh, voc:voc, cost:cost, cls:cls };
+}
+
+function fmt(m, v){
+  if(m.k === 'flsh' && v >= 250) return '>250';
+  if(m.big && v >= 1000) return Math.round(v).toLocaleString();
+  return (m.pre || '') + v.toFixed(m.dec);
+}
+function specText(r){
+  if(!r) return '';
+  if(r[1] >= 999) return '>= ' + r[0];
+  if(r[0] <= 0) return '<= ' + r[1];
+  return r[0] + ' - ' + r[1];
+}
+function windowScore(v, lo, hi){
+  if(v >= lo && v <= hi) return 1;
+  var d = v < lo ? lo - v : v - hi;
+  var span = Math.max(hi - lo, Math.abs(hi)*0.08, 0.02);
+  return Math.exp(-Math.pow(d/(0.32*span), 2));
+}
+
+/* ============================================================
+   8. RENDER
+   ============================================================ */
+function render(){
+  var S = solve();
+  var fam = FAMILIES[famIdx];
+  var vals = { visc:S.visc, dens:S.dens, flsh:S.flsh, ph:S.ph, voc:S.voc, cost:S.cost };
+  var allOk = true, misses = [];
+
+  METRICS.forEach(function(m){
+    var r = fam.spec[m.k], box = $('rd-' + m.k), v = vals[m.k];
+    $('rv-' + m.k).innerHTML = fmt(m, v) + (m.unit ? ' <small>' + m.unit + '</small>' : '');
+    $('rs-' + m.k).textContent = r ? 'Spec ' + specText(r) + (m.unit ? ' ' + m.unit : '') : 'Not controlled';
+    box.className = 'rd' + (r ? '' : ' is-na');
+    var ok = !r || (v >= r[0] && v <= r[1]);
+    if(!ok){ box.className = 'rd is-off'; allOk = false; misses.push({ m:m, v:v, r:r }); }
+  });
+
+  recipe.forEach(function(c,i){
+    var pct = S.f[i]*100;
+    var cv = $('cv-'+i); if(cv) cv.textContent = pct.toFixed(1) + '%';
+    var sg = $('sg-'+i); if(sg) sg.style.width = pct + '%';
+  });
+
+  $('chip').textContent = allOk ? 'IN SPEC' : 'OFF SPEC';
+  $('chip').className = 'chip ' + (allOk ? 'chip--ok' : 'chip--off');
+  $('advice').className = 'advice' + (allOk ? ' ok' : '');
+  $('advice').innerHTML = allOk
+    ? '<b>All controlled properties in spec.</b> Ready for a pilot charge sheet.'
+    : correction(misses[0], S);
+
+  renderFit(S);
+  renderCharge(S);
+}
+
+/* ---- tells you which lever to pull ---- */
+function correction(miss, S){
+  var m = miss.m, v = miss.v, r = miss.r, high = v > r[1];
+  function biggest(test, weight){
+    var best = null, bv = -1;
+    recipe.forEach(function(c,i){
+      var L = LIB[c.id];
+      if(!test(L)) return;
+      var q = weight(L, S.f[i]);
+      if(q > bv){ bv = q; best = L; }
+    });
+    return best ? best.n : 'the major component';
+  }
+  var msg;
+  switch(m.k){
+    case 'voc':
+      msg = 'over the cap. Cut <b>' + biggest(function(L){ return L.voc > 0; }, function(L,f){ return L.voc*f; }) + '</b> or replace the volatile fraction with water.'; break;
+    case 'flsh':
+      msg = 'too low. Reduce <b>' + biggest(function(L){ return L.fp < 120; }, function(L,f){ return f/L.fp; }) + '</b> or move to a higher-boiling solvent.'; break;
+    case 'visc':
+      msg = high ? 'too high. Raise the carrier fraction or back off the rheology modifier.'
+                 : 'too thin for this family. Add <b>0.2-0.8 wt% cellulosic or xanthan thickener</b>.'; break;
+    case 'ph':
+      msg = high ? 'above the window. Trim <b>' + biggest(function(L){ return L.phv > 8; }, function(L,f){ return L.phs*f; }) + '</b> or buffer back with citric acid.'
+                 : 'below the window. Add an <b>alkaline builder or neutralising amine</b>.'; break;
+    case 'dens':
+      msg = high ? 'high. Reduce the <b>pigment or mineral loading</b>.' : 'low. Increase the <b>mineral or aqueous fraction</b>.'; break;
+    case 'cost':
+      msg = 'over target. <b>' + biggest(function(){ return true; }, function(L,f){ return L.cost*f; }) + '</b> is the largest single line.'; break;
+    default:
+      msg = 'outside its window.';
+  }
+  return m.label + ' is ' + msg;
+}
+
+/* ---- application fit ---- */
+function renderFit(S){
+  var vmap = { visc:S.visc, ph:S.ph, voc:S.voc, cost:S.cost, flsh:S.flsh, dens:S.dens };
+  var scored = APPS.map(function(a, i){
+    var parts = [];
+    Object.keys(a.cls).forEach(function(k){
+      parts.push({ w:1.0, s:windowScore(S.cls[k], a.cls[k][0], a.cls[k][1]),
+        label: CLASSES[k].label + ' at ' + (S.cls[k]*100).toFixed(1) + ' wt%' });
+    });
+    Object.keys(a.prp).forEach(function(k){
+      var m = METRICS.filter(function(x){ return x.k === k; })[0];
+      parts.push({ w:0.6, s:windowScore(vmap[k], a.prp[k][0], a.prp[k][1]),
+        label: m.label + ' at ' + fmt(m, vmap[k]) + (m.unit ? ' ' + m.unit : '') });
+    });
+    var tw = parts.reduce(function(x,p){ return x + p.w; }, 0);
+    var sc = parts.reduce(function(x,p){ return x + p.w*p.s; }, 0) / tw;
+    return { i:i, sc:sc, parts:parts };
+  }).sort(function(a,b){ return b.sc - a.sc; });
+
+  scored.forEach(function(r, rank){
+    var pct = Math.round(r.sc*100);
+    $('as-'+r.i).textContent = pct + '%';
+    $('ab-'+r.i).style.width = pct + '%';
+    $('app-'+r.i).className = 'app' + (rank === 0 ? ' is-top' : '');
+    $('app-'+r.i).style.order = rank;
+  });
+
+  var top = scored[0], A = APPS[top.i];
+  var why = top.parts.slice().sort(function(a,b){ return b.s - a.s; }).slice(0,3)
+    .map(function(p){ return '<div><i>&#10003;</i><span>' + p.label + '</span></div>'; }).join('');
+  $('match').innerHTML =
+    '<span class="match__lb">Closest market &middot; ' + Math.round(top.sc*100) + '% fit</span>' +
+    '<h3>' + A.n + '</h3>' +
+    '<p class="match__p">' + A.blurb + '</p>' +
+    '<div class="match__why">' + why + '</div>' +
+    '<div class="match__meta">' + A.pills.map(function(p){ return '<span class="pill">' + p + '</span>'; }).join('') + '</div>';
+}
+
+/* ---- charge sheet ---- */
+function renderCharge(S){
+  var m3 = +$('batch').value;
+  var kgTotal = m3 * 1000 * S.dens;
+  $('chargeBody').innerHTML = recipe.map(function(c,i){
+    var kg = S.f[i]*kgTotal;
+    return '<tr><td>' + LIB[c.id].n + '</td><td>' + (kg >= 100 ? kg.toFixed(0) : kg.toFixed(1)) + ' kg</td></tr>';
+  }).join('');
+  $('chargeFoot').innerHTML =
+    '<tr><td>Batch total</td><td>' + Math.round(kgTotal).toLocaleString() + ' kg</td></tr>' +
+    '<tr><td>Raw material cost</td><td>$' + Math.round(kgTotal*S.cost).toLocaleString() + '</td></tr>';
+}
+
+/* ============================================================
+   9. GO
+   ============================================================ */
+loadFamily(0);
+
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+}, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+var nodes = document.querySelectorAll('.rv, #flow');
+for(var i=0;i<nodes.length;i++) io.observe(nodes[i]);
 </script>
 </body>
 </html>
