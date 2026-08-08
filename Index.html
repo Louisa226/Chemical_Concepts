@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reflux — Formulation platform for industrial chemistry</title>
+<meta name="description" content="Reflux is where chemical engineers develop, validate, and release commercial-grade formulations — property prediction, regulatory checks, and scale-up in one file." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   REFLUX — tokens
+   Palette derived from reagent blues: cobalt glass, Prussian
+   blue, cupric sulfate. One sodium-flame amber for off-spec.
+   ============================================================ */
+:root{
+  --ink:      #06121F;
+  --abyss:    #0A1C30;
+  --hull:     #102B47;
+  --prussian: #123A63;
+  --cobalt:   #2B6FE0;
+  --cupric:   #4FD3E8;
+  --paper:    #EDF3FA;
+  --mist:     #94AFCB;
+  --lab:      #F0F5FA;
+  --lab-2:    #E2ECF6;
+  --sodium:   #F2B441;
+
+  --line-dark: rgba(146,182,222,.18);
+  --line-lite: rgba(18,58,99,.14);
+
+  --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --gut: clamp(20px, 5vw, 64px);
+  --max: 1240px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  margin:0; background:var(--ink); color:var(--paper);
+  font-family:var(--body); font-size:16px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button,input{ font:inherit; color:inherit; }
+
+:focus-visible{ outline:2px solid var(--cupric); outline-offset:3px; border-radius:3px; }
+
+.wrap{ width:100%; max-width:var(--max); margin:0 auto; padding-inline:var(--gut); }
+
+.mono{ font-family:var(--mono); }
+.tag{
+  font-family:var(--mono); font-size:11px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--cupric);
+}
+.tag--dim{ color:var(--prussian); }
+
+h1,h2,h3{ font-family:var(--display); font-weight:700; margin:0; line-height:1.02; letter-spacing:-.028em; }
+p{ margin:0; }
+
+/* ---------- bands ---------- */
+.band{ position:relative; padding-block:clamp(72px,10vw,132px); }
+.band--dark{ background:var(--ink); }
+.band--lite{ background:var(--lab); color:var(--abyss); }
+.band--lite .tag{ color:var(--cobalt); }
+.rule{ height:1px; background:var(--line-dark); border:0; margin:0; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  background:rgba(6,18,31,.78);
+  border-bottom:1px solid var(--line-dark);
+}
+.nav__in{ display:flex; align-items:center; gap:28px; height:64px; }
+.mark{ display:flex; align-items:center; gap:10px; margin-right:auto; }
+.mark__glyph{ width:22px; height:22px; flex:none; }
+.mark__word{
+  font-family:var(--display); font-weight:800; font-size:19px;
+  letter-spacing:-.03em;
+}
+.mark__word em{ font-style:normal; color:var(--cupric); }
+.nav__links{ display:flex; gap:26px; }
+.nav__links a{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.04em;
+  color:var(--mist); transition:color .2s var(--ease);
+}
+.nav__links a:hover{ color:var(--paper); }
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  padding:11px 20px; border-radius:999px; border:1px solid transparent;
+  font-family:var(--mono); font-size:12.5px; font-weight:500; letter-spacing:.05em;
+  cursor:pointer; transition:transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease), box-shadow .25s var(--ease);
+  white-space:nowrap;
+}
+.btn--fill{ background:var(--cobalt); color:#fff; box-shadow:0 8px 26px -12px rgba(43,111,224,.9); }
+.btn--fill:hover{ transform:translateY(-2px); background:#3C7DEC; box-shadow:0 16px 34px -14px rgba(43,111,224,1); }
+.btn--ghost{ border-color:var(--line-dark); color:var(--paper); background:transparent; }
+.btn--ghost:hover{ border-color:var(--cupric); color:var(--cupric); transform:translateY(-2px); }
+.btn--lg{ padding:15px 28px; font-size:13.5px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative; overflow:hidden;
+  padding-block:clamp(64px,9vw,110px) clamp(72px,9vw,120px);
+  background:
+    radial-gradient(900px 620px at 78% 8%,  rgba(43,111,224,.30), transparent 62%),
+    radial-gradient(760px 560px at 8% 88%, rgba(79,211,232,.13), transparent 60%),
+    linear-gradient(180deg, var(--abyss) 0%, var(--ink) 100%);
+}
+.hero::before{ /* blueprint grid */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(to right, rgba(146,182,222,.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(146,182,222,.055) 1px, transparent 1px);
+  background-size:74px 74px;
+  mask-image:radial-gradient(circle at 50% 34%, #000 0%, transparent 78%);
+  -webkit-mask-image:radial-gradient(circle at 50% 34%, #000 0%, transparent 78%);
+}
+.hero__in{ position:relative; display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(36px,5vw,68px); align-items:center; }
+
+.hero h1{
+  font-size:clamp(40px,5.6vw,74px);
+  margin:20px 0 22px;
+}
+.hero h1 .grad{
+  background:linear-gradient(96deg, var(--cupric) 8%, #9CC6FF 62%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero__sub{ font-size:clamp(16px,1.4vw,18.5px); color:var(--mist); max-width:52ch; }
+.hero__cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+.hero__trust{
+  display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:34px;
+  padding-top:22px; border-top:1px solid var(--line-dark);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; color:#6F8CAA;
+}
+.hero__trust span{ display:flex; align-items:center; gap:7px; }
+.dot{ width:5px; height:5px; border-radius:50%; background:var(--cupric); flex:none; }
+
+/* ============================================================
+   SIGNATURE — BLEND CONSOLE
+   ============================================================ */
+.console{
+  border:1px solid rgba(146,182,222,.24); border-radius:16px;
+  background:linear-gradient(168deg, rgba(18,58,99,.92), rgba(10,28,48,.96));
+  box-shadow:0 44px 90px -50px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+  overflow:hidden;
+}
+.console__bar{
+  display:flex; align-items:center; gap:12px;
+  padding:13px 18px; border-bottom:1px solid var(--line-dark);
+  background:rgba(6,18,31,.42);
+}
+.pulse{ width:7px; height:7px; border-radius:50%; background:var(--cupric); box-shadow:0 0 0 0 rgba(79,211,232,.6); animation:pulse 2.4s infinite; flex:none; }
+@keyframes pulse{ 70%{ box-shadow:0 0 0 9px rgba(79,211,232,0);} 100%{ box-shadow:0 0 0 0 rgba(79,211,232,0);} }
+.console__title{ font-family:var(--mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--mist); margin-right:auto; }
+.chip{
+  font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.13em;
+  padding:5px 11px; border-radius:999px; border:1px solid; transition:all .3s var(--ease);
+}
+.chip--ok{ color:var(--cupric); border-color:rgba(79,211,232,.42); background:rgba(79,211,232,.09); }
+.chip--off{ color:var(--sodium); border-color:rgba(242,180,65,.45); background:rgba(242,180,65,.10); }
+
+.console__grid{ display:grid; grid-template-columns:1fr 78px; gap:20px; padding:20px 18px 6px; }
+
+.slider{ margin-bottom:15px; }
+.slider__top{ display:flex; align-items:baseline; gap:10px; margin-bottom:7px; }
+.swatch{ width:9px; height:9px; border-radius:2px; flex:none; transform:translateY(1px); }
+.slider__name{ font-size:12.5px; font-weight:500; color:#CBDCEE; margin-right:auto; line-height:1.3; }
+.slider__role{ font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; display:block; }
+.slider__val{ font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; color:var(--paper); }
+
+input[type=range]{
+  -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:99px;
+  background:rgba(146,182,222,.20); cursor:grab; margin:0;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:15px; height:15px; border-radius:50%;
+  background:var(--paper); border:3px solid var(--cobalt); cursor:grab;
+  box-shadow:0 2px 8px rgba(0,0,0,.5); transition:transform .15s var(--ease);
+}
+input[type=range]::-webkit-slider-thumb:hover{ transform:scale(1.18); }
+input[type=range]::-moz-range-thumb{
+  width:15px; height:15px; border-radius:50%; background:var(--paper);
+  border:3px solid var(--cobalt); cursor:grab; box-shadow:0 2px 8px rgba(0,0,0,.5);
+}
+
+/* graduated column */
+.cyl{ display:flex; flex-direction:column; align-items:center; gap:9px; }
+.cyl__tube{
+  width:44px; flex:1; min-height:190px; border-radius:6px 6px 9px 9px;
+  border:1px solid rgba(146,182,222,.3); background:rgba(6,18,31,.55);
+  display:flex; flex-direction:column-reverse; overflow:hidden; position:relative;
+}
+.cyl__seg{ width:100%; transition:height .45s var(--ease); }
+.cyl__cap{ font-family:var(--mono); font-size:9.5px; letter-spacing:.09em; color:#5E7B99; text-align:center; }
+
+/* readouts */
+.readouts{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line-dark); margin-top:14px;
+}
+.rd{ padding:14px 16px; border-right:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark); }
+.rd:nth-child(3n){ border-right:0; }
+.rd:nth-child(n+4){ border-bottom:0; }
+.rd__k{ font-family:var(--mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:#5E7B99; display:flex; align-items:center; gap:6px; }
+.rd__k i{ width:5px; height:5px; border-radius:50%; background:var(--cupric); flex:none; transition:background .3s; }
+.rd__v{ font-family:var(--mono); font-size:20px; font-weight:600; font-variant-numeric:tabular-nums; margin-top:5px; letter-spacing:-.02em; transition:color .3s; }
+.rd__v small{ font-size:11px; font-weight:400; color:var(--mist); letter-spacing:0; }
+.rd__s{ font-family:var(--mono); font-size:9.5px; color:#4F6B87; margin-top:2px; }
+.rd.is-off .rd__v{ color:var(--sodium); }
+.rd.is-off .rd__k i{ background:var(--sodium); }
+
+.console__foot{ display:flex; flex-wrap:wrap; gap:8px; padding:14px 18px; border-top:1px solid var(--line-dark); background:rgba(6,18,31,.34); }
+.preset{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; padding:7px 13px;
+  border-radius:999px; border:1px solid var(--line-dark); background:transparent;
+  color:var(--mist); cursor:pointer; transition:all .2s var(--ease);
+}
+.preset:hover{ border-color:var(--cupric); color:var(--cupric); }
+.preset.is-on{ background:rgba(79,211,232,.12); border-color:rgba(79,211,232,.45); color:var(--cupric); }
+
+/* ============================================================
+   SECTOR STRIP
+   ============================================================ */
+.strip{ border-block:1px solid var(--line-dark); background:var(--abyss); }
+.strip__in{ display:flex; flex-wrap:wrap; align-items:center; gap:0; padding-block:22px; }
+.strip__lb{ font-family:var(--mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:#5E7B99; padding-right:28px; }
+.strip__i{
+  font-family:var(--display); font-weight:600; font-size:14.5px; letter-spacing:-.01em;
+  color:#7E9BBA; padding:0 22px; border-left:1px solid var(--line-dark);
+}
+
+/* ============================================================
+   PROCESS — a real sequence, so it gets real numbers
+   ============================================================ */
+.sechead{ max-width:62ch; margin-bottom:clamp(38px,5vw,60px); }
+.sechead h2{ font-size:clamp(29px,3.6vw,48px); margin:16px 0 16px; }
+.sechead p{ color:var(--mist); font-size:17px; }
+.band--lite .sechead p{ color:#4C6683; }
+.band--lite .sechead h2{ color:var(--abyss); }
+
+.flow{ display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
+.stage{ position:relative; padding:26px 22px 0 0; border-top:1px solid var(--line-dark); }
+.stage::before{
+  content:""; position:absolute; top:-1px; left:0; height:1px; width:0;
+  background:linear-gradient(90deg, var(--cupric), var(--cobalt));
+  transition:width 1s var(--ease);
+}
+.flow.is-in .stage::before{ width:100%; }
+.flow.is-in .stage:nth-child(2)::before{ transition-delay:.16s; }
+.flow.is-in .stage:nth-child(3)::before{ transition-delay:.32s; }
+.flow.is-in .stage:nth-child(4)::before{ transition-delay:.48s; }
+.flow.is-in .stage:nth-child(5)::before{ transition-delay:.64s; }
+.stage__n{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--cobalt); }
+.stage h3{ font-size:20px; margin:11px 0 9px; }
+.stage p{ font-size:14px; color:var(--mist); }
+.stage__scale{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; margin-top:12px; }
+
+/* ============================================================
+   CAPABILITIES
+   ============================================================ */
+.caps{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-lite); border:1px solid var(--line-lite); border-radius:14px; overflow:hidden; }
+.cap{ background:var(--lab); padding:32px 28px 34px; transition:background .3s var(--ease); }
+.cap:hover{ background:#fff; }
+.cap__ic{ width:30px; height:30px; margin-bottom:20px; color:var(--cobalt); }
+.cap h3{ font-size:19px; margin-bottom:9px; color:var(--abyss); }
+.cap p{ font-size:14.5px; color:#4C6683; }
+.cap__meta{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8AA3BE; margin-top:16px; padding-top:14px; border-top:1px solid var(--line-lite); }
+
+/* ============================================================
+   DATASHEET
+   ============================================================ */
+.sheet{
+  border:1px solid var(--line-dark); border-radius:14px; overflow:hidden;
+  background:linear-gradient(170deg, rgba(18,58,99,.5), rgba(10,28,48,.5));
+}
+.sheet__hd{ display:flex; flex-wrap:wrap; align-items:end; gap:14px; padding:24px 28px; border-bottom:1px solid var(--line-dark); }
+.sheet__hd h3{ font-size:23px; margin-right:auto; }
+.sheet__rev{ font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:#5E7B99; }
+.rows{ display:grid; grid-template-columns:1fr 1fr; }
+.row{ display:flex; gap:16px; padding:15px 28px; border-bottom:1px solid var(--line-dark); align-items:baseline; }
+.row:nth-child(odd){ border-right:1px solid var(--line-dark); }
+.row__k{ font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#5E7B99; width:44%; flex:none; }
+.row__v{ font-size:14px; color:#CBDCEE; }
+
+/* ============================================================
+   PLANS
+   ============================================================ */
+.plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.plan{
+  border:1px solid var(--line-dark); border-radius:14px; padding:30px 26px 32px;
+  background:rgba(16,43,71,.34); display:flex; flex-direction:column;
+  transition:transform .3s var(--ease), border-color .3s var(--ease);
+}
+.plan:hover{ transform:translateY(-4px); border-color:rgba(79,211,232,.4); }
+.plan--hi{ border-color:rgba(79,211,232,.5); background:linear-gradient(170deg, rgba(43,111,224,.20), rgba(16,43,71,.42)); }
+.plan__sc{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--cupric); }
+.plan h3{ font-size:26px; margin:12px 0 4px; }
+.plan__pr{ font-family:var(--mono); font-size:15px; color:var(--paper); margin-bottom:4px; }
+.plan__pr small{ color:#5E7B99; font-size:11px; }
+.plan__for{ font-size:13.5px; color:var(--mist); padding-bottom:20px; margin-bottom:20px; border-bottom:1px solid var(--line-dark); }
+.plan ul{ list-style:none; margin:0 0 26px; padding:0; display:grid; gap:10px; }
+.plan li{ font-size:13.5px; color:#B4C9DE; padding-left:20px; position:relative; }
+.plan li::before{ content:""; position:absolute; left:0; top:8px; width:8px; height:1px; background:var(--cupric); }
+.plan .btn{ margin-top:auto; width:100%; }
+
+/* ============================================================
+   CLOSE + FOOTER
+   ============================================================ */
+.close{ text-align:center; }
+.close h2{ font-size:clamp(32px,4.6vw,60px); margin:18px auto 20px; max-width:16ch; }
+.close p{ color:var(--mist); max-width:50ch; margin:0 auto 32px; font-size:17px; }
+.close__cta{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+.foot{ border-top:1px solid var(--line-dark); padding-block:52px 40px; background:var(--abyss); }
+.foot__in{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:36px; }
+.foot__bio{ font-size:13.5px; color:#6F8CAA; max-width:34ch; margin-top:14px; }
+.foot h4{ font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:#5E7B99; margin:0 0 14px; }
+.foot ul{ list-style:none; margin:0; padding:0; display:grid; gap:9px; }
+.foot li a{ font-size:13.5px; color:#9EB7D0; transition:color .2s; }
+.foot li a:hover{ color:var(--cupric); }
+.foot__bot{ display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:44px; padding-top:22px; border-top:1px solid var(--line-dark); font-family:var(--mono); font-size:11px; color:#4F6B87; }
+
+/* ---------- reveal ---------- */
+.rv{ opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.rv.is-in{ opacity:1; transform:none; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1080px){
+  .hero__in{ grid-template-columns:1fr; }
+  .flow{ grid-template-columns:repeat(2,1fr); gap:0 26px; }
+  .stage{ padding-bottom:26px; }
+  .caps{ grid-template-columns:repeat(2,1fr); }
+  .plans{ grid-template-columns:1fr; }
+  .foot__in{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:760px){
+  .nav__links{ display:none; }
+  .flow{ grid-template-columns:1fr; }
+  .caps{ grid-template-columns:1fr; }
+  .rows{ grid-template-columns:1fr; }
+  .row:nth-child(odd){ border-right:0; }
+  .readouts{ grid-template-columns:repeat(2,1fr); }
+  .rd:nth-child(3n){ border-right:1px solid var(--line-dark); }
+  .rd:nth-child(2n){ border-right:0; }
+  .rd:nth-child(n+4){ border-bottom:1px solid var(--line-dark); }
+  .rd:nth-child(n+5){ border-bottom:0; }
+  .foot__in{ grid-template-columns:1fr; }
+  .console__grid{ grid-template-columns:1fr 62px; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  html{ scroll-behavior:auto; }
+  .rv{ opacity:1; transform:none; }
+  .flow .stage::before{ width:100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="mark" href="#top" aria-label="Reflux home">
+      <svg class="mark__glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2v20M12 2 6 8M12 2l6 6M12 22l-6-6M12 22l6-6" stroke="#4FD3E8" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="3.1" stroke="#2B6FE0" stroke-width="1.6"/>
+      </svg>
+      <span class="mark__word">RE<em>FLUX</em></span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#workflow">Workflow</a>
+      <a href="#platform">Platform</a>
+      <a href="#datasheet">Datasheet</a>
+      <a href="#plans">Plans</a>
+    </nav>
+    <a class="btn btn--fill" href="#access">Request access</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<main id="top">
+<section class="hero">
+  <div class="wrap hero__in">
+
+    <div>
+      <span class="tag">Formulation platform · Industrial chemistry</span>
+      <h1>Take a formulation from&nbsp;beaker to <span class="grad">railcar.</span></h1>
+      <p class="hero__sub">
+        Reflux is where chemical engineers develop, validate, and release commercial-grade
+        formulations. Property prediction, regulatory screening, and scale-up all read from
+        the same recipe — so the batch you qualify is the batch you ship.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--fill btn--lg" href="#access">Request access</a>
+        <a class="btn btn--ghost btn--lg" href="#workflow">See the workflow</a>
+      </div>
+      <div class="hero__trust">
+        <span><i class="dot"></i>SOC 2 Type II</span>
+        <span><i class="dot"></i>21 CFR Part 11 audit trail</span>
+        <span><i class="dot"></i>GHS / REACH / TSCA screening</span>
+      </div>
+    </div>
+
+    <!-- ---------- SIGNATURE: live blend console ---------- -->
+    <div class="console" id="console">
+      <div class="console__bar">
+        <i class="pulse" aria-hidden="true"></i>
+        <span class="console__title">Blend console · Alkaline degreaser concentrate</span>
+        <span class="chip chip--ok" id="chip">IN SPEC</span>
+      </div>
+
+      <div class="console__grid">
+        <div id="sliders"></div>
+        <div class="cyl">
+          <div class="cyl__tube" id="tube" role="img" aria-label="Composition column"></div>
+          <span class="cyl__cap">100 wt%</span>
+        </div>
+      </div>
+
+      <div class="readouts" id="readouts"></div>
+
+      <div class="console__foot" id="presets"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= SECTOR STRIP ================= -->
+<div class="strip">
+  <div class="wrap strip__in">
+    <span class="strip__lb">Formulating in</span>
+    <span class="strip__i">Specialty polymers</span>
+    <span class="strip__i">Lubricants &amp; greases</span>
+    <span class="strip__i">Coatings &amp; resins</span>
+    <span class="strip__i">Surfactants</span>
+    <span class="strip__i">Water treatment</span>
+    <span class="strip__i">Agrochemicals</span>
+  </div>
+</div>
+
+<!-- ================= WORKFLOW ================= -->
+<section class="band band--dark" id="workflow">
+  <div class="wrap">
+    <div class="sechead rv">
+      <span class="tag">Stage gates</span>
+      <h2>Five gates between an idea and a certificate of analysis.</h2>
+      <p>Most formulation work dies in the handoffs — bench notebook to simulation to pilot to plant, each with its own file and its own version of the truth. Reflux keeps one record and moves it through the gates with you.</p>
+    </div>
+
+    <div class="flow rv" id="flow">
+      <article class="stage">
+        <span class="stage__n">GATE 01</span>
+        <h3>Formulate</h3>
+        <p>Build a recipe from a governed raw-material library. Every component carries its own property set, cost curve, and supplier lot history.</p>
+        <span class="stage__scale">1 g – 2 kg</span>
+      </article>
+      <article class="stage">
+        <span class="stage__n">GATE 02</span>
+        <h3>Predict</h3>
+        <p>Thermophysical properties resolve as you type — viscosity by Kendall–Monroe, density by ideal-volume mixing, flash point by dilution model.</p>
+        <span class="stage__scale">In silico</span>
+      </article>
+      <article class="stage">
+        <span class="stage__n">GATE 03</span>
+        <h3>Screen</h3>
+        <p>Regulatory and hazard checks run against the live composition. Restricted substances flag at the component level, before you order drums.</p>
+        <span class="stage__scale">42 jurisdictions</span>
+      </article>
+      <article class="stage">
+        <span class="stage__n">GATE 04</span>
+        <h3>Scale</h3>
+        <p>Translate bench ratios into charge sheets: mixer geometry, heat duty, addition order, and hold times sized for the vessel you actually own.</p>
+        <span class="stage__scale">200 L – 40 m³</span>
+      </article>
+      <article class="stage">
+        <span class="stage__n">GATE 05</span>
+        <h3>Release</h3>
+        <p>Batch records, deviations, and CoAs generate from the same recipe object. Lot genealogy traces backward to the drum it came from.</p>
+        <span class="stage__scale">Signed &amp; archived</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLATFORM ================= -->
+<section class="band band--lite" id="platform">
+  <div class="wrap">
+    <div class="sechead rv">
+      <span class="tag">Platform</span>
+      <h2>Built by process engineers, for the parts of the job nobody automates.</h2>
+      <p>No generic PLM shoehorned into a lab. Every module below exists because a formulation team asked for it after losing a week to a spreadsheet.</p>
+    </div>
+
+    <div class="caps rv">
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 26h24M9 26V13l7-7 7 7v13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 26v-7h6v7" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h3>Property prediction</h3>
+        <p>Viscosity, density, flash point, cloud point, pH, and VOC resolve from composition using published mixing rules — not curve-fits on your last twelve batches.</p>
+        <div class="cap__meta">Kendall–Monroe · UNIFAC · NRTL</div>
+      </article>
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3l11 5v8c0 7-4.6 11.4-11 13-6.4-1.6-11-6-11-13V8l11-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M11.5 16l3.2 3.2 6-6.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Regulatory screening</h3>
+        <p>Components check against REACH Annex XVII, TSCA inventory, Prop 65, and regional VOC caps. Safety data sheets draft in 28 languages and stay tied to the recipe version.</p>
+        <div class="cap__meta">GHS rev. 10 · SDS authoring</div>
+      </article>
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 6h20M9 6v9L4 27h24l-5-12V6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.5 20h17" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h3>Scale-up modelling</h3>
+        <p>Hold constant tip speed or constant power per volume and Reflux resizes the charge sheet for your vessel — with jacket duty, ramp rates, and addition order carried along.</p>
+        <div class="cap__meta">Bench → pilot → plant</div>
+      </article>
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="4" width="22" height="24" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 11h12M10 16h12M10 21h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <h3>Batch records</h3>
+        <p>Electronic batch records with enforced signature order, deviation capture, and a tamper-evident audit trail. Exports as a validated PDF package your auditor already knows.</p>
+        <div class="cap__meta">21 CFR Part 11 · ISO 9001</div>
+      </article>
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.6"/><path d="M16 8v8l5.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <h3>Plant connectors</h3>
+        <p>Pull real batch data back into the recipe. OPC UA, Modbus TCP, and historian connectors close the loop so predicted properties get graded against what the plant actually made.</p>
+        <div class="cap__meta">OPC UA · Modbus · PI / AVEVA</div>
+      </article>
+      <article class="cap">
+        <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 4l10 5.5v13L16 28 6 22.5v-13L16 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 9.5l10 5.5 10-5.5M16 15v13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <h3>Cost &amp; supply</h3>
+        <p>Live landed cost per kilogram against contracted supplier pricing, with substitution candidates ranked by property delta when a raw material goes on allocation.</p>
+        <div class="cap__meta">Substitution solver</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DATASHEET ================= -->
+<section class="band band--dark" id="datasheet">
+  <div class="wrap">
+    <div class="sechead rv">
+      <span class="tag">Specification</span>
+      <h2>The platform, written the way you'd write a product.</h2>
+      <p>You read datasheets for a living. Here's ours.</p>
+    </div>
+
+    <div class="sheet rv">
+      <div class="sheet__hd">
+        <h3>Reflux — technical datasheet</h3>
+        <span class="sheet__rev">REV 4.2 · ISSUED 2026-08</span>
+      </div>
+      <div class="rows">
+        <div class="row"><span class="row__k">Deployment</span><span class="row__v">Multi-tenant cloud, single-tenant VPC, or on-premises</span></div>
+        <div class="row"><span class="row__k">Data residency</span><span class="row__v">US · EU · Singapore · Japan</span></div>
+        <div class="row"><span class="row__k">Identity</span><span class="row__v">SAML 2.0, OIDC, SCIM provisioning</span></div>
+        <div class="row"><span class="row__k">Encryption</span><span class="row__v">AES-256 at rest, TLS 1.3 in transit, BYOK optional</span></div>
+        <div class="row"><span class="row__k">Component library</span><span class="row__v">218,000 raw materials with curated property sets</span></div>
+        <div class="row"><span class="row__k">Property engine</span><span class="row__v">Mixing rules, group contribution, and fitted models</span></div>
+        <div class="row"><span class="row__k">Integrations</span><span class="row__v">SAP, Oracle ERP, LIMS, OPC UA, Modbus TCP, REST</span></div>
+        <div class="row"><span class="row__k">Audit trail</span><span class="row__v">Immutable, per-field, exportable, 21 CFR Part 11</span></div>
+        <div class="row"><span class="row__k">Uptime commitment</span><span class="row__v">99.9% monthly, credited</span></div>
+        <div class="row"><span class="row__k">Support</span><span class="row__v">Named process engineer, 4-hour response</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLANS ================= -->
+<section class="band band--dark" id="plans" style="padding-top:0">
+  <div class="wrap">
+    <div class="sechead rv">
+      <span class="tag">Plans</span>
+      <h2>Priced by the scale you're working at.</h2>
+      <p>Start at the bench. Move up when the vessel does.</p>
+    </div>
+
+    <div class="plans rv">
+      <article class="plan">
+        <span class="plan__sc">Scale 01</span>
+        <h3>Bench</h3>
+        <div class="plan__pr">$340 <small>/ seat / month</small></div>
+        <p class="plan__for">For R&amp;D groups proving a formulation out.</p>
+        <ul>
+          <li>Up to 50 active formulations</li>
+          <li>Full property prediction engine</li>
+          <li>Draft SDS and GHS classification</li>
+          <li>Raw-material library and cost roll-up</li>
+          <li>Up to 5 seats</li>
+        </ul>
+        <a class="btn btn--ghost" href="#access">Start at bench</a>
+      </article>
+
+      <article class="plan plan--hi">
+        <span class="plan__sc">Scale 02 · Most teams</span>
+        <h3>Pilot</h3>
+        <div class="plan__pr">$780 <small>/ seat / month</small></div>
+        <p class="plan__for">For teams taking recipes into pilot and qualification.</p>
+        <ul>
+          <li>Unlimited formulations and versions</li>
+          <li>Scale-up modelling and charge sheets</li>
+          <li>Electronic batch records with signatures</li>
+          <li>SDS publishing across 42 jurisdictions</li>
+          <li>REST API and webhooks</li>
+          <li>Stage-gate approvals and review routing</li>
+        </ul>
+        <a class="btn btn--fill" href="#access">Request access</a>
+      </article>
+
+      <article class="plan">
+        <span class="plan__sc">Scale 03</span>
+        <h3>Plant</h3>
+        <div class="plan__pr">Custom <small>/ annual</small></div>
+        <p class="plan__for">For manufacturers running Reflux as the system of record.</p>
+        <ul>
+          <li>Everything in Pilot</li>
+          <li>Single-tenant VPC or on-premises</li>
+          <li>Historian and DCS connectors</li>
+          <li>SSO, SCIM, and custom retention</li>
+          <li>Validation package and IQ/OQ support</li>
+          <li>Named process engineer</li>
+        </ul>
+        <a class="btn btn--ghost" href="#access">Talk to engineering</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLOSE ================= -->
+<section class="band band--dark close" id="access" style="padding-top:0">
+  <div class="wrap rv">
+    <span class="tag">Request access</span>
+    <h2>Your next formulation deserves better than a spreadsheet.</h2>
+    <p>Onboarding takes two weeks and starts with your existing recipes. We migrate them, validate the property predictions against your historical batch data, and hand you the deltas.</p>
+    <div class="close__cta">
+      <a class="btn btn--fill btn--lg" href="mailto:access@reflux.chem">Request access</a>
+      <a class="btn btn--ghost btn--lg" href="#workflow">Read the workflow</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__in">
+      <div>
+        <a class="mark" href="#top">
+          <svg class="mark__glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2v20M12 2 6 8M12 2l6 6M12 22l-6-6M12 22l6-6" stroke="#4FD3E8" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="3.1" stroke="#2B6FE0" stroke-width="1.6"/>
+          </svg>
+          <span class="mark__word">RE<em>FLUX</em></span>
+        </a>
+        <p class="foot__bio">The formulation system of record for industrial chemistry. Built by process engineers who got tired of version 14 final FINAL.xlsx.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#workflow">Workflow</a></li>
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#datasheet">Datasheet</a></li>
+          <li><a href="#plans">Plans</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Compliance</h4>
+        <ul>
+          <li><a href="#datasheet">SOC 2 Type II</a></li>
+          <li><a href="#datasheet">21 CFR Part 11</a></li>
+          <li><a href="#platform">GHS &amp; SDS</a></li>
+          <li><a href="#platform">REACH &amp; TSCA</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#access">Contact</a></li>
+          <li><a href="#access">Careers</a></li>
+          <li><a href="#access">Security</a></li>
+          <li><a href="#access">Status</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bot">
+      <span>© 2026 Reflux Systems</span>
+      <span>Console figures are illustrative</span>
+      <span>Baton Rouge · Rotterdam · Singapore</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   BLEND CONSOLE
+   Composition drives properties through real mixing rules.
+   Weights are normalised to 100 wt% for every calculation.
+   ============================================================ */
+const COMPONENTS = [
+  { id:'lim',  name:'d-Limonene',                 role:'Solvent base',        color:'#4FD3E8', w:42, rho:0.842, mu:0.92,  cost:4.80, voc:1, fp:48  },
+  { id:'surf', name:'C12–14 alcohol ethoxylate',  role:'Nonionic surfactant', color:'#2B6FE0', w:18, rho:0.990, mu:180,   cost:3.20, voc:0, fp:175 },
+  { id:'bldr', name:'Sodium metasilicate',        role:'Alkaline builder',    color:'#7E9BBA', w:6,  rho:2.400, mu:3,     cost:1.10, voc:0, fp:300 },
+  { id:'inhb', name:'Benzotriazole',              role:'Corrosion inhibitor', color:'#F2B441', w:2,  rho:1.360, mu:5,     cost:12.50,voc:0, fp:200 },
+  { id:'h2o',  name:'Deionised water',            role:'Carrier',             color:'#1E3E60', w:32, rho:0.997, mu:0.89,  cost:0.02, voc:0, fp:300 }
+];
+
+const SPECS = [
+  { key:'visc', label:'Viscosity, 25 °C', unit:'cP',    min:2.0,  max:8.0,  dec:2, spec:'2.0 – 8.0 cP' },
+  { key:'dens', label:'Density',          unit:'g/cm³', min:0.90, max:1.05, dec:3, spec:'0.90 – 1.05' },
+  { key:'flsh', label:'Flash point',      unit:'°C',    min:60,   max:999,  dec:0, spec:'≥ 60 °C' },
+  { key:'ph',   label:'pH, 1% solution',  unit:'',      min:10.5, max:12.5, dec:1, spec:'10.5 – 12.5' },
+  { key:'voc',  label:'VOC content',      unit:'g/L',   min:0,    max:450,  dec:0, spec:'≤ 450 g/L' },
+  { key:'cost', label:'Landed cost',      unit:'$/kg',  min:0,    max:3.50, dec:2, spec:'≤ $3.50/kg' }
+];
+
+const PRESETS = [
+  { name:'Baseline concentrate', w:[42,18,6,2,32] },
+  { name:'Low-VOC variant',      w:[22,24,7,2,45] },
+  { name:'High-alkalinity',      w:[30,16,12,2,40] },
+  { name:'Cost-down',            w:[26,14,6,1,53] }
+];
+
+const $sliders  = document.getElementById('sliders');
+const $tube     = document.getElementById('tube');
+const $readouts = document.getElementById('readouts');
+const $presets  = document.getElementById('presets');
+const $chip     = document.getElementById('chip');
+
+/* ---- build sliders ---- */
+COMPONENTS.forEach((c, i) => {
+  const row = document.createElement('div');
+  row.className = 'slider';
+  row.innerHTML =
+    '<div class="slider__top">' +
+      '<i class="swatch" style="background:' + c.color + '"></i>' +
+      '<span class="slider__name">' + c.name + '<span class="slider__role">' + c.role + '</span></span>' +
+      '<span class="slider__val" id="v-' + c.id + '">00.0 wt%</span>' +
+    '</div>' +
+    '<input type="range" min="0" max="60" step="1" value="' + c.w + '" id="s-' + c.id + '" aria-label="' + c.name + ' loading, weight parts">';
+  $sliders.appendChild(row);
+  row.querySelector('input').addEventListener('input', e => {
+    COMPONENTS[i].w = +e.target.value;
+    clearPreset();
+    render();
+  });
+});
+
+/* ---- build column segments ---- */
+COMPONENTS.forEach(c => {
+  const seg = document.createElement('div');
+  seg.className = 'cyl__seg';
+  seg.id = 'g-' + c.id;
+  seg.style.background = c.color;
+  $tube.appendChild(seg);
+});
+
+/* ---- build readouts ---- */
+SPECS.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'rd';
+  el.id = 'r-' + s.key;
+  el.innerHTML =
+    '<div class="rd__k"><i></i>' + s.label + '</div>' +
+    '<div class="rd__v" id="rv-' + s.key + '">—</div>' +
+    '<div class="rd__s">Spec ' + s.spec + '</div>';
+  $readouts.appendChild(el);
+});
+
+/* ---- build presets ---- */
+PRESETS.forEach((p, i) => {
+  const b = document.createElement('button');
+  b.className = 'preset' + (i === 0 ? ' is-on' : '');
+  b.textContent = p.name;
+  b.addEventListener('click', () => {
+    p.w.forEach((v, j) => {
+      COMPONENTS[j].w = v;
+      document.getElementById('s-' + COMPONENTS[j].id).value = v;
+    });
+    clearPreset();
+    b.classList.add('is-on');
+    render();
+  });
+  $presets.appendChild(b);
+});
+function clearPreset(){ $presets.querySelectorAll('.preset').forEach(b => b.classList.remove('is-on')); }
+
+/* ---- the model ---- */
+function render(){
+  const total = COMPONENTS.reduce((a, c) => a + c.w, 0) || 1;
+  const f = COMPONENTS.map(c => c.w / total);   // mass fractions
+
+  // density — ideal volume mixing: 1/ρ = Σ wᵢ/ρᵢ
+  const dens = 1 / COMPONENTS.reduce((a, c, i) => a + f[i] / c.rho, 0);
+  // viscosity — Kendall–Monroe log blending: ln μ = Σ wᵢ ln μᵢ
+  const visc = Math.exp(COMPONENTS.reduce((a, c, i) => a + f[i] * Math.log(c.mu), 0));
+  // flash point — rises as the volatile solvent is diluted
+  const wLim = f[0];
+  const flsh = wLim < 0.02 ? 100 : Math.min(100, 48 + 70 * Math.pow(1 - wLim, 2));
+  // pH — driven by the alkaline builder
+  const wB = f[2];
+  const ph = wB <= 0 ? 7 : Math.min(13, 7 + 5.4 * Math.pow(wB * 10, 0.35));
+  // VOC — solvent mass per litre of product
+  const voc = wLim * dens * 1000;
+  // cost — mass-weighted
+  const cost = COMPONENTS.reduce((a, c, i) => a + f[i] * c.cost, 0);
+
+  const vals = { visc, dens, flsh, ph, voc, cost };
+  let allOk = true;
+
+  SPECS.forEach(s => {
+    const v = vals[s.key];
+    const ok = v >= s.min && v <= s.max;
+    if (!ok) allOk = false;
+    const box = document.getElementById('r-' + s.key);
+    box.classList.toggle('is-off', !ok);
+    let txt = (s.key === 'flsh' && v >= 100) ? '>100' : v.toFixed(s.dec);
+    if (s.key === 'cost') txt = '$' + txt;
+    document.getElementById('rv-' + s.key).innerHTML =
+      txt + (s.unit ? ' <small>' + s.unit + '</small>' : '');
+  });
+
+  COMPONENTS.forEach((c, i) => {
+    document.getElementById('v-' + c.id).textContent = (f[i] * 100).toFixed(1) + ' wt%';
+    document.getElementById('g-' + c.id).style.height = (f[i] * 100) + '%';
+  });
+
+  $chip.textContent = allOk ? 'IN SPEC' : 'OFF SPEC';
+  $chip.className = 'chip ' + (allOk ? 'chip--ok' : 'chip--off');
+}
+render();
+
+/* ---- scroll reveal ---- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv, #flow').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
