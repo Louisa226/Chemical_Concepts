@@ -26,19 +26,19 @@
   --lab:      #F0F5FA;
   --lab-2:    #E2ECF6;
   --sodium:   #F2B441;
-
+ 
   --line-dark: rgba(146,182,222,.18);
   --line-lite: rgba(18,58,99,.14);
-
+ 
   --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
   --body: "IBM Plex Sans", system-ui, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
-
+ 
   --gut: clamp(20px, 5vw, 64px);
   --max: 1240px;
   --ease: cubic-bezier(.22,.61,.36,1);
 }
-
+ 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body{
@@ -49,28 +49,28 @@ body{
 img,svg{ display:block; max-width:100%; }
 a{ color:inherit; text-decoration:none; }
 button,input{ font:inherit; color:inherit; }
-
+ 
 :focus-visible{ outline:2px solid var(--cupric); outline-offset:3px; border-radius:3px; }
-
+ 
 .wrap{ width:100%; max-width:var(--max); margin:0 auto; padding-inline:var(--gut); }
-
+ 
 .mono{ font-family:var(--mono); }
 .tag{
   font-family:var(--mono); font-size:11px; font-weight:500;
   letter-spacing:.16em; text-transform:uppercase; color:var(--cupric);
 }
 .tag--dim{ color:var(--prussian); }
-
+ 
 h1,h2,h3{ font-family:var(--display); font-weight:700; margin:0; line-height:1.02; letter-spacing:-.028em; }
 p{ margin:0; }
-
+ 
 /* ---------- bands ---------- */
 .band{ position:relative; padding-block:clamp(72px,10vw,132px); }
 .band--dark{ background:var(--ink); }
 .band--lite{ background:var(--lab); color:var(--abyss); }
 .band--lite .tag{ color:var(--cobalt); }
 .rule{ height:1px; background:var(--line-dark); border:0; margin:0; }
-
+ 
 /* ============================================================
    NAV
    ============================================================ */
@@ -94,7 +94,7 @@ p{ margin:0; }
   color:var(--mist); transition:color .2s var(--ease);
 }
 .nav__links a:hover{ color:var(--paper); }
-
+ 
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:9px;
   padding:11px 20px; border-radius:999px; border:1px solid transparent;
@@ -107,7 +107,7 @@ p{ margin:0; }
 .btn--ghost{ border-color:var(--line-dark); color:var(--paper); background:transparent; }
 .btn--ghost:hover{ border-color:var(--cupric); color:var(--cupric); transform:translateY(-2px); }
 .btn--lg{ padding:15px 28px; font-size:13.5px; }
-
+ 
 /* ============================================================
    HERO
    ============================================================ */
@@ -129,7 +129,7 @@ p{ margin:0; }
   -webkit-mask-image:radial-gradient(circle at 50% 34%, #000 0%, transparent 78%);
 }
 .hero__in{ position:relative; display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(36px,5vw,68px); align-items:center; }
-
+ 
 .hero h1{
   font-size:clamp(40px,5.6vw,74px);
   margin:20px 0 22px;
@@ -147,7 +147,7 @@ p{ margin:0; }
 }
 .hero__trust span{ display:flex; align-items:center; gap:7px; }
 .dot{ width:5px; height:5px; border-radius:50%; background:var(--cupric); flex:none; }
-
+ 
 /* ============================================================
    SIGNATURE — BLEND CONSOLE
    ============================================================ */
@@ -171,16 +171,16 @@ p{ margin:0; }
 }
 .chip--ok{ color:var(--cupric); border-color:rgba(79,211,232,.42); background:rgba(79,211,232,.09); }
 .chip--off{ color:var(--sodium); border-color:rgba(242,180,65,.45); background:rgba(242,180,65,.10); }
-
+ 
 .console__grid{ display:grid; grid-template-columns:1fr 78px; gap:20px; padding:20px 18px 6px; }
-
+ 
 .slider{ margin-bottom:15px; }
 .slider__top{ display:flex; align-items:baseline; gap:10px; margin-bottom:7px; }
 .swatch{ width:9px; height:9px; border-radius:2px; flex:none; transform:translateY(1px); }
 .slider__name{ font-size:12.5px; font-weight:500; color:#CBDCEE; margin-right:auto; line-height:1.3; }
 .slider__role{ font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; display:block; }
 .slider__val{ font-family:var(--mono); font-size:12px; font-variant-numeric:tabular-nums; color:var(--paper); }
-
+ 
 input[type=range]{
   -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:99px;
   background:rgba(146,182,222,.20); cursor:grab; margin:0;
@@ -195,7 +195,7 @@ input[type=range]::-moz-range-thumb{
   width:15px; height:15px; border-radius:50%; background:var(--paper);
   border:3px solid var(--cobalt); cursor:grab; box-shadow:0 2px 8px rgba(0,0,0,.5);
 }
-
+ 
 /* graduated column */
 .cyl{ display:flex; flex-direction:column; align-items:center; gap:9px; }
 .cyl__tube{
@@ -205,7 +205,7 @@ input[type=range]::-moz-range-thumb{
 }
 .cyl__seg{ width:100%; transition:height .45s var(--ease); }
 .cyl__cap{ font-family:var(--mono); font-size:9.5px; letter-spacing:.09em; color:#5E7B99; text-align:center; }
-
+ 
 /* readouts */
 .readouts{
   display:grid; grid-template-columns:repeat(3,1fr);
@@ -221,7 +221,7 @@ input[type=range]::-moz-range-thumb{
 .rd__s{ font-family:var(--mono); font-size:9.5px; color:#4F6B87; margin-top:2px; }
 .rd.is-off .rd__v{ color:var(--sodium); }
 .rd.is-off .rd__k i{ background:var(--sodium); }
-
+ 
 .console__foot{ display:flex; flex-wrap:wrap; gap:8px; padding:14px 18px; border-top:1px solid var(--line-dark); background:rgba(6,18,31,.34); }
 .preset{
   font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; padding:7px 13px;
@@ -230,7 +230,7 @@ input[type=range]::-moz-range-thumb{
 }
 .preset:hover{ border-color:var(--cupric); color:var(--cupric); }
 .preset.is-on{ background:rgba(79,211,232,.12); border-color:rgba(79,211,232,.45); color:var(--cupric); }
-
+ 
 /* ============================================================
    SECTOR STRIP
    ============================================================ */
@@ -241,16 +241,16 @@ input[type=range]::-moz-range-thumb{
   font-family:var(--display); font-weight:600; font-size:14.5px; letter-spacing:-.01em;
   color:#7E9BBA; padding:0 22px; border-left:1px solid var(--line-dark);
 }
-
+ 
 /* ============================================================
    PROCESS — a real sequence, so it gets real numbers
    ============================================================ */
 .sechead{ max-width:62ch; margin-bottom:clamp(38px,5vw,60px); }
 .sechead h2{ font-size:clamp(29px,3.6vw,48px); margin:16px 0 16px; }
 .sechead p{ color:var(--mist); font-size:17px; }
+.band--lite .sechead p{ color:#4A6established; }
 .band--lite .sechead p{ color:#4C6683; }
-.band--lite .sechead h2{ color:var(--abyss); }
-
+ 
 .flow{ display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
 .stage{ position:relative; padding:26px 22px 0 0; border-top:1px solid var(--line-dark); }
 .stage::before{
@@ -267,7 +267,7 @@ input[type=range]::-moz-range-thumb{
 .stage h3{ font-size:20px; margin:11px 0 9px; }
 .stage p{ font-size:14px; color:var(--mist); }
 .stage__scale{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#5E7B99; margin-top:12px; }
-
+ 
 /* ============================================================
    CAPABILITIES
    ============================================================ */
@@ -278,7 +278,7 @@ input[type=range]::-moz-range-thumb{
 .cap h3{ font-size:19px; margin-bottom:9px; color:var(--abyss); }
 .cap p{ font-size:14.5px; color:#4C6683; }
 .cap__meta{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8AA3BE; margin-top:16px; padding-top:14px; border-top:1px solid var(--line-lite); }
-
+ 
 /* ============================================================
    DATASHEET
    ============================================================ */
@@ -294,7 +294,7 @@ input[type=range]::-moz-range-thumb{
 .row:nth-child(odd){ border-right:1px solid var(--line-dark); }
 .row__k{ font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#5E7B99; width:44%; flex:none; }
 .row__v{ font-size:14px; color:#CBDCEE; }
-
+ 
 /* ============================================================
    PLANS
    ============================================================ */
@@ -315,7 +315,7 @@ input[type=range]::-moz-range-thumb{
 .plan li{ font-size:13.5px; color:#B4C9DE; padding-left:20px; position:relative; }
 .plan li::before{ content:""; position:absolute; left:0; top:8px; width:8px; height:1px; background:var(--cupric); }
 .plan .btn{ margin-top:auto; width:100%; }
-
+ 
 /* ============================================================
    CLOSE + FOOTER
    ============================================================ */
@@ -323,7 +323,7 @@ input[type=range]::-moz-range-thumb{
 .close h2{ font-size:clamp(32px,4.6vw,60px); margin:18px auto 20px; max-width:16ch; }
 .close p{ color:var(--mist); max-width:50ch; margin:0 auto 32px; font-size:17px; }
 .close__cta{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-
+ 
 .foot{ border-top:1px solid var(--line-dark); padding-block:52px 40px; background:var(--abyss); }
 .foot__in{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:36px; }
 .foot__bio{ font-size:13.5px; color:#6F8CAA; max-width:34ch; margin-top:14px; }
@@ -332,11 +332,11 @@ input[type=range]::-moz-range-thumb{
 .foot li a{ font-size:13.5px; color:#9EB7D0; transition:color .2s; }
 .foot li a:hover{ color:var(--cupric); }
 .foot__bot{ display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:44px; padding-top:22px; border-top:1px solid var(--line-dark); font-family:var(--mono); font-size:11px; color:#4F6B87; }
-
+ 
 /* ---------- reveal ---------- */
 .rv{ opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .rv.is-in{ opacity:1; transform:none; }
-
+ 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -371,7 +371,7 @@ input[type=range]::-moz-range-thumb{
 </style>
 </head>
 <body>
-
+ 
 <!-- ================= NAV ================= -->
 <header class="nav">
   <div class="wrap nav__in">
@@ -391,12 +391,12 @@ input[type=range]::-moz-range-thumb{
     <a class="btn btn--fill" href="#access">Request access</a>
   </div>
 </header>
-
+ 
 <!-- ================= HERO ================= -->
 <main id="top">
 <section class="hero">
   <div class="wrap hero__in">
-
+ 
     <div>
       <span class="tag">Formulation platform · Industrial chemistry</span>
       <h1>Take a formulation from&nbsp;beaker to <span class="grad">railcar.</span></h1>
@@ -415,7 +415,7 @@ input[type=range]::-moz-range-thumb{
         <span><i class="dot"></i>GHS / REACH / TSCA screening</span>
       </div>
     </div>
-
+ 
     <!-- ---------- SIGNATURE: live blend console ---------- -->
     <div class="console" id="console">
       <div class="console__bar">
@@ -423,7 +423,7 @@ input[type=range]::-moz-range-thumb{
         <span class="console__title">Blend console · Alkaline degreaser concentrate</span>
         <span class="chip chip--ok" id="chip">IN SPEC</span>
       </div>
-
+ 
       <div class="console__grid">
         <div id="sliders"></div>
         <div class="cyl">
@@ -431,15 +431,15 @@ input[type=range]::-moz-range-thumb{
           <span class="cyl__cap">100 wt%</span>
         </div>
       </div>
-
+ 
       <div class="readouts" id="readouts"></div>
-
+ 
       <div class="console__foot" id="presets"></div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- ================= SECTOR STRIP ================= -->
 <div class="strip">
   <div class="wrap strip__in">
@@ -452,7 +452,7 @@ input[type=range]::-moz-range-thumb{
     <span class="strip__i">Agrochemicals</span>
   </div>
 </div>
-
+ 
 <!-- ================= WORKFLOW ================= -->
 <section class="band band--dark" id="workflow">
   <div class="wrap">
@@ -461,7 +461,7 @@ input[type=range]::-moz-range-thumb{
       <h2>Five gates between an idea and a certificate of analysis.</h2>
       <p>Most formulation work dies in the handoffs — bench notebook to simulation to pilot to plant, each with its own file and its own version of the truth. Reflux keeps one record and moves it through the gates with you.</p>
     </div>
-
+ 
     <div class="flow rv" id="flow">
       <article class="stage">
         <span class="stage__n">GATE 01</span>
@@ -496,7 +496,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </section>
-
+ 
 <!-- ================= PLATFORM ================= -->
 <section class="band band--lite" id="platform">
   <div class="wrap">
@@ -505,7 +505,7 @@ input[type=range]::-moz-range-thumb{
       <h2>Built by process engineers, for the parts of the job nobody automates.</h2>
       <p>No generic PLM shoehorned into a lab. Every module below exists because a formulation team asked for it after losing a week to a spreadsheet.</p>
     </div>
-
+ 
     <div class="caps rv">
       <article class="cap">
         <svg class="cap__ic" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 26h24M9 26V13l7-7 7 7v13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 26v-7h6v7" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -546,7 +546,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </section>
-
+ 
 <!-- ================= DATASHEET ================= -->
 <section class="band band--dark" id="datasheet">
   <div class="wrap">
@@ -555,7 +555,7 @@ input[type=range]::-moz-range-thumb{
       <h2>The platform, written the way you'd write a product.</h2>
       <p>You read datasheets for a living. Here's ours.</p>
     </div>
-
+ 
     <div class="sheet rv">
       <div class="sheet__hd">
         <h3>Reflux — technical datasheet</h3>
@@ -576,7 +576,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </section>
-
+ 
 <!-- ================= PLANS ================= -->
 <section class="band band--dark" id="plans" style="padding-top:0">
   <div class="wrap">
@@ -585,7 +585,7 @@ input[type=range]::-moz-range-thumb{
       <h2>Priced by the scale you're working at.</h2>
       <p>Start at the bench. Move up when the vessel does.</p>
     </div>
-
+ 
     <div class="plans rv">
       <article class="plan">
         <span class="plan__sc">Scale 01</span>
@@ -601,7 +601,7 @@ input[type=range]::-moz-range-thumb{
         </ul>
         <a class="btn btn--ghost" href="#access">Start at bench</a>
       </article>
-
+ 
       <article class="plan plan--hi">
         <span class="plan__sc">Scale 02 · Most teams</span>
         <h3>Pilot</h3>
@@ -617,7 +617,7 @@ input[type=range]::-moz-range-thumb{
         </ul>
         <a class="btn btn--fill" href="#access">Request access</a>
       </article>
-
+ 
       <article class="plan">
         <span class="plan__sc">Scale 03</span>
         <h3>Plant</h3>
@@ -636,7 +636,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </section>
-
+ 
 <!-- ================= CLOSE ================= -->
 <section class="band band--dark close" id="access" style="padding-top:0">
   <div class="wrap rv">
@@ -650,7 +650,7 @@ input[type=range]::-moz-range-thumb{
   </div>
 </section>
 </main>
-
+ 
 <!-- ================= FOOTER ================= -->
 <footer class="foot">
   <div class="wrap">
@@ -700,7 +700,7 @@ input[type=range]::-moz-range-thumb{
     </div>
   </div>
 </footer>
-
+ 
 <script>
 /* ============================================================
    BLEND CONSOLE
@@ -714,7 +714,7 @@ const COMPONENTS = [
   { id:'inhb', name:'Benzotriazole',              role:'Corrosion inhibitor', color:'#F2B441', w:2,  rho:1.360, mu:5,     cost:12.50,voc:0, fp:200 },
   { id:'h2o',  name:'Deionised water',            role:'Carrier',             color:'#1E3E60', w:32, rho:0.997, mu:0.89,  cost:0.02, voc:0, fp:300 }
 ];
-
+ 
 const SPECS = [
   { key:'visc', label:'Viscosity, 25 °C', unit:'cP',    min:2.0,  max:8.0,  dec:2, spec:'2.0 – 8.0 cP' },
   { key:'dens', label:'Density',          unit:'g/cm³', min:0.90, max:1.05, dec:3, spec:'0.90 – 1.05' },
@@ -723,20 +723,20 @@ const SPECS = [
   { key:'voc',  label:'VOC content',      unit:'g/L',   min:0,    max:450,  dec:0, spec:'≤ 450 g/L' },
   { key:'cost', label:'Landed cost',      unit:'$/kg',  min:0,    max:3.50, dec:2, spec:'≤ $3.50/kg' }
 ];
-
+ 
 const PRESETS = [
   { name:'Baseline concentrate', w:[42,18,6,2,32] },
   { name:'Low-VOC variant',      w:[22,24,7,2,45] },
   { name:'High-alkalinity',      w:[30,16,12,2,40] },
   { name:'Cost-down',            w:[26,14,6,1,53] }
 ];
-
+ 
 const $sliders  = document.getElementById('sliders');
 const $tube     = document.getElementById('tube');
 const $readouts = document.getElementById('readouts');
 const $presets  = document.getElementById('presets');
 const $chip     = document.getElementById('chip');
-
+ 
 /* ---- build sliders ---- */
 COMPONENTS.forEach((c, i) => {
   const row = document.createElement('div');
@@ -755,7 +755,7 @@ COMPONENTS.forEach((c, i) => {
     render();
   });
 });
-
+ 
 /* ---- build column segments ---- */
 COMPONENTS.forEach(c => {
   const seg = document.createElement('div');
@@ -764,7 +764,7 @@ COMPONENTS.forEach(c => {
   seg.style.background = c.color;
   $tube.appendChild(seg);
 });
-
+ 
 /* ---- build readouts ---- */
 SPECS.forEach(s => {
   const el = document.createElement('div');
@@ -776,7 +776,7 @@ SPECS.forEach(s => {
     '<div class="rd__s">Spec ' + s.spec + '</div>';
   $readouts.appendChild(el);
 });
-
+ 
 /* ---- build presets ---- */
 PRESETS.forEach((p, i) => {
   const b = document.createElement('button');
@@ -794,12 +794,12 @@ PRESETS.forEach((p, i) => {
   $presets.appendChild(b);
 });
 function clearPreset(){ $presets.querySelectorAll('.preset').forEach(b => b.classList.remove('is-on')); }
-
+ 
 /* ---- the model ---- */
 function render(){
   const total = COMPONENTS.reduce((a, c) => a + c.w, 0) || 1;
   const f = COMPONENTS.map(c => c.w / total);   // mass fractions
-
+ 
   // density — ideal volume mixing: 1/ρ = Σ wᵢ/ρᵢ
   const dens = 1 / COMPONENTS.reduce((a, c, i) => a + f[i] / c.rho, 0);
   // viscosity — Kendall–Monroe log blending: ln μ = Σ wᵢ ln μᵢ
@@ -814,10 +814,10 @@ function render(){
   const voc = wLim * dens * 1000;
   // cost — mass-weighted
   const cost = COMPONENTS.reduce((a, c, i) => a + f[i] * c.cost, 0);
-
+ 
   const vals = { visc, dens, flsh, ph, voc, cost };
   let allOk = true;
-
+ 
   SPECS.forEach(s => {
     const v = vals[s.key];
     const ok = v >= s.min && v <= s.max;
@@ -829,17 +829,17 @@ function render(){
     document.getElementById('rv-' + s.key).innerHTML =
       txt + (s.unit ? ' <small>' + s.unit + '</small>' : '');
   });
-
+ 
   COMPONENTS.forEach((c, i) => {
     document.getElementById('v-' + c.id).textContent = (f[i] * 100).toFixed(1) + ' wt%';
     document.getElementById('g-' + c.id).style.height = (f[i] * 100) + '%';
   });
-
+ 
   $chip.textContent = allOk ? 'IN SPEC' : 'OFF SPEC';
   $chip.className = 'chip ' + (allOk ? 'chip--ok' : 'chip--off');
 }
 render();
-
+ 
 /* ---- scroll reveal ---- */
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
