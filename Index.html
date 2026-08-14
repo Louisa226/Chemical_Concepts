@@ -1,0 +1,843 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peptide Pathways — An Academic Reference on Signaling Peptides</title>
+<meta name="description" content="An academic reference on signaling peptides: sequence homology, receptor mechanism, evidence quality, and pathway interaction. Educational use only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4ef; --surface:#fff; --tint:#eef4f1;
+  --ink:#16302c; --soft:#3e5851; --mute:#7c8e88;
+  --line:#ddd9cc; --line-soft:#eae7dc;
+  --teal:#17564f; --teal-deep:#0e3a35; --teal-tint:#e2eeea;
+  --brass:#a9834f; --brass-tint:#f0e6d4;
+  --steel:#3f6a84; --steel-tint:#e7eef3;
+  --rose:#8a3b2e; --rose-tint:#f6e9e3;
+  --maxw:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Newsreader',Georgia,serif;font-weight:600;color:var(--teal-deep);margin:0;letter-spacing:-.012em}
+p{margin:0 0 15px}
+a{color:var(--teal)}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 34px}
+@media(max-width:640px){.wrap{padding:0 20px}}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;background:var(--teal-deep);color:#fff;padding:12px 18px;z-index:200}
+.skip:focus{left:10px;top:10px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+ 
+/* ============ chrome ============ */
+.ribbon{background:var(--teal-deep);color:#cfe2dc;font-size:12.5px;text-align:center;padding:9px 20px;line-height:1.45}
+.ribbon strong{color:#fff;font-weight:600}
+.ribbon a{color:#e8d5b4}
+ 
+header.site{position:sticky;top:0;z-index:60;background:rgba(245,244,239,.82);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:22px;max-width:var(--maxw);margin:0 auto;padding:15px 34px}
+@media(max-width:640px){.nav{padding:13px 20px}}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Newsreader',serif;font-size:20px;font-weight:600;color:var(--teal-deep);text-decoration:none}
+.brand svg{width:27px;height:27px;flex:none}
+.navlinks{display:flex;gap:27px;font-size:14.5px;font-weight:500}
+.navlinks a{text-decoration:none;color:var(--soft);padding:5px 0;border-bottom:2px solid transparent;transition:color .18s,border-color .18s}
+.navlinks a:hover{color:var(--teal-deep);border-bottom-color:var(--brass)}
+.nav-cta{display:inline-flex;align-items:center;padding:9px 17px;border-radius:9px;background:var(--teal);color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;transition:background .18s,transform .18s}
+.nav-cta:hover{background:var(--teal-deep);transform:translateY(-1px)}
+.menu{display:none;position:relative}
+.menu summary{list-style:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal-deep);border:1px solid var(--line);padding:9px 14px;border-radius:9px;background:var(--surface)}
+.menu summary::-webkit-details-marker{display:none}
+.menu-panel{position:absolute;right:0;top:calc(100% + 10px);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px;min-width:238px;box-shadow:0 22px 48px -20px rgba(14,58,53,.45)}
+.menu-panel a{display:block;padding:9px 13px;text-decoration:none;color:var(--soft);font-size:14.5px;border-radius:8px}
+.menu-panel a:hover{background:var(--teal-tint);color:var(--teal-deep)}
+.menu-panel .sep{height:1px;background:var(--line-soft);margin:7px 4px}
+@media(max-width:940px){.navlinks,.nav-cta{display:none}.menu{display:block}}
+ 
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:10px;font-weight:600;font-size:14.5px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .18s,background .18s,box-shadow .18s,border-color .18s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 10px 26px -10px rgba(23,86,79,.65)}
+.btn-primary:hover{background:var(--teal-deep);box-shadow:0 16px 32px -12px rgba(23,86,79,.7)}
+.btn-ghost{background:var(--surface);color:var(--teal-deep);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--teal)}
+ 
+/* ============ shared ============ */
+section{padding:82px 0}
+@media(max-width:640px){section{padding:56px 0}}
+.band{background:var(--surface)}
+.band-tint{background:var(--tint)}
+.section-head{max-width:660px;margin-bottom:46px}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--brass);margin-bottom:12px;display:block}
+.section-head h2{font-size:clamp(27px,3.2vw,37px)}
+.section-head p{color:var(--soft);margin-top:14px;font-size:16.5px}
+ 
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);background:var(--teal-tint);border:1px solid #c7e0d7;padding:7px 14px;border-radius:100px;margin-bottom:22px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass)}
+ 
+.grade{display:inline-flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:100px;border:1px solid;white-space:nowrap}
+.grade::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.g-approved{color:#0e3a35;background:var(--teal-tint);border-color:#bcdcd2}
+.g-clinical{color:#2c5670;background:var(--steel-tint);border-color:#c4d6e1}
+.g-preclinical{color:#7a5c2e;background:var(--brass-tint);border-color:#ddc9a4}
+.g-topical{color:#5c5342;background:#efebdf;border-color:#dcd5c0}
+ 
+/* ============ hero ============ */
+.hero{position:relative;overflow:hidden;padding:86px 0 74px}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(760px 460px at 78% 8%,rgba(169,131,79,.15),transparent 62%),
+  radial-gradient(680px 480px at 8% 88%,rgba(23,86,79,.11),transparent 60%);pointer-events:none}
+.hero .wrap{position:relative}
+.hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:60px;align-items:center}
+@media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:44px}}
+.hero h1{font-size:clamp(36px,5vw,60px);line-height:1.05}
+.hero h1 em{font-style:italic;color:var(--teal)}
+.hero .lede{margin-top:22px;font-size:18px;color:var(--soft);max-width:52ch}
+.hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{margin-top:44px;display:flex;gap:34px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line)}
+.hstat .n{font-family:'Newsreader',serif;font-size:29px;color:var(--teal-deep);line-height:1}
+.hstat .l{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);margin-top:7px}
+ 
+.chain-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 40px 80px -40px rgba(14,58,53,.36)}
+.chain-card .cap{display:flex;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--mute);letter-spacing:.07em;text-transform:uppercase;margin-bottom:18px}
+.chain-cap{margin:18px 0 0;font-size:13.5px;color:var(--soft);border-top:1px dashed var(--line);padding-top:16px}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bead{animation:drift 4.8s ease-in-out infinite}
+ 
+/* ============ primer ============ */
+.primer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:880px){.primer-grid{grid-template-columns:1fr}}
+.primer{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px;transition:transform .2s,box-shadow .2s}
+.primer:hover{transform:translateY(-3px);box-shadow:0 24px 44px -26px rgba(14,58,53,.3)}
+.primer .ico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;margin-bottom:18px}
+.primer h3{font-size:20px;margin-bottom:11px}
+.primer p{font-size:14.8px;color:var(--soft);margin:0}
+ 
+.callout{border-left:3px solid var(--brass);background:var(--brass-tint);padding:22px 26px;border-radius:0 12px 12px 0;margin:26px 0}
+.callout h4{font-size:17px;margin-bottom:10px;color:#6b4e26}
+.callout p{color:#6b4e26;font-size:14.8px;margin-bottom:0}
+.callout p+p{margin-top:11px}
+.note{border-left:3px solid var(--steel);background:var(--steel-tint);padding:22px 26px;border-radius:0 12px 12px 0;margin:26px 0}
+.note h4{font-size:17px;margin-bottom:10px;color:#2c5670}
+.note p{color:#31556c;font-size:14.8px;margin-bottom:0}
+.note p+p{margin-top:11px}
+ 
+/* ============ library ============ */
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:12.5px;border:1px solid var(--line);background:var(--surface);padding:9px 15px;border-radius:100px;cursor:pointer;color:var(--soft);transition:all .18s}
+.chip:hover{border-color:var(--teal);color:var(--teal-deep)}
+.chip[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+ 
+.pep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:1020px){.pep-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:690px){.pep-grid{grid-template-columns:1fr}}
+.pep{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s}
+.pep:hover{transform:translateY(-4px);box-shadow:0 30px 54px -30px rgba(14,58,53,.4);border-color:#c8d6d0}
+.pep .top{padding:24px 24px 20px;position:relative;overflow:hidden}
+.pep .top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line)}
+.pep .cat{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:block}
+.pep h3{font-size:23px}
+.pep .chain{font-size:12.5px;color:var(--soft);margin-top:6px;font-family:'IBM Plex Mono',monospace}
+.pep .gwrap{margin-top:14px}
+.pep .bd{padding:20px 24px 24px;flex:1;display:flex;flex-direction:column;gap:15px}
+.fld label{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);margin-bottom:6px}
+.fld p{margin:0;font-size:14.2px;color:var(--soft)}
+.tagpill{display:inline-block;background:var(--brass-tint);color:#6b4e26;border-radius:7px;padding:5px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.pep .row{margin-top:auto;padding-top:16px;border-top:1px dashed var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.more{font-size:13.5px;font-weight:600;color:var(--teal);text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap .18s}
+.more:hover{gap:9px}
+.add{font-size:13px;font-weight:600;color:var(--teal);background:none;border:1px solid var(--teal);padding:8px 14px;border-radius:9px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .18s}
+.add:hover{background:var(--teal);color:#fff}
+.add[aria-pressed="true"]{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+ 
+/* ============ builder ============ */
+.builder{background:linear-gradient(155deg,#134b45 0%,#0e3a35 55%,#0b2f2b 100%);border-radius:24px;padding:48px;color:#eaf3f0;position:relative;overflow:hidden}
+@media(max-width:640px){.builder{padding:30px 22px}}
+.builder::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 340px at 90% 4%,rgba(169,131,79,.26),transparent 60%);pointer-events:none}
+.builder>*{position:relative}
+.builder h2{color:#fff;font-size:28px}
+.builder .sub{color:#a9c8c0;margin:10px 0 30px;max-width:58ch;font-size:15px}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+@media(max-width:780px){.slots{grid-template-columns:1fr}}
+.slot{min-height:126px;background:rgba(255,255,255,.055);border:1.5px dashed rgba(255,255,255,.26);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px;transition:all .2s}
+.slot.on{border-style:solid;border-color:var(--brass);background:rgba(169,131,79,.16)}
+.slot .sl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8fb0a8}
+.slot .sn{font-family:'Newsreader',serif;font-size:20px;color:#fff}
+.slot .ss{font-size:12.5px;color:#9fc2b8}
+.slot .se{font-size:13px;color:#84a79f;margin-top:5px}
+.slot .rm{margin-top:auto;align-self:flex-start;background:none;border:1px solid rgba(255,255,255,.24);color:#e6cfaa;font-size:12px;cursor:pointer;padding:5px 11px;border-radius:7px;font-family:'Inter',sans-serif;transition:background .18s}
+.slot .rm:hover{background:rgba(255,255,255,.12)}
+.panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:26px}
+.panel h4{color:#fff;font-size:12.5px;font-family:'IBM Plex Mono',monospace;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px}
+.sl-line{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:#d7e8e3;margin-bottom:14px;line-height:1.6}
+.sl-line:last-of-type{margin-bottom:0}
+.sl-line .d{color:var(--brass);flex:none;margin-top:3px;font-size:10px}
+.sl-line strong{color:#fff}
+.vd{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:6px;margin-right:9px;vertical-align:2px}
+.v-c{background:rgba(169,131,79,.32);color:#f2ddba}
+.v-p{background:rgba(96,150,180,.32);color:#cfe4f0}
+.v-i{background:rgba(255,255,255,.11);color:#a9c8c0}
+.p-empty{color:#84a79f;font-size:14px;margin:0}
+.p-foot{margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.13);font-size:12.5px;color:#84a79f}
+ 
+/* ============ tables ============ */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+table.dt{width:100%;border-collapse:collapse;font-size:14.5px;min-width:660px}
+table.dt th,table.dt td{padding:15px 19px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+table.dt th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);background:var(--teal-tint);border-bottom:1px solid var(--line)}
+table.dt tr:last-child td{border-bottom:none}
+table.dt td.nm{font-family:'Newsreader',serif;font-weight:600;font-size:16.5px;white-space:nowrap}
+table.dt td.nm a{color:var(--teal-deep);text-decoration:none}
+table.dt td.nm a:hover{text-decoration:underline}
+ 
+/* ============ disclaimer ============ */
+.disc{background:var(--rose-tint);border:1px solid #e6c5b8;border-radius:16px;padding:34px 36px}
+.disc h3{color:var(--rose);font-size:20px;margin-bottom:14px}
+.disc p{color:#6b3527;font-size:14.8px}
+.disc p:last-child{margin-bottom:0}
+ 
+/* ============ footer ============ */
+footer{padding:52px 0 42px;border-top:1px solid var(--line);background:var(--tint)}
+.fgrid{display:flex;justify-content:space-between;gap:38px;flex-wrap:wrap}
+.fcol p,.fcol a{font-size:13.5px;color:var(--soft);margin-bottom:8px}
+.fcol a{text-decoration:none;display:block}
+.fcol a:hover{text-decoration:underline}
+.fhead{color:var(--ink);font-weight:600;margin-bottom:12px;font-size:13.5px}
+.legal{margin-top:34px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute);font-family:'IBM Plex Mono',monospace;line-height:1.7}
+ 
+/* ============ detail view ============ */
+.crumb{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--mute);padding:26px 0 0}
+.crumb a{color:var(--soft);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.dhero{position:relative;overflow:hidden;padding:32px 0 52px}
+.dhero::before{content:"";position:absolute;inset:0;pointer-events:none}
+.dhero.c-repair::before{background:radial-gradient(700px 400px at 82% 0%,rgba(23,86,79,.14),transparent 62%)}
+.dhero.c-growth::before{background:radial-gradient(700px 400px at 82% 0%,rgba(169,131,79,.18),transparent 62%)}
+.dhero.c-metabolic::before{background:radial-gradient(700px 400px at 82% 0%,rgba(63,106,132,.16),transparent 62%)}
+.dhero .wrap{position:relative}
+.dhero h1{font-size:clamp(36px,4.8vw,54px);line-height:1.06}
+.dhero .sub{font-size:18px;color:var(--soft);max-width:60ch;margin-top:18px}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:36px}
+@media(max-width:860px){.specs{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.specs{grid-template-columns:1fr}}
+.spec{background:var(--surface);padding:19px 21px}
+.spec dt{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);margin-bottom:7px}
+.spec dd{margin:0;font-size:14.5px;font-weight:500}
+ 
+.dlayout{display:grid;grid-template-columns:200px 1fr;gap:52px;align-items:start}
+@media(max-width:940px){.dlayout{grid-template-columns:1fr;gap:0}.dtoc{display:none}}
+.dtoc{position:sticky;top:96px}
+.dtoc .t{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.dtoc a{display:block;font-size:13.8px;color:var(--soft);text-decoration:none;padding:7px 0 7px 14px;border-left:2px solid var(--line);transition:all .18s}
+.dtoc a:hover{color:var(--teal-deep);border-left-color:var(--brass)}
+ 
+.prose{max-width:72ch}
+.prose p{font-size:16.5px;color:var(--soft)}
+.prose h2{font-size:27px;margin-bottom:18px;scroll-margin-top:100px}
+.prose h3{font-size:20px;margin:34px 0 13px}
+.prose ul{padding-left:21px;color:var(--soft);font-size:16.5px;margin:0 0 18px}
+.prose li{margin-bottom:10px}
+.prose strong{color:var(--ink)}
+.blk{padding:64px 0}
+@media(max-width:640px){.blk{padding:44px 0}}
+ 
+.seqbox{background:linear-gradient(150deg,#134b45,#0b2f2b);color:#dbe9e4;border-radius:16px;padding:26px 28px;margin:26px 0}
+.seqbox .sl{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#8fb0a8;margin-bottom:12px}
+.seqbox .sv{font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fff;letter-spacing:.05em;line-height:1.75;word-break:break-word}
+.seqbox .sv2{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#9fc2b8;margin-top:11px;word-break:break-word;line-height:1.7}
+.seqbox .sn{font-size:13.5px;color:#a9c8c0;margin:16px 0 0;line-height:1.65}
+ 
+.refs{list-style:none;padding:0;margin:0}
+.refs li{padding:15px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px;color:var(--soft)}
+.refs li:last-child{border-bottom:none}
+.refs a{font-weight:500;text-decoration:none}
+.refs a:hover{text-decoration:underline}
+ 
+.pagenav{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pagenav a{display:flex;flex-direction:column;gap:4px;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:18px 22px;background:var(--surface);min-width:215px;transition:border-color .18s,transform .18s}
+.pagenav a:hover{border-color:var(--teal);transform:translateY(-2px)}
+.pagenav .dir{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--brass)}
+.pagenav .tt{font-family:'Newsreader',serif;font-size:19px;color:var(--teal-deep)}
+ 
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#app{animation:fade .34s ease}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+<div class="ribbon"><strong>Academic reference only.</strong> Nothing here is a formulation, dose, protocol, or source. <a href="#/#disclaimer">Read the full disclaimer</a>.</div>
+ 
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="#/">
+      <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <circle cx="7" cy="14" r="4.2" fill="#17564f"/><circle cx="14" cy="7" r="4.2" fill="#a9834f"/>
+        <circle cx="21" cy="14" r="4.2" fill="#3f6a84"/>
+        <line x1="7" y1="14" x2="14" y2="7" stroke="#0e3a35" stroke-width="1.6"/>
+        <line x1="14" y1="7" x2="21" y2="14" stroke="#0e3a35" stroke-width="1.6"/>
+      </svg>Peptide&nbsp;Pathways</a>
+    <nav class="navlinks" aria-label="Main">
+      <a href="#/#primer">Primer</a><a href="#/#library">Library</a>
+      <a href="#/#builder">Builder</a><a href="#/#compare">Compare</a>
+    </nav>
+    <a href="#/#builder" class="nav-cta">Open builder</a>
+    <details class="menu"><summary aria-label="Open menu">Menu</summary><div class="menu-panel" id="mobileMenu"></div></details>
+  </div>
+</header>
+ 
+<main id="app"></main>
+ 
+<footer>
+  <div class="wrap fgrid">
+    <div class="fcol" style="max-width:34ch">
+      <div style="font-family:'Newsreader',serif;font-size:19px;font-weight:600;color:var(--teal-deep);margin-bottom:11px">Peptide&nbsp;Pathways</div>
+      <p>A structural-biochemistry reference written for engineers and researchers — mechanism, homology, and honest evidence grading.</p>
+    </div>
+    <div class="fcol"><p class="fhead">Peptides</p><div id="footPeps"></div></div>
+    <div class="fcol"><p class="fhead">Sections</p>
+      <a href="#/#primer">Mechanism primer</a><a href="#/#library">Peptide library</a>
+      <a href="#/#builder">Pathway builder</a><a href="#/#compare">Comparison table</a>
+      <a href="#/#disclaimer">Disclaimer</a>
+    </div>
+  </div>
+  <div class="wrap legal">
+    Educational reference only. Not medical advice. Not a source of peptides, formulations, dosing protocols, or preparation instructions.<br>
+    Several compounds described here are unapproved for human use or available only by prescription. Consult a licensed clinician.
+  </div>
+</footer>
+ 
+<script>
+/* ============================== DATA ============================== */
+const P = [
+{
+ id:"bpc157", slug:"bpc-157", name:"BPC-157", cat:"repair", catLabel:"Tissue & repair signaling",
+ chain:"15 residues, synthetic", mimics:"Gastric \u201cbody protection compound\u201d",
+ receptor:"No confirmed receptor; VEGFR2 pathway proposed",
+ grade:"preclinical", gradeLabel:"Preclinical \u2014 animal models",
+ tagline:"A synthetic 15-residue chain attributed to a protein in gastric juice, studied almost entirely in rodent injury models.",
+ seq:"Gly \u2013 Glu \u2013 Pro \u2013 Pro \u2013 Pro \u2013 Gly \u2013 Lys \u2013 Pro \u2013 Ala \u2013 Asp \u2013 Asp \u2013 Ala \u2013 Gly \u2013 Leu \u2013 Val",
+ seq1:"G E P P P G K P A D D A G L V",
+ seqNote:"Three consecutive prolines near the N-terminus give the chain an unusually rigid, kinked backbone. Proline-rich stretches resist many proteases, which is the standard explanation offered for its reported stability in gastric conditions.",
+ what:["BPC-157 is described in the literature as a partial sequence of \u201cbody protection compound,\u201d a larger protein reported in human gastric juice. It is worth being precise about what that means: the 15-residue peptide is synthetic and well defined, but the full parent protein has never been independently isolated, sequenced, and characterized to the standard you would expect of an established endogenous signal.",
+       "That caveat carries more weight than it usually gets. Nearly every other entry in this library mimics a hormone or protein whose identity, sequence, and receptor are settled science. BPC-157's parent is not in that category. The molecule is real; its claimed provenance is the weak link."],
+ homology:["Because the parent protein is poorly characterized, BPC-157 is best understood as a defined synthetic sequence rather than a faithful copy of a known endogenous signal. It is not an analog of a hormone the way semaglutide is an analog of GLP-1.",
+           "It contains no non-natural residues and no D-amino acids. Its resistance to degradation is attributed to the proline-rich backbone rather than to engineered substitutions \u2014 a fundamentally different stabilization strategy from the growth-hormone and incretin peptides on this site."],
+ mech:["No single receptor has been confirmed. The most frequently proposed mechanism is engagement of the VEGFR2 signaling pathway, with downstream effects on angiogenesis \u2014 the growth of new blood vessels into a healing area.",
+       "Secondary mechanisms reported in animal work include modulation of nitric oxide synthesis and shifts in expression of growth factors tied to wound response. These are described as observed effects rather than a mapped receptor-to-cascade chain.",
+       "The practical consequence for an engineer reading this: the mechanism is characterized at the level of \u2018this pathway appears involved,\u2019 not \u2018this ligand binds this receptor with this affinity.\u2019 That is a real and consequential difference in evidence quality."],
+ ev:["The overwhelming majority of published work is in rats and mice, and a large share of it originates from a single research group. Reported findings span tendon and ligament injury, gut lining integrity, and various organ-protection models.",
+     "Independent replication by unaffiliated groups is limited. Well-powered, controlled human trials are essentially absent."],
+ reg:"Not approved as a drug in the United States or European Union. In 2022 the U.S. FDA placed BPC-157 in the category of bulk substances raising significant safety concerns for use in compounding. Material sold online is labeled research chemical, not for human consumption.",
+ refs:[["Sikiric et al. \u2014 the principal body of BPC-157 preclinical research","https://pubmed.ncbi.nlm.nih.gov/?term=BPC+157+Sikiric"],
+       ["PubMed \u2014 all indexed BPC-157 literature","https://pubmed.ncbi.nlm.nih.gov/?term=BPC+157"],
+       ["FDA \u2014 bulk drug substances nominated for compounding","https://www.fda.gov/drugs/human-drug-compounding/bulk-drug-substances-nominated-use-compounding"]]
+},
+{
+ id:"tb500", slug:"tb-500", name:"TB-500", cat:"repair", catLabel:"Tissue & repair signaling",
+ chain:"7-residue active fragment", mimics:"Thymosin \u03b2-4, actin-binding domain",
+ receptor:"No classical receptor \u2014 binds monomeric G-actin",
+ grade:"preclinical", gradeLabel:"Preclinical; parent protein in trials",
+ tagline:"The actin-binding fragment of thymosin \u03b2-4 \u2014 a peptide that works by binding a structural protein rather than a receptor.",
+ seq:"Ac \u2013 Leu \u2013 Lys \u2013 Lys \u2013 Thr \u2013 Glu \u2013 Thr \u2013 Gln",
+ seq1:"Ac-L K K T E T Q",
+ seqNote:"This heptapeptide corresponds to residues 17\u201323 of thymosin \u03b24, the region responsible for actin binding. Note the naming problem: material sold as \u201cTB-500\u201d is sometimes this fragment and sometimes full-length T\u03b24 \u2014 two different molecules with meaningfully different behavior.",
+ what:["Thymosin \u03b2-4 is a genuine, well-characterized 43-residue protein present in nearly every cell type in the body and among the most abundant intracellular proteins in mammalian tissue. This is not obscure biology.",
+       "TB-500 refers to the short active fragment rather than the whole protein. This is the single most common point of confusion in both the literature and vendor material: the two names get used interchangeably even though fragment and full protein are not equivalent."],
+ homology:["The fragment is an exact copy of a contiguous stretch of the native human T\u03b24 sequence \u2014 genuine homology, not an engineered analog. Nothing has been substituted or stabilized.",
+           "What it loses relative to full-length T\u03b24 is everything the remaining 36 residues contribute: additional binding surfaces, structural context, and the cell-penetration and extracellular signaling behavior attributed to other regions of the protein."],
+ mech:["T\u03b24's established function is sequestering monomeric G-actin, the subunit that polymerizes into the filaments making up a cell's internal scaffolding. By holding a reservoir of unpolymerized actin, it influences how fast a cell can remodel its cytoskeleton.",
+       "Cytoskeletal remodeling is what lets a cell change shape and physically migrate. In wound biology that matters because repair depends on the right cells reaching the injury site \u2014 keratinocytes, endothelial cells, fibroblasts.",
+       "This is a genuinely unusual mechanism for this library. There is no cell-surface receptor and no signaling cascade in the conventional sense. The peptide binds a structural protein. Every other entry here works by fitting a receptor."],
+ ev:["Full-length T\u03b24 has been through real clinical trials \u2014 RegeneRx developed it as RGN-259 for ocular surface conditions and studied topical formulations for wound healing, with published results.",
+     "The short TB-500 fragment as sold for research use has a far thinner evidence base, and results from full-length T\u03b24 trials do not automatically transfer to it."],
+ reg:"Not approved for human use. Prohibited at all times by the World Anti-Doping Agency under section S2 of the Prohibited List. Sold only as research material not intended for human consumption.",
+ refs:[["Goldstein & Kleinman \u2014 thymosin \u03b24 biology and actin binding","https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+beta+4+Goldstein+Kleinman"],
+       ["PubMed \u2014 thymosin \u03b24 wound healing literature","https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+beta+4+wound+healing"],
+       ["WADA Prohibited List","https://www.wada-ama.org/en/prohibited-list"]]
+},
+{
+ id:"ghkcu", slug:"ghk-cu", name:"GHK-Cu", cat:"repair", catLabel:"Tissue & repair signaling",
+ chain:"3 residues + Cu(II)", mimics:"Endogenous human plasma tripeptide",
+ receptor:"No receptor \u2014 copper carrier & gene-expression modulator",
+ grade:"topical", gradeLabel:"Topical clinical; systemic data thin",
+ tagline:"Three residues and a copper ion \u2014 the only entry here that is genuinely endogenous, unmodified, and chemically identical to the native molecule.",
+ seq:"Gly \u2013 His \u2013 Lys \u00b7 Cu(II)",
+ seq1:"G H K \u00b7 Cu\u00b2\u207a",
+ seqNote:"The histidine imidazole nitrogen, the N-terminal amine, and the backbone amide together form a coordination site that binds Cu(II) with high affinity. The copper is not an additive \u2014 the metal complex is the active species, and the free peptide behaves differently.",
+ what:["GHK was first isolated from human plasma in the 1970s and is the same molecule your own body makes \u2014 no substitutions, no analogs, no engineering. It is also liberated by the breakdown of collagen, which is elegant biology: tissue damage releases the very signal associated with repair.",
+       "Plasma concentrations are frequently reported as declining substantially with age, from roughly 200 ng/mL in young adults to around 80 ng/mL by sixty. That figure traces largely to work by Loren Pickart and is widely repeated; treat it as an often-cited estimate rather than a broadly replicated constant."],
+ homology:["There is nothing to \u2018hack\u2019 here in the sense the other entries use the word. GHK-Cu is not mimicking a signal \u2014 it is the signal, supplied exogenously.",
+           "For a chemical engineer this is the cleanest problem in the library. The design question is not receptor fit or protease resistance but coordination chemistry and mass transfer: copper binding affinity, competing chelators, and whether a three-residue peptide crosses the stratum corneum at a useful rate."],
+ mech:["GHK-Cu's best-supported role is as a copper delivery vehicle. Copper is a required cofactor for lysyl oxidase, the enzyme that cross-links collagen and elastin fibers, and for superoxide dismutase.",
+       "Gene expression studies report that GHK-Cu shifts transcription across a broad set of genes, including those tied to extracellular matrix synthesis, remodeling, and antioxidant defense. The breadth of that reported effect is striking and also a reason for caution \u2014 broad transcriptional shifts are easy to observe in cell culture and hard to interpret.",
+       "There is no receptor. The mechanism is chemistry: get copper where lysyl oxidase can use it, and modulate the enzymes and genes that build matrix."],
+ ev:["Substantially stronger than the other repair peptides here for topical use, where it has been studied in dermatology and cosmetic formulation for decades and appears in commercial skincare.",
+     "Systemic and injectable use is an entirely different question with far less supporting data. Copper also has a real toxicity ceiling, which makes uncontrolled systemic dosing a category of risk the topical literature simply does not address."],
+ reg:"Widely used as a cosmetic ingredient in topical products, regulated as cosmetics rather than drugs. Not approved as an injectable or systemic therapeutic.",
+ refs:[["Pickart & Margolina \u2014 GHK-Cu biological actions and skin regeneration","https://pubmed.ncbi.nlm.nih.gov/?term=Pickart+GHK-Cu"],
+       ["PubMed \u2014 GHK-Cu literature","https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu"],
+       ["Lysyl oxidase and copper-dependent collagen cross-linking","https://pubmed.ncbi.nlm.nih.gov/?term=lysyl+oxidase+copper+collagen+crosslinking"]]
+},
+{
+ id:"ipamorelin", slug:"ipamorelin", name:"Ipamorelin", cat:"growth", catLabel:"Growth hormone axis",
+ chain:"5 residues, largely non-natural", mimics:"Ghrelin \u2014 shape only, not sequence",
+ receptor:"GHS-R1a (ghrelin receptor), pituitary",
+ grade:"clinical", gradeLabel:"Phase II \u2014 development halted",
+ tagline:"A pentapeptide that activates the ghrelin receptor while sharing almost no sequence with ghrelin \u2014 the clearest proof on this site that receptors read shape, not identity.",
+ seq:"Aib \u2013 His \u2013 D-2-Nal \u2013 D-Phe \u2013 Lys \u2013 NH\u2082",
+ seq1:"Aib-H-(D-2-Nal)-(D-Phe)-K-NH\u2082",
+ seqNote:"Only two of the five residues are standard L-amino acids. Aib is \u03b1-aminoisobutyric acid, a non-proteinogenic residue; two positions use D-isomers; the C-terminus is amidated. Each choice blocks a specific route of enzymatic degradation.",
+ what:["Ipamorelin is a fully synthetic growth hormone secretagogue developed at Novo Nordisk in the 1990s. It was engineered to do exactly one thing: trigger growth hormone release through the ghrelin receptor without dragging along ghrelin's other effects.",
+       "Ghrelin itself is a 28-residue hormone that drives hunger, influences cortisol and prolactin, and stimulates GH release. Ipamorelin's design brief was to keep only the last of those."],
+ homology:["This is the best illustration in the library of what \u2018hacking\u2019 a pathway actually means. Ipamorelin shares essentially no meaningful sequence homology with ghrelin \u2014 five residues against twenty-eight, several of them not even natural amino acids.",
+           "What it does share is a three-dimensional presentation the GHS-R1a binding pocket accepts. The receptor is not matching a sequence; it is matching a shape. A five-residue synthetic chain with D-isomers can satisfy the same lock a native 28-residue hormone evolved to open.",
+           "The engineering payoff is selectivity. By building the shape from scratch rather than truncating the hormone, the designers kept the GH-release interaction and dropped the appetite and cortisol interactions bundled into the native ligand."],
+ mech:["Binds GHS-R1a on pituitary somatotroph cells, producing a pulse of endogenous growth hormone release. Critically, this stimulates the body's own GH production rather than supplying GH from outside.",
+       "Published comparisons describe it as notably selective: GH release with comparatively little effect on cortisol, prolactin, or ACTH relative to earlier secretagogues such as GHRP-6 \u2014 which is precisely the property it was designed for.",
+       "Because it acts on the pituitary, the response stays subject to normal feedback regulation; somatostatin tone and IGF-1 feedback still apply. That is a mechanistically different situation from administering recombinant GH directly."],
+ ev:["A real clinical development history: Novo Nordisk advanced it into human trials, and it was later studied for postoperative ileus. Development did not continue to approval.",
+     "That is a meaningfully better evidence position than the repair peptides here \u2014 human pharmacology data exists \u2014 but a discontinued Phase II program is not an approved drug, and long-term safety data does not exist."],
+ reg:"Not approved for human use in any major jurisdiction. Prohibited at all times by WADA as a growth hormone secretagogue. Sold as research material only.",
+ refs:[["Raun et al., 1998 \u2014 Ipamorelin, the first selective growth hormone secretagogue","https://pubmed.ncbi.nlm.nih.gov/9849822/"],
+       ["PubMed \u2014 ipamorelin literature","https://pubmed.ncbi.nlm.nih.gov/?term=ipamorelin"],
+       ["WADA Prohibited List \u2014 section S2","https://www.wada-ama.org/en/prohibited-list"]]
+},
+{
+ id:"cjc1295", slug:"cjc-1295", name:"CJC-1295 (with DAC)", cat:"growth", catLabel:"Growth hormone axis",
+ chain:"29 residues + albumin linker", mimics:"GHRH(1\u201329), four substitutions",
+ receptor:"GHRH receptor, pituitary somatotrophs",
+ grade:"clinical", gradeLabel:"Phase I/II \u2014 development halted",
+ tagline:"A modified GHRH fragment carrying a linker that covalently attaches it to circulating albumin, stretching its half-life from minutes to days.",
+ seq:"GHRH(1\u201329) backbone with D-Ala\u00b2, Gln\u2078, Ala\u00b9\u2075, Leu\u00b2\u2077 + Lys\u00b3\u2070 maleimide (DAC)",
+ seq1:"Y-(D-Ala)-D-A-I-F-T-Q-S-Y-R-K-V-L-A-Q-L-S-A-R-K-L-L-Q-D-I-L-S-R \u00b7 DAC",
+ seqNote:"Four substitutions defend four different degradation routes. D-Ala at position 2 is the important one: it blocks DPP-4, the same enzyme semaglutide defends against with Aib at its own position 8. Two unrelated peptides, same enzymatic threat, same structural answer.",
+ what:["Growth hormone-releasing hormone is a 44-residue hypothalamic hormone, but its biological activity lives almost entirely in the first 29 residues. That fragment, GHRH(1\u201329), is the basis for sermorelin and for CJC-1295.",
+       "The naming here causes constant confusion and deserves stating plainly. \u201cCJC-1295 with DAC\u201d is the albumin-binding version with a genuinely extended half-life. \u201cCJC-1295 without DAC\u201d is a different molecule \u2014 modified GRF(1\u201329), often called mod GRF \u2014 which lacks the linker and clears in minutes. Vendors and forum posts use both names for both compounds. This page covers the DAC version."],
+ homology:["This is close, deliberate homology: the native GHRH(1\u201329) sequence with four targeted substitutions, each chosen to defend a specific point of enzymatic or chemical attack, plus a linker added at position 30.",
+           "The DAC \u2014 Drug Affinity Complex \u2014 is a maleimide group that reacts with a free cysteine thiol on serum albumin, forming a covalent bond. The peptide then circulates attached to a protein far too large for renal filtration.",
+           "That is the same goal semaglutide achieves by a different route: semaglutide's fatty diacid chain binds albumin non-covalently, while CJC-1295's maleimide binds covalently. Two engineering solutions to one problem \u2014 keeping a small peptide from clearing in minutes."],
+ mech:["Activates the GHRH receptor on pituitary somatotrophs, the same receptor endogenous GHRH engages, prompting growth hormone synthesis and release.",
+       "Published Phase I work reported sustained elevations in GH and downstream IGF-1 after single doses, consistent with the extended half-life the albumin conjugation was designed to produce.",
+       "There is a mechanistic tension worth flagging: the natural GH axis operates in pulses, and pulsatility appears to matter for downstream signaling. Continuous elevation is not simply \u2018more of the same signal\u2019 \u2014 it is a different signal pattern than the system evolved around."],
+ ev:["Genuine early-phase human data exists \u2014 Teichman and colleagues published Phase I pharmacokinetic and pharmacodynamic results in 2006.",
+     "Clinical development did not continue to approval. Long-term human safety is unstudied, and the chronic-elevated-IGF-1 question in particular has no answer from the trial record."],
+ reg:"Not approved for human use. Prohibited at all times by WADA. Sold as research material only.",
+ refs:[["Teichman et al., 2006 \u2014 CJC-1295 Phase I PK/PD, J Clin Endocrinol Metab","https://pubmed.ncbi.nlm.nih.gov/16352683/"],
+       ["PubMed \u2014 CJC-1295 literature","https://pubmed.ncbi.nlm.nih.gov/?term=CJC-1295"],
+       ["GHRH receptor pharmacology","https://pubmed.ncbi.nlm.nih.gov/?term=GHRH+receptor+somatotroph"]]
+},
+{
+ id:"semaglutide", slug:"semaglutide", name:"Semaglutide", cat:"metabolic", catLabel:"Metabolic / incretin",
+ chain:"31 residues, acylated analog", mimics:"GLP-1(7\u201337), two substitutions",
+ receptor:"GLP-1 receptor \u2014 pancreas, gut, hypothalamus",
+ grade:"approved", gradeLabel:"FDA approved \u2014 Phase III+",
+ tagline:"The reference case: a GLP-1 analog engineered for a one-week half-life, and the only molecule on this site carrying full regulatory approval and a deep clinical evidence base.",
+ seq:"GLP-1(7\u201337) backbone with Aib\u2078, Arg\u00b3\u2074, and a C18 diacid on Lys\u00b2\u2076",
+ seq1:"H-(Aib)-E-G-T-F-T-S-D-V-S-S-Y-L-E-G-Q-A-A-K(\u03b3Glu-2\u00d7OEG-C18 diacid)-E-F-I-A-W-L-V-R-G-R-G",
+ seqNote:"Three modifications, three distinct jobs. Aib\u2078 blocks DPP-4 cleavage. Arg\u00b3\u2074 removes a competing lysine so acylation happens only where intended. The C18 diacid chain, on a \u03b3Glu and two-OEG spacer at Lys\u00b2\u2076, binds serum albumin reversibly \u2014 turning a two-minute half-life into roughly one week.",
+ what:["GLP-1 is an incretin hormone released from intestinal L-cells after a meal. Native GLP-1 is cleaved by dipeptidyl peptidase-4 within about two minutes of entering circulation, which makes the hormone itself useless as a drug.",
+       "Semaglutide is the engineering answer to that problem: a GLP-1 analog with roughly 94% sequence homology to the native hormone, restructured so it survives DPP-4 and stays bound to albumin long enough for once-weekly dosing.",
+       "It is marketed under brand names including Ozempic and Wegovy for injection and Rybelsus in oral form, and is a prescription pharmaceutical everywhere it is available."],
+ homology:["Very high homology \u2014 a near-copy of the native hormone with surgical changes, not a shape-mimic like ipamorelin. The receptor is engaging something almost identical to what it evolved to bind.",
+           "\u03b1-aminoisobutyric acid at position 8 replaces alanine. DPP-4 cleaves after the second residue of its substrate; Aib's extra methyl group makes that cut sterically unfavorable. This is exactly the same defensive move as D-Ala\u00b2 in CJC-1295 \u2014 convergent engineering against the same enzyme.",
+           "The C18 diacid chain is the half-life mechanism. It binds albumin non-covalently, creating a circulating reservoir that releases free peptide slowly. CJC-1295 solves the same problem covalently. Both are controlled-release strategies implemented in molecular structure rather than in a formulation."],
+ mech:["Activates the GLP-1 receptor, a class B GPCR expressed in pancreatic beta cells, the gastrointestinal tract, and multiple brain regions including the hypothalamus and hindbrain.",
+       "In the pancreas: glucose-dependent insulin secretion. The glucose-dependence matters \u2014 the insulin response scales with blood glucose, which is why GLP-1 agonists alone carry low intrinsic hypoglycemia risk. Glucagon secretion is also suppressed.",
+       "In the gut: delayed gastric emptying, which blunts postprandial glucose excursions and contributes to satiety. This effect is also the origin of the most clinically relevant drug interaction, covered below.",
+       "In the brain: direct central signaling of satiety and reduced appetite, the primary driver of the weight effects seen in trials."],
+ ev:["By a wide margin the strongest evidence base on this site. The SUSTAIN program established glycemic efficacy in type 2 diabetes; the STEP program established weight outcomes; SUSTAIN-6 and SELECT addressed cardiovascular outcomes.",
+     "Common adverse effects are predominantly gastrointestinal \u2014 nausea, vomiting, diarrhea, constipation \u2014 and are dose- and titration-related. Labeled warnings include pancreatitis, gallbladder disease, diabetic retinopathy complications, and a boxed warning regarding thyroid C-cell tumors observed in rodents, with contraindication in personal or family history of medullary thyroid carcinoma or MEN 2."],
+ reg:"FDA and EMA approved. Prescription-only in all major markets. Compounded and grey-market \u201cresearch\u201d semaglutide is not the approved product and has been the subject of specific FDA warnings regarding salt forms, purity, and dosing errors.",
+ refs:[["Drucker \u2014 mechanisms of action of GLP-1 receptor agonists","https://pubmed.ncbi.nlm.nih.gov/?term=Drucker+GLP-1+mechanism+review"],
+       ["Lau et al. \u2014 discovery and molecular design of semaglutide","https://pubmed.ncbi.nlm.nih.gov/26308095/"],
+       ["FDA \u2014 approved drug prescribing information","https://www.accessdata.fda.gov/scripts/cder/daf/"],
+       ["FDA \u2014 information on compounded semaglutide products","https://www.fda.gov/drugs/postmarket-drug-safety-information-patients-and-providers/medications-containing-semaglutide-marketed-type-2-diabetes-or-weight-loss"]]
+}
+];
+ 
+const RAW_PAIRS = {
+ "bpc157|tb500":["complement","Both sit in tissue-repair biology but through unrelated mechanisms \u2014 proposed angiogenic signaling versus intracellular actin binding. The literature treats them as addressing different steps of a repair sequence, not the same target. No study has shown that combining them produces an effect greater than either alone."],
+ "bpc157|ghkcu":["complement","Proposed angiogenesis signaling versus copper-dependent matrix remodeling \u2014 different processes that both feed into tissue repair downstream. Complementary in concept; no controlled combination data exists."],
+ "tb500|ghkcu":["complement","Cytoskeletal cell migration versus extracellular matrix synthesis \u2014 non-overlapping mechanisms within wound-response biology. Worth noting the two are not even studied in the same context: GHK-Cu's evidence is largely topical, TB-500's is systemic-preclinical."],
+ "ipamorelin|cjc1295":["converge","The one genuinely documented pairing here. Two different pituitary receptors \u2014 GHS-R1a and the GHRH receptor \u2014 converge on growth hormone release, and the literature on GHRH plus secretagogue co-administration describes a larger GH pulse than either pathway alone. Also the pairing with the clearest open safety question: sustained IGF-1 elevation has no long-term human data behind it."],
+ "bpc157|ipamorelin":["independent","No shared receptor or pathway. A poorly characterized gastric repair peptide and a pituitary GH secretagogue operate in different systems. Any combined effect would be additive across unrelated axes, not synergy at the receptor level."],
+ "bpc157|cjc1295":["independent","No shared receptor or pathway. Repair signaling and the GHRH axis are biochemically distinct systems."],
+ "bpc157|semaglutide":["independent","No described mechanistic interaction. One is a prescription incretin analog with a defined receptor; the other an unapproved research peptide with no confirmed receptor. Both act on the GI tract, by entirely different means, and neither has been studied alongside the other in humans."],
+ "tb500|ipamorelin":["independent","No shared receptor or pathway. Actin-binding repair signaling and pituitary GH release are independent systems."],
+ "tb500|cjc1295":["independent","No shared receptor or pathway between intracellular actin binding and GHRH-receptor activation."],
+ "tb500|semaglutide":["independent","No described interaction. Cytoskeletal signaling and incretin receptor signaling do not intersect in the published literature."],
+ "ghkcu|ipamorelin":["independent","No shared receptor or pathway. Copper-dependent matrix chemistry and pituitary GH signaling are unrelated."],
+ "ghkcu|cjc1295":["independent","No shared receptor or pathway. No described crosstalk between matrix remodeling and the GHRH axis."],
+ "ghkcu|semaglutide":["independent","No described pharmacological interaction. Note only that copper status depends on nutritional intake, and substantially reduced food intake is a common consequence of GLP-1 therapy \u2014 an indirect nutritional consideration, not a drug interaction."],
+ "ipamorelin|semaglutide":["independent","Unrelated receptors, though both are studied in metabolic contexts. One point deserves flagging: growth hormone signaling tends to raise insulin resistance while GLP-1 agonism improves glycemic control, so these push glucose handling in opposite directions. That is a theoretical opposition inferred from each mechanism, not a documented clinical interaction \u2014 and exactly the kind of question that belongs with a prescriber, not a website."],
+ "cjc1295|semaglutide":["independent","Unrelated receptors. The same theoretical opposition applies as with ipamorelin: GH-axis stimulation and GLP-1 agonism have opposing tendencies on insulin sensitivity. Inferred from mechanism, not established in trials."]
+};
+/* normalise keys so [a,b].sort().join('|') always resolves */
+const PAIRS = {};
+Object.keys(RAW_PAIRS).forEach(k => { PAIRS[k.split('|').sort().join('|')] = RAW_PAIRS[k]; });
+ 
+const VERDICT = {converge:["Converging pathway","v-c"],complement:["Complementary, distinct","v-p"],independent:["Independent systems","v-i"]};
+const CATC = {repair:"#17564f",growth:"#a9834f",metabolic:"#3f6a84"};
+const byId = id => P.find(p => p.id === id);
+const bySlug = s => P.find(p => p.slug === s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ 
+/* ============================== SHARED BLOCKS ============================== */
+const DISCLAIMER = `
+<section id="disclaimer" class="band"><div class="wrap"><div class="disc">
+  <h3>What this site is \u2014 and what it is not</h3>
+  <p><strong>This is an academic and educational reference on peptide biochemistry.</strong> It is written for engineers, students, and researchers who want to understand receptor mechanisms, sequence homology, and evidence quality \u2014 the way a pharmacology review would present them.</p>
+  <p><strong>It is not a vendor, formulation guide, or dosing reference.</strong> Nothing here describes how to synthesize, source, reconstitute, dose, stack, or administer any compound. The builder compares published mechanisms only; it does not and will not generate a recipe, ratio, or protocol.</p>
+  <p><strong>Nothing here is medical advice.</strong> Several compounds described are unapproved for human use, prohibited in competitive sport, or available only as prescription pharmaceuticals. If you are taking or considering any of them, that conversation belongs with a licensed physician or pharmacist who knows your history \u2014 not with a web page.</p>
+  <p><strong>Evidence quality varies enormously across these entries</strong>, which is why every one carries a grade. One compound here has been through large randomized trials. Others rest almost entirely on rodent studies from a small number of groups. Treating those as equivalent because both are called \u201cpeptides\u201d is the single most common error in this space.</p>
+</div></div></section>`;
+ 
+/* ============================== HOME VIEW ============================== */
+function homeView(){
+  return `
+<div class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <span class="eyebrow">Structural biochemistry reference</span>
+    <h1>Every signaling peptide is<br><em>a sentence borrowed</em><br>from the body's own vocabulary.</h1>
+    <p class="lede">How short peptide chains engage receptors that evolved for something else \u2014 the sequence homology, the receptor logic, and, just as importantly, how much evidence actually sits behind each claim.</p>
+    <div class="hero-actions">
+      <a href="#/#library" class="btn btn-primary">Browse the library</a>
+      <a href="#/#primer" class="btn btn-ghost">Read the primer</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="n">6</div><div class="l">Peptides profiled</div></div>
+      <div class="hstat"><div class="n">3</div><div class="l">Mechanism families</div></div>
+      <div class="hstat"><div class="n">4</div><div class="l">Grades of evidence</div></div>
+      <div class="hstat"><div class="n">1</div><div class="l">FDA approved</div></div>
+    </div>
+  </div>
+  <div class="chain-card">
+    <div class="cap"><span>Fig. 01 \u2014 GHK\u00b7Cu</span><span>schematic</span></div>
+    <svg viewBox="0 0 420 170" width="100%" height="170" role="img" aria-label="Schematic of the glycine-histidine-lysine tripeptide coordinating a copper ion">
+      <line x1="70" y1="70" x2="350" y2="70" stroke="#ddd9cc" stroke-width="2.5"/>
+      <line x1="210" y1="70" x2="210" y2="124" stroke="#a9834f" stroke-width="1.6" stroke-dasharray="3 5"/>
+      <g class="bead"><circle cx="70" cy="70" r="25" fill="#17564f"/><text x="70" y="75" text-anchor="middle" fill="#fff" font-family="IBM Plex Mono,monospace" font-size="12">Gly</text></g>
+      <g class="bead" style="animation-delay:.5s"><circle cx="210" cy="70" r="25" fill="#a9834f"/><text x="210" y="75" text-anchor="middle" fill="#fff" font-family="IBM Plex Mono,monospace" font-size="12">His</text></g>
+      <g class="bead" style="animation-delay:1s"><circle cx="350" cy="70" r="25" fill="#3f6a84"/><text x="350" y="75" text-anchor="middle" fill="#fff" font-family="IBM Plex Mono,monospace" font-size="12">Lys</text></g>
+      <circle cx="210" cy="138" r="14" fill="none" stroke="#a9834f" stroke-width="2"/>
+      <text x="210" y="143" text-anchor="middle" fill="#a9834f" font-family="IBM Plex Mono,monospace" font-size="11">Cu</text>
+      <text x="70" y="26" text-anchor="middle" fill="#7c8e88" font-family="IBM Plex Mono,monospace" font-size="10">N-term</text>
+      <text x="350" y="26" text-anchor="middle" fill="#7c8e88" font-family="IBM Plex Mono,monospace" font-size="10">C-term</text>
+    </svg>
+    <p class="chain-cap">GHK\u00b7Cu \u2014 three residues, one copper ion, and a signal your own plasma already carries. The shortest entry in this library, and the only one chemically identical to the native molecule.</p>
+  </div>
+</div></div></div>
+ 
+<section id="primer" class="band"><div class="wrap">
+  <div class="section-head">
+    <span class="kicker">Start here</span>
+    <h2>How a peptide engages a pathway it never evolved for</h2>
+    <p>Three ideas explain most of what follows. The third is the one people skip, and it matters most.</p>
+  </div>
+  <div class="primer-grid">
+    <div class="primer">
+      <div class="ico" style="background:var(--teal-tint)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17564f" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h16"/><circle cx="9" cy="8" r="2.5" fill="#17564f" stroke="none"/><circle cx="15" cy="16" r="2.5" fill="#17564f" stroke="none"/></svg></div>
+      <h3>Borrowed sequence</h3>
+      <p>Most research peptides are either fragments of a naturally occurring protein or synthetic analogs engineered to resemble one. How closely the sequence tracks the native signal determines which receptor family will accept it \u2014 and how predictable its behavior is.</p>
+    </div>
+    <div class="primer">
+      <div class="ico" style="background:var(--brass-tint)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a9834f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <h3>Shape, not identity</h3>
+      <p>A receptor binds a conformation, not a name. Ipamorelin shares almost no sequence with ghrelin and activates ghrelin's receptor anyway, because it presents the right shape. This is what \u201chacking\u201d a pathway actually means at the molecular level.</p>
+    </div>
+    <div class="primer">
+      <div class="ico" style="background:var(--steel-tint)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3f6a84" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+      <h3>Not all of these are equal</h3>
+      <p>One compound here has been through large randomized trials. Others rest on rodent studies from a handful of groups. Every entry carries an evidence grade for exactly this reason \u2014 the biggest error in this space is treating them as interchangeable.</p>
+    </div>
+  </div>
+ 
+  <div class="callout" style="max-width:74ch;margin-top:40px">
+    <h4>One pattern worth noticing</h4>
+    <p>Two unrelated peptides on this site defend against the same enzyme with the same structural trick. Semaglutide places \u03b1-aminoisobutyric acid at position 8; CJC-1295 places D-alanine at position 2. Both block DPP-4 cleavage by making the cut site sterically or stereochemically unusable.</p>
+    <p>Both also solve the half-life problem by binding albumin \u2014 semaglutide non-covalently through a fatty diacid chain, CJC-1295 covalently through a maleimide linker. Two design teams, two decades apart, converging on the same two answers. If you have ever specified a coating to protect a surface from a known mode of attack, the logic will feel familiar.</p>
+  </div>
+</div></section>
+ 
+<section id="library" class="band-tint"><div class="wrap">
+  <div class="section-head">
+    <span class="kicker">Reference library</span>
+    <h2>Six peptides, three mechanisms, four grades of evidence</h2>
+    <p>Every entry opens into a full page covering sequence, homology, receptor pathway, evidence quality, and regulatory status. Add any two or three to the builder to compare how their pathways relate.</p>
+  </div>
+  <div class="chips" role="group" aria-label="Filter by category">
+    <button class="chip" data-f="all" aria-pressed="true">All six</button>
+    <button class="chip" data-f="repair" aria-pressed="false">Tissue &amp; repair</button>
+    <button class="chip" data-f="growth" aria-pressed="false">Growth hormone axis</button>
+    <button class="chip" data-f="metabolic" aria-pressed="false">Metabolic / incretin</button>
+  </div>
+  <div class="pep-grid" id="pepGrid"></div>
+</div></section>
+ 
+<section id="builder" class="band"><div class="wrap">
+  <div class="section-head">
+    <span class="kicker">Interactive</span>
+    <h2>Pathway relationship builder</h2>
+    <p>Pick two or three peptides. The panel reads out where their receptor pathways converge, run in parallel, or have nothing to do with each other \u2014 drawn from the literature, and honest about where the literature is silent.</p>
+  </div>
+  <div class="builder">
+    <h2>Working set</h2>
+    <p class="sub">A conceptual pathway comparison, not a mixing instruction. No ratios, quantities, or preparation steps appear here \u2014 by design.</p>
+    <div class="slots" id="slots"></div>
+    <div class="panel" id="panel" aria-live="polite"></div>
+  </div>
+</div></section>
+ 
+<section id="compare" class="band-tint"><div class="wrap">
+  <div class="section-head">
+    <span class="kicker">Quick reference</span>
+    <h2>Comparison table</h2>
+    <p>All six by receptor target, the endogenous signal each imitates, and how much clinical evidence stands behind it.</p>
+  </div>
+  <div class="tscroll"><table class="dt">
+    <thead><tr><th>Peptide</th><th>Class</th><th>Mimics / derives from</th><th>Receptor target</th><th>Evidence base</th></tr></thead>
+    <tbody>${P.map(p=>`<tr>
+      <td class="nm"><a href="#/peptide/${p.slug}">${esc(p.name)}</a></td>
+      <td>${esc(p.catLabel)}</td><td>${esc(p.mimics)}</td><td>${esc(p.receptor)}</td>
+      <td><span class="grade g-${p.grade}">${esc(p.gradeLabel)}</span></td></tr>`).join('')}
+    </tbody>
+  </table></div>
+</div></section>
+ 
+${DISCLAIMER}`;
+}
+ 
+/* ============================== DETAIL VIEW ============================== */
+function semaExtra(){
+  return `
+  <h3>If you are currently prescribed semaglutide</h3>
+  <p>A note on why this section reads the way it does. Semaglutide is the one compound here that large numbers of people are actually taking, under prescription, right now. So the interaction question is not academic for them \u2014 and that is exactly why a web page is the wrong place to settle it.</p>
+  <p>Here is what is genuinely documented in the prescribing information, and worth knowing:</p>
+  <ul>
+    <li><strong>Delayed gastric emptying affects oral drug absorption.</strong> This is the mechanistically important one. Anything you swallow may be absorbed on a different timeline than it otherwise would. For most medications that is not clinically meaningful; for narrow-therapeutic-index drugs it can be.</li>
+    <li><strong>Hypoglycemia risk rises sharply alongside insulin or sulfonylureas.</strong> Semaglutide's own insulin effect is glucose-dependent and carries low intrinsic hypoglycemia risk, but that protection does not extend to co-administered agents that lower glucose independent of glucose level. Dose adjustment of those agents is a standard clinical consideration.</li>
+    <li><strong>Substantially reduced food intake has downstream nutritional consequences</strong> \u2014 protein intake, micronutrients, and hydration are routine points of clinical follow-up, not exotic concerns.</li>
+  </ul>
+  <p>And here is what is not documented, stated plainly: <strong>there are no clinical interaction studies between semaglutide and any research peptide catalogued on this site.</strong> Not one. The interaction table below reasons from receptor mechanism, which is a legitimate way to generate a hypothesis and a poor way to make a decision about your own body.</p>
+  <p>The one mechanistic tension worth naming, because it is the plausible one and you will meet the question eventually: growth hormone signaling tends to increase insulin resistance, while GLP-1 receptor agonism improves glycemic control. Those push in opposite directions in principle. Whether that matters in practice, at what magnitude, for a specific person on a specific dose, is unstudied \u2014 and the honest answer to \u201cwhat happens if I combine these\u201d is that nobody has measured it.</p>
+  <div class="note">
+    <h4>Where this question actually belongs</h4>
+    <p>Your prescriber and pharmacist have two things this page structurally cannot: your labs and history, and access to a full interaction database checked against everything else you take. If you are weighing anything alongside a GLP-1 agonist, that is a ten-minute conversation with someone qualified rather than a research project. Pharmacists in particular are underused for exactly this and are usually reachable without an appointment.</p>
+  </div>`;
+}
+ 
+function detailView(p){
+  const i = P.indexOf(p), prev = P[i-1], next = P[i+1];
+  const rows = P.filter(q => q.id !== p.id).map(q => {
+    const rec = PAIRS[[p.id,q.id].sort().join('|')] || ["independent","No documented mechanistic interaction."];
+    const [label] = VERDICT[rec[0]];
+    const style = rec[0]==='converge' ? 'background:var(--brass-tint);color:#6b4e26'
+                : rec[0]==='complement' ? 'background:var(--steel-tint);color:#2c5670'
+                : 'background:#efebdf;color:#5c5342';
+    return `<tr>
+      <td class="nm"><a href="#/peptide/${q.slug}">${esc(q.name)}</a></td>
+      <td><span style="display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:7px;white-space:nowrap;${style}">${label}</span></td>
+      <td>${esc(rec[1])}</td></tr>`;
+  }).join('');
+ 
+  const ps = a => a.map(x => `<p>${esc(x)}</p>`).join('');
+ 
+  return `
+<div class="wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="#/">Peptide Pathways</a> &nbsp;/&nbsp; <a href="#/#library">Library</a> &nbsp;/&nbsp; ${esc(p.name)}</nav></div>
+ 
+<div class="dhero c-${p.cat}"><div class="wrap">
+  <span class="eyebrow" style="color:${CATC[p.cat]};background:${p.cat==='growth'?'var(--brass-tint)':p.cat==='metabolic'?'var(--steel-tint)':'var(--teal-tint)'};border-color:transparent">${esc(p.catLabel)}</span>
+  <h1>${esc(p.name)}</h1>
+  <p class="sub">${esc(p.tagline)}</p>
+  <dl class="specs">
+    <div class="spec"><dt>Chain</dt><dd>${esc(p.chain)}</dd></div>
+    <div class="spec"><dt>Mimics / derives from</dt><dd>${esc(p.mimics)}</dd></div>
+    <div class="spec"><dt>Receptor target</dt><dd>${esc(p.receptor)}</dd></div>
+    <div class="spec"><dt>Evidence base</dt><dd><span class="grade g-${p.grade}">${esc(p.gradeLabel)}</span></dd></div>
+  </dl>
+</div></div>
+ 
+<div class="band"><div class="wrap" style="padding-top:60px;padding-bottom:60px"><div class="dlayout">
+  <nav class="dtoc" aria-label="On this page">
+    <div class="t">On this page</div>
+    <a href="#s-what">What it is</a>
+    <a href="#s-hom">What it copies</a>
+    <a href="#s-mech">Receptor pathway</a>
+    <a href="#s-ev">Evidence</a>
+    <a href="#s-int">Interactions</a>
+    <a href="#s-ref">Further reading</a>
+  </nav>
+  <div class="prose">
+    <h2 id="s-what">What it is</h2>
+    ${ps(p.what)}
+    <div class="seqbox">
+      <div class="sl">Sequence</div>
+      <div class="sv">${esc(p.seq)}</div>
+      <div class="sv2">${esc(p.seq1)}</div>
+      <p class="sn">${esc(p.seqNote)}</p>
+    </div>
+ 
+    <h2 id="s-hom" style="margin-top:46px">What it copies in the body</h2>
+    ${ps(p.homology)}
+ 
+    <h2 id="s-mech" style="margin-top:46px">Receptor and downstream pathway</h2>
+    ${ps(p.mech)}
+ 
+    <h2 id="s-ev" style="margin-top:46px">What the evidence actually shows</h2>
+    ${ps(p.ev)}
+    <div class="callout"><h4>Regulatory status</h4><p>${esc(p.reg)}</p></div>
+    ${p.id === 'semaglutide' ? semaExtra() : ''}
+  </div>
+</div></div></div>
+ 
+<section class="band-tint" id="s-int"><div class="wrap">
+  <div class="section-head">
+    <span class="kicker">Pathway comparison</span>
+    <h2>How ${esc(p.name)} relates to the rest of the library</h2>
+    <p>Mechanism-level relationships only. \u201cConverging\u201d means two pathways are documented to meet at a shared downstream output \u2014 it does not mean a combination is established, safe, or advisable.</p>
+  </div>
+  <div class="tscroll"><table class="dt">
+    <thead><tr><th>Peptide</th><th>Relationship</th><th>Notes</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+</div></section>
+ 
+<section class="band" id="s-ref"><div class="wrap"><div class="prose">
+  <h2>Further reading</h2>
+  <p>Primary literature and regulatory sources. Where a landmark paper exists it is linked directly; otherwise these point to indexed searches so you can weigh the body of work yourself.</p>
+  <ul class="refs">${p.refs.map(r=>`<li><a href="${r[1]}" target="_blank" rel="noopener">${esc(r[0])}</a></li>`).join('')}</ul>
+</div></div></section>
+ 
+<div class="band-tint" style="padding:44px 0"><div class="wrap"><div class="pagenav">
+  ${prev?`<a href="#/peptide/${prev.slug}"><span class="dir">\u2190 Previous</span><span class="tt">${esc(prev.name)}</span></a>`:'<span></span>'}
+  ${next?`<a href="#/peptide/${next.slug}" style="text-align:right"><span class="dir">Next \u2192</span><span class="tt">${esc(next.name)}</span></a>`:'<span></span>'}
+</div></div></div>
+ 
+${DISCLAIMER}`;
+}
+ 
+/* ============================== BUILDER ============================== */
+let picked = [], filter = 'all';
+const SLOTS = 3;
+ 
+function renderCards(){
+  const grid = document.getElementById('pepGrid');
+  if(!grid) return;
+  grid.innerHTML = P.filter(p => filter === 'all' || p.cat === filter).map(p => {
+    const on = picked.includes(p.id);
+    const bg = p.cat==='growth'?'var(--brass-tint)':p.cat==='metabolic'?'var(--steel-tint)':'var(--teal-tint)';
+    return `<article class="pep">
+      <div class="top" style="background:${bg}">
+        <span class="cat" style="color:${CATC[p.cat]}">${esc(p.catLabel)}</span>
+        <h3><a href="#/peptide/${p.slug}" style="color:var(--teal-deep);text-decoration:none">${esc(p.name)}</a></h3>
+        <div class="chain">${esc(p.chain)}</div>
+        <div class="gwrap"><span class="grade g-${p.grade}">${esc(p.gradeLabel)}</span></div>
+      </div>
+      <div class="bd">
+        <div class="fld"><label>Mimics / derives from</label><p><span class="tagpill">${esc(p.mimics)}</span></p></div>
+        <div class="fld"><label>Receptor target</label><p>${esc(p.receptor)}</p></div>
+        <div class="fld"><label>In brief</label><p>${esc(p.tagline)}</p></div>
+        <div class="row">
+          <a class="more" href="#/peptide/${p.slug}">Full page <span aria-hidden="true">\u2192</span></a>
+          <button class="add" data-id="${p.id}" aria-pressed="${on}">${on?'\u2713 In builder':'+ Add to builder'}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  grid.querySelectorAll('.add').forEach(b => b.onclick = () => toggle(b.dataset.id));
+}
+ 
+function toggle(id){
+  if(picked.includes(id)) picked = picked.filter(x => x !== id);
+  else { if(picked.length >= SLOTS) picked.shift(); picked.push(id); }
+  renderCards(); renderSlots(); renderPanel();
+}
+ 
+function renderSlots(){
+  const el = document.getElementById('slots');
+  if(!el) return;
+  let h = '';
+  for(let i = 0; i < SLOTS; i++){
+    const p = byId(picked[i]);
+    h += p
+      ? `<div class="slot on"><span class="sl">Slot ${i+1}</span><span class="sn">${esc(p.name)}</span><span class="ss">${esc(p.catLabel)}</span><button class="rm" data-id="${p.id}">Remove</button></div>`
+      : `<div class="slot"><span class="sl">Slot ${i+1}</span><span class="se">Empty \u2014 add a peptide from the library above.</span></div>`;
+  }
+  el.innerHTML = h;
+  el.querySelectorAll('.rm').forEach(b => b.onclick = () => toggle(b.dataset.id));
+}
+ 
+function renderPanel(){
+  const el = document.getElementById('panel');
+  if(!el) return;
+  if(picked.length < 2){
+    el.innerHTML = '<h4>Pathway analysis</h4><p class="p-empty">Add at least two peptides to compare their mechanisms.</p>';
+    return;
+  }
+  let out = '';
+  for(let i = 0; i < picked.length; i++) for(let j = i+1; j < picked.length; j++){
+    const a = byId(picked[i]), b = byId(picked[j]);
+    const rec = PAIRS[[a.id,b.id].sort().join('|')] || ["independent","No documented mechanistic interaction."];
+    const [label, cls] = VERDICT[rec[0]];
+    out += `<div class="sl-line"><span class="d">\u25C6</span><span><span class="vd ${cls}">${label}</span><strong>${esc(a.name)} \u00D7 ${esc(b.name)}</strong> \u2014 ${esc(rec[1])}</span></div>`;
+  }
+  const sema = picked.includes('semaglutide');
+  el.innerHTML = '<h4>Pathway analysis</h4>' + out +
+    `<p class="p-foot">Mechanistic comparison only \u2014 not a formulation, ratio, or protocol.${sema?' Semaglutide is a prescription medicine: interaction questions about it belong with your prescriber or pharmacist, who can check against everything else you take.':''}</p>`;
+}
+ 
+/* ============================== ROUTER ============================== */
+function parseHash(){
+  const raw = location.hash.replace(/^#/, '') || '/';
+  const m = raw.match(/^\/peptide\/([a-z0-9-]+)/i);
+  if(m) return {view:'detail', slug:m[1], anchor:''};
+  const a = raw.match(/^\/?#?(.*)$/);
+  return {view:'home', anchor:(a && a[1]) ? a[1] : ''};
+}
+ 
+function render(){
+  const r = parseHash();
+  const app = document.getElementById('app');
+  if(r.view === 'detail'){
+    const p = bySlug(r.slug);
+    if(!p){ location.hash = '#/'; return; }
+    app.innerHTML = detailView(p);
+    document.title = p.name + ' \u2014 mechanism, homology & evidence | Peptide Pathways';
+    window.scrollTo({top:0, behavior:'auto'});
+  } else {
+    app.innerHTML = homeView();
+    document.title = 'Peptide Pathways \u2014 an academic reference on signaling peptides';
+    document.querySelectorAll('.chip').forEach(c => c.onclick = () => {
+      document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed','false'));
+      c.setAttribute('aria-pressed','true');
+      filter = c.dataset.f;
+      renderCards();
+    });
+    renderCards(); renderSlots(); renderPanel();
+    if(r.anchor){
+      const t = document.getElementById(r.anchor);
+      if(t){ setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}), 60); return; }
+    }
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+}
+ 
+/* menus + footer links */
+document.getElementById('mobileMenu').innerHTML =
+  ['<a href="#/#primer">Primer</a>','<a href="#/#library">Library</a>','<a href="#/#builder">Builder</a>','<a href="#/#compare">Compare</a>','<div class="sep"></div>']
+  .concat(P.map(p=>`<a href="#/peptide/${p.slug}">${esc(p.name)}</a>`)).join('');
+document.getElementById('footPeps').innerHTML =
+  P.map(p=>`<a href="#/peptide/${p.slug}">${esc(p.name)}</a>`).join('');
+document.querySelector('.menu-panel').addEventListener('click', () => {
+  document.querySelector('.menu').open = false;
+});
+ 
+window.addEventListener('hashchange', render);
+render();
+</script>
+</body>
+</html>
